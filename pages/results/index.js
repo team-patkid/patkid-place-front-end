@@ -1,12 +1,53 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from "next/link";
+import '../../components/modal.module.css';
+import Modal from '../../components/Modal';
+import LoadingPage from '../../components/LoadingPage';
 
 export default function Results() {
+
+  const [ModalOpen, setModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(()=>{
+
+    if (ModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [ModalOpen]);
+
+  //모달창 노출
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  useEffect(() => {
+    setLoading(true);
+
+
+    const timeout = setTimeout(() => {
+      setLoading(false); 
+    }, 2500); // 2.5초 동안 로딩 상태를 유지한 후에 false로 변경
+
+    return () => {
+      clearTimeout(timeout); 
+    };
+  }, []);
+
+  if (loading) {
+    return <LoadingPage />; 
+  }
+ 
   return (
-    <div className="result_layout">
+    <div className='wrapper'>
+    <section className='result_layout'>
+    <div>
     <img src='/background_h_2.png' className='result_layout'/>
     <img src='/background_h_2_2.png' className='result_layout layout2'/>
     <img src='/background_h_2_3.png' className='result_layout layout3'/>
+    </div>
       <div className="result">
         <img src='/i_box.png'/>
         <p>시가를 피우는 너구리</p>
@@ -19,15 +60,15 @@ export default function Results() {
         <div className='tag'>
             <div className='tag1'>
               <p className='isaText hashtag'>#Sunday_Bar</p>
-              <div className='underline'></div>
+              {/* <div className='underline'></div> */}
             </div>
             <div className='tag2'>
               <p className='isaText hashtag tag2'>#성수</p>
-              <div className='underline'></div>
+              {/* <div className='underline'></div> */}
             </div>
             <div className='tag3'>
               <p className='isaText hashtag tag3'>#파리느낌</p>
-              <div className='underline'></div>
+              {/* <div className='underline'></div> */}
             </div>
         </div>
         <img src='/box.png'/>
@@ -41,8 +82,9 @@ export default function Results() {
       <div className="hot_spot">
         <img src='/hotspot.png'/>
         <p>가장 많은 선택을 받은 핫스팟</p>
-        <div className='hot_spotImg1'>
-          <img src='/box_stroke.png'/>
+        <div className='hot_spotImg1' onClick={openModal}>
+        {ModalOpen && <Modal setModalOpen={setModalOpen} />}
+        <img src='/box_stroke.png'/>
         </div>
         <div className='hot_spotImg2'>
           <img src='/box_stroke.png'/>
@@ -54,15 +96,30 @@ export default function Results() {
       <div className="visit">
       <img src='/go.png'/>
       <p>펫키드 팀을 더 알고 싶다면</p>
-      <img src='/visit.png'/>
-      <p>펫키드 팀 페이지 방문하기</p>
+      <Link href="https://www.notion.so/PATKID-b28bf7de62bb4e95919b5dca4e8c08ec?pvs=4" target='_blank'>
+      <img className="visitImg" src='/visit.png'/>
+      <p className="visitP" >펫키드 팀 페이지 방문하기</p>
+      </Link>
       </div>
-      <div className='share'>
-        <img src='/share_btn.png'/>
-        <img src='/restart_btn.png'/>
-      </div>
+      </section>
+      <footer>
+      <img className='footer_left' src='/share_btn.png'/>
+      <Link href="/">
+      <img className='footer_right' src='/restart_btn.png'/>
+      </Link>
+      </footer>
+
   
     <style jsx>{`
+
+      .wrapper{
+        position: relative;
+        position: center;
+        margin-left:auto;
+        margin-right:auto;
+        width: 500px;
+        height: 2546px;
+      }
 
       .result_layout{
         position: relative;
@@ -194,6 +251,7 @@ export default function Results() {
         height: 180px;
         left: 52px;
         top: 674px;
+        z-index: 999;
 
         font-weight: 500;
         font-size: 20px;
@@ -282,14 +340,14 @@ export default function Results() {
 
         color: #000000;
       }
-      .visit > img:nth-of-type(2){
+      .visitImg{
         position: absolute;
         width: 466px;
         height: 105px;
         left: 17px;
         top: 2266px;
       }
-      .visit > p:nth-of-type(2){
+      .visitP{
         position: absolute;
         width: 246px;
         height: 28px;
@@ -301,31 +359,32 @@ export default function Results() {
 
         color: #000000;
       }
-      .share{
-        position: absolute;
+      footer{
+        position: fixed;
+        bottom: 0px;
         width: 500px;
-        height: 137px;
-        left: 0px;
-        top: 2409px;
+        margin: 0 auto;
+        height: 100px;
 
         background: #000000;
       }
-      .share > img:nth-of-type(1){
+      .footer_left{
         position: absolute;
         width: 344px;
         height: 67px;
         left: 17px;
-        top: 38px;
+        top: 18px;
       }
-      .share > img:nth-of-type(2){
+      .footer_right{
         position: absolute;
         width: 90px;
         height: 67px;
         left: 393px;
-        top: 38px;
+        top: 18px;
       }
     `}
       </style>
       </div>
+
     )
-  }
+  };

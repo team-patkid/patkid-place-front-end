@@ -1,6 +1,7 @@
 import { useState } from 'react';
 // import '../styles/globals.css';
 import Link from "next/link";
+import Button from './components/Button/Button';
 
 export default function Home() {
 
@@ -11,20 +12,9 @@ export default function Home() {
    
     setTimeout(() => {
       window.location.href = '/questions';
-    }, 500);  //0.5s뒤 페이지이동
+    }, 500); 
   };
 
-  const handleMouseEnter = () => {
-    if (!isClicked) {
-      setIsClicked(true);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (isClicked) {
-      setIsClicked(false);
-    }
-  };
 
   return (
     <div className="main_layout">
