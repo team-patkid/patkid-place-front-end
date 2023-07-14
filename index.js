@@ -1,20 +1,13 @@
 import { useState } from 'react';
-// import '../styles/globals.css';
 import Link from "next/link";
 import Button from './components/Button/Button';
 
 export default function Home() {
-
-  const [isClicked, setIsClicked] = useState(false);
-
   const handleClick = () => {
-    setIsClicked(true);  // 다른 로직 및 상태 업데이트
-   
     setTimeout(() => {
       window.location.href = '/questions';
-    }, 500); 
+    }, 500);
   };
-
 
   return (
     <div className="main_layout">
@@ -29,93 +22,19 @@ export default function Home() {
       </div>
       <img src="/title.png" className='main_title'/>
       <p className='isaText'>나의 성향에 딱 맞는 요즘 핫스팟은 어디일까?</p>
-      <Link href="/questions" legacyBehavior>
-        <a>
-        <div
+      <Link href="/questions">
+          <Button
             onClick={handleClick}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            className={`isClicked ${isClicked ? 'clicked' : ''}`}
-          >
-        {isClicked ? (
-                        <img src="/start_btn_click.png" className="main_start_btn btn_click" alt="Clicked Button" />
-                      ) : (
-                        <img src="/start_btn.png" className="main_start_btn" alt="Button" />
-                      )}
-        <div className='start_btn'>
+            buttonImage="/start_btn.png"
+            clickedButtonImage="/start_btn_click.png"
+            className="main_start_btn btn_click"
+            />
         <p>시작하기</p>
         <p className='isaText'>참여자 수 표시 멘트 멘트 멘트</p>
-      </div>
-      </div>
-      </a>
       </Link>
       <img src='/logo_patKid.png' className='main_logo'/>
 
-
       <style jsx>{`
-      @keyframes clickAnimation {
-        0% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(0.95);
-          }
-          100% {
-            transform: scale(1);
-          }
-        }
-        @keyframes titleAnimation {
-          0% {
-            top: 224px;
-          }
-          25% {
-            top: 218px;
-          }
-          50%{
-            top: 212px;
-          }
-          75% {
-            top: 218px;
-          }
-          100% {
-             top: 224px;
-          }
-      }
-          
-        @keyframes sixAnimation {
-          0% {
-            transform: rotate(0deg);
-          }
-          25% {
-            transform: rotate(-3deg);
-          }
-          50% {
-            transform: rotate(-6deg);
-          }
-          75% {
-            transform: rotate(-3deg);
-          }
-          100% {
-            transform: rotate(0deg);
-        }
-        }
-          @keyframes tenAnimation {
-          0% {
-            transform: rotate(0deg);
-          }
-          25% {
-            transform: rotate(5deg);
-          }
-          50% {
-            transform: rotate(10deg);
-          }
-          75% {
-            transform: rotate(5deg);
-          }
-          100% {
-            transform: rotate(0deg);
-          }
-        }
         *{
           box-sizing: border-box;
         }
@@ -133,7 +52,6 @@ export default function Home() {
           height: 411px;
           left: 41px;
           top: 224px;
-          animation: titleAnimation 650ms infinite;
         }
         .main_layout_icon{
           position: absolute;
@@ -148,7 +66,6 @@ export default function Home() {
           height: 140px;
           left: 32px;
           top: 57px;
-          animation: sixAnimation 650ms infinite;
         }
         .main_layout_icon > img:nth-of-type(2){
           position: absolute;
@@ -163,7 +80,6 @@ export default function Home() {
         height: 112px;
         left: 350px;
         top: 103px;
-        animation: tenAnimation 650ms infinite;
         }
         .main_layout_icon > img:nth-of-type(4){
           position: absolute;
@@ -171,7 +87,6 @@ export default function Home() {
           height: 128px;
           left: 7px;
           top: 523px;
-          animation: sixAnimation 650ms infinite;
         }
         .main_layout_icon > img:nth-of-type(5){
           position: absolute;
@@ -186,7 +101,6 @@ export default function Home() {
           height: 90px;
           left: 377px;
           top: 658px;
-          animation: sixAnimation 650ms infinite;
         }
         .main_layout p{
           position: absolute;
@@ -205,12 +119,6 @@ export default function Home() {
         height: 104px;
         left: 19px;
         top: 797px;
-        cursor: pointer;
-        transition: background-color 0.7s ease;
-        }
-        .btn_click{
-          animation: clickAnimation 0.5s linear;
-          animation-delay: 0.1s;
         }
         .main_logo{
           position: absolute;

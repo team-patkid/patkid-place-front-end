@@ -4,6 +4,7 @@ import { questions } from '../../data.js';
 import Image from 'next/image';
 import Link from "next/link";
 import Button from '@/components/Button/Button.js';
+import styles from '../../styles/questions.module.css';
 
 
 export default function Questions() {
@@ -54,6 +55,15 @@ export default function Questions() {
       </div>
         <div className='question'>
         <img src="/questions.png"/>
+        {question.img.map((img, index) => (
+          img.src && img.css && (
+            <img
+              key={index}
+              src={`/${img.src}`}
+              className={`${styles[img.css]} ${styles.msAnimation}`}
+            />
+          )
+        ))}
         <p className="number">{question.number}/12</p>
         <p className='question'>{question.question}</p>
       </div>
@@ -129,7 +139,7 @@ export default function Questions() {
         left: 12px;
         top: 118px;
       }
-      .question img{
+      .question img:nth-of-type(1){
         position: absolute;
         width: 466px;
         height: 490px;

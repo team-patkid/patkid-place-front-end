@@ -1,5 +1,5 @@
 .modal-back{
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
   position: fixed;
   top:0; left: 0; bottom: 0; right: 0;
   z-index: 9999;
@@ -45,7 +45,7 @@
   width: 400px;
   height: 281px;
   left: calc(50% - 400px/2 + 0.5px);
-  top: 224px;
+  top: 155px;
   overflow:hidden;
 }
 .modal_img img{
@@ -86,3 +86,56 @@
   margin-top: 10px;
   opacity: 1;
 }
+
+.modal_hash{
+  position: absolute;
+  width: 326px;
+  height: 22px;
+  left: calc(50% - 326px/2);
+  top: 474px;
+  background-color: aliceblue;
+}
+
+.modal-line{
+  position: absolute;
+  width: 410px;
+  height: 0px;
+  left: calc(50% - 410px/2);
+  top: 525px;
+
+  border: 1px solid #FF448D;
+  }
+
+  .modal-result{
+    position: absolute;
+    width: 397px;
+    height: 217px;
+    left: calc(50% - 397px/2 + 0.5px);
+    top: 658px;
+
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+
+    color: #000000;
+  }
+
+ .tooltip{
+  position: absolute;
+  width: 194px;
+  height: 20px;
+  left: 267px;
+  top: 153px;
+  
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 20px;
+  text-align: right;
+  
+  color: #565656;
+  
+  }

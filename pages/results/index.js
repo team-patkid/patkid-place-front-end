@@ -86,10 +86,12 @@ export default function Results() {
         {ModalOpen && <Modal setModalOpen={setModalOpen} />}
         <img src='/box_stroke.png'/>
         </div>
-        <div className='hot_spotImg2'>
+        <div className='hot_spotImg2' onClick={openModal}>
+        {ModalOpen && <Modal setModalOpen={setModalOpen} />}
           <img src='/box_stroke.png'/>
         </div>
-        <div className='hot_spotImg3'>
+        <div className='hot_spotImg3' onClick={openModal}>
+        {ModalOpen && <Modal setModalOpen={setModalOpen} />}
           <img src='/box_stroke.png'/>
         </div>
       </div>

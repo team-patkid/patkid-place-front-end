@@ -56,6 +56,13 @@ const Modal = ({ setModalOpen}) => {
             <div className={styles['modal_img']}>
               <img src='/spotImg.png'/>
             </div>
+          <div className={styles['modal_hash']}>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div className={styles['modal-line']}></div>
+          <div className={styles['modal-result']}>하이용</div>
           </div>
         </div>
       </div>
