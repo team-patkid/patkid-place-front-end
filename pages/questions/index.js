@@ -74,7 +74,7 @@ export default function Questions() {
             buttonImage="/answer.png" 
             clickedButtonImage="/visit_click.png"
           />
-          <p className='choice1_answer'>{question.choices[0].text}</p>
+          <p className={`choice1_answer ${question.choices[0].text.length > 25 ? 'choice1_answer2' : 'choice1_answer1'}`}>{question.choices[0].text}</p>
         </div>
         <div className="choice2">
           <Button
@@ -82,7 +82,7 @@ export default function Questions() {
             buttonImage="/answer.png"
             clickedButtonImage="/visit_click.png"
           />
-          <p className='choice2_answer'>{question.choices[1].text}</p>
+           <p className={`choice2_answer ${question.choices[1].text.length > 25 ? 'choice2_answer2' : 'choice2_answer1'}`}>{question.choices[1].text}</p>
         </div>
       </div>
 
@@ -178,6 +178,7 @@ export default function Questions() {
         position: absolute;
         left: 17px;
         top: 774px;
+        
       }
       .choice2{
         width: 466px;
@@ -186,12 +187,12 @@ export default function Questions() {
         left: 17px;
         top: 902px;
       }
-      .choice1_answer{
+      .choice1_answer1{
         position: absolute;
-        width: 350px;
-        height: 26px;
-        left: calc(50% - 350px/2);
-        top: 40px;
+        width: 386px;
+        height: 52px;
+        left: calc(50% - 386px/2);
+        top: calc(90px/2);
 
         font-weight: 400;
         font-size: 24px;
@@ -200,12 +201,40 @@ export default function Questions() {
 
         color: #000000;
       }
-      .choice2_answer{
+      .choice1_answer2{
         position: absolute;
-        width: 350px;
-        height: 26px;
-        left: calc(50% - 350px/2);
-        top: 40px;
+        width: 386px;
+        height: 52px;
+        left: calc(50% - 386px/2);
+        top: calc(70px/2);
+
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 26px;
+        text-align: center;
+
+        color: #000000;
+      }
+      .choice2_answer1{
+        position: absolute;
+        width: 386px;
+        height: 52px;
+        left: calc(50% - 386px/2);
+        top: calc(90px/2);
+
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 26px;
+        text-align: center;
+
+        color: #000000;
+      }
+      .choice2_answer2{
+        position: absolute;
+        width: 386px;
+        height: 52px;
+        left: calc(50% - 386px/2);
+        top: calc(60px/2);
 
         font-weight: 400;
         font-size: 24px;
