@@ -69,20 +69,24 @@ export default function Questions() {
       </div>
       <div className="answer">
       <div className="choice1">
-          <Button
-            onClick={() => nextQuestion(0)}
-            buttonImage="/answer.png" 
-            clickedButtonImage="/visit_click.png"
-          />
-          <p className={`choice1_answer ${question.choices[0].text.length > 25 ? 'choice1_answer2' : 'choice1_answer1'}`}>{question.choices[0].text}</p>
+      <Button
+          onClick={() => nextQuestion(0)}
+          buttonImage="/answer.png" 
+          clickedButtonImage="/visit_click.png"
+          buttonText={<span className={`choice1_answer ${question.choices[0].text.length > 25 ? 'choice1_answer2' : 'choice1_answer1'}`}>{question.choices[0].text}</span>}
+        />
+
+
         </div>
         <div className="choice2">
-          <Button
-            onClick={() => nextQuestion(1)}
-            buttonImage="/answer.png"
-            clickedButtonImage="/visit_click.png"
-          />
-           <p className={`choice2_answer ${question.choices[1].text.length > 25 ? 'choice2_answer2' : 'choice2_answer1'}`}>{question.choices[1].text}</p>
+        <Button
+          onClick={() => nextQuestion(1)}
+          buttonImage="/answer.png"
+          clickedButtonImage="/visit_click.png"
+          buttonText={<span className={`choice2_answer ${question.choices[1].text.length > 25 ? 'choice2_answer2' : 'choice2_answer1'}`}>{question.choices[1].text}</span>}
+        />
+
+
         </div>
       </div>
 

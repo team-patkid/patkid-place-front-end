@@ -9,6 +9,17 @@ export default function Results() {
   const [ModalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  //4초뒤 사라짐
+  const [showImage, setShowImage] = useState(true);
+
+  useEffect(() => {
+    const imageTimer = setTimeout(() => {
+      setShowImage(false);
+    }, 4000);
+
+    return () => clearTimeout(imageTimer);
+  }, []);
+
   useEffect(()=>{
 
     if (ModalOpen) {

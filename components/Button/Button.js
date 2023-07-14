@@ -1,41 +1,87 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const Button = ({ onClick, buttonImage, clickedButtonImage}) => {
+const Button = ({ onClick, buttonImage, clickedButtonImage, buttonText }) => {
   const [isClicked, setIsClicked] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleClick = () => {
     setIsClicked(true);
     setTimeout(() => {
+      setIsClicked(false);
       onClick();
-    }, 500);
+    }, 100);
   };
 
   const handleMouseEnter = () => {
     if (!isClicked) {
-      setIsClicked(true);
+      setIsHovered(true);
     }
   };
 
   const handleMouseLeave = () => {
-    if (isClicked) {
-      setIsClicked(false);
+    if (!isClicked) {
+      setIsHovered(false);
     }
   };
 
+  useEffect(() => {
+    setIsHovered(false); // 컴포넌트가 업데이트되면 버튼 이미지 초기화
+  }, [isClicked]);
+
   return (
     <div
+      className={`button ${isClicked ? 'clicked' : ''}`}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`isClicked ${isClicked ? 'clicked' : ''}`}
     >
-      {isClicked ? (
-        <img src={clickedButtonImage} className="" alt="Clicked Button" style={{ width: '466px', height: '105px' }} />
-      ) : (
-        <img src={buttonImage} className=" " alt="Button" style={{ width: '466px', height: '105px' }} />
-      )}
+      <img
+        src={isClicked ? clickedButtonImage : isHovered ? '/visit_click.png' : buttonImage}
+        alt="Button"
+        className={`button-image ${isHovered && !isClicked ? 'hovered' : ''}`}
+      />
+      <p className={`button-text ${isClicked ? 'clicked' : ''}`}>{buttonText}</p>
 
       <style jsx>{`
+        .button {
+          position: relative;
+          width: 466px;
+          height: 105px;
+          cursor: pointer;
+          overflow: hidden;
+        }
+
+        .button img {
+          width: 100%;
+          height: 100%;
+          transition: transform 0.3s ease;
+        }
+
+        .button-image.hovered {
+          transform: scale(0.95);
+        }
+
+        .button-text {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: ${isClicked ? '0' : '1'};
+          pointer-events: none;
+        }
+
+        .clicked .button-image {
+          transform: scale(0.95);
+        }
+
+        .clicked .button-text {
+          opacity: 1;
+        }
+
         @keyframes clickAnimation {
           0% {
             transform: scale(1);
@@ -43,17 +89,12 @@ const Button = ({ onClick, buttonImage, clickedButtonImage}) => {
           50% {
             transform: scale(0.95);
           }
+          75%{
+            transform: scale(0.95);
+          }
           100% {
             transform: scale(1);
           }
-        }
-        .isClicked {
-        cursor: pointer;
-        transition: background-color 0.7s ease;
-        }
-        .clicked {
-          animation: clickAnimation 0.5s linear;
-          animation-delay: 0.1s;
         }
       `}</style>
     </div>

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-// import '../styles/globals.css';
 import Link from "next/link";
 
 export default function Home() {
@@ -7,7 +6,7 @@ export default function Home() {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
-    setIsClicked(true);  // 다른 로직 및 상태 업데이트
+    setIsClicked(true);
    
     setTimeout(() => {
       window.location.href = '/questions';
