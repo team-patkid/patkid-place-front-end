@@ -7,7 +7,7 @@ export const questions = [
     ],
     question: '친구가 요즘 핫플이라고 같이 가자고하면?',
     choices: [
-      { text: '사람 많을 것 같은데..', value: 'i' },
+      { text: '사람 많을 것 같은데', value: 'i' },
       { text: '오 사진 ㄱㄱ 어딘데? ', value: 'e' }
     ],
   },
@@ -19,8 +19,8 @@ export const questions = [
     ],
     question: '핫플거리에서 누군가가 인터뷰해주면 티켓을 준다고 한다면',
     choices: [
-      { text: '일단 무슨 질문이냐고 물어본다', value: 'i' },
-      { text: '살며시 웃으며 그냥 지나가버린다', value: 'e' }
+      { text: '살며시 웃으며 그냥 지나가버린다', value: 'i' },
+      { text: '일단 무슨 질문이냐고 물어본다', value: 'e' }
     ]
   },
   { 
@@ -74,7 +74,7 @@ export const questions = [
     ],
     question: '소품샵에서 오픈기념으로 선물을 준다고 하면 나는',
     choices: [
-      { text: '그나마 그 중에 쓸만할 것 같은 귀염뽀짝한 메모장선택3_1', value: 's' },
+      { text: '그나마 그 중에 쓸만할 것 같은 귀염뽀짝한 메모장', value: 's' },
       { text: '귀염뽀짝해서 책상위에 올려놓으면 흐뭇할 것 같은 미니어처', value: 'n' }
     ]
   },
@@ -157,7 +157,7 @@ export const results = [
     title: '타이틀',
     character: '이미지',
     results: [
-      '결화'
+      '결과'
     ],
     jobs: ['1', '2'],
     lectureImg: '/images/result_lecture1.png',

@@ -227,9 +227,9 @@ export default function Questions() {
         }
         .question > p:nth-of-type(2) {
           position: absolute;
-          width: 308px;
+          width: 341px;
           height: 26px;
-          left: calc(50% - 308px/2);
+          left: calc(50% - 341px/2);
           top: 587px;
           font-weight: 400;
           font-size: 24px;

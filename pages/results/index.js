@@ -1,56 +1,41 @@
 import { useEffect, useState } from 'react';
-import Link from "next/link";
-import '../../components/modal.module.css';
+import Link from 'next/link';
 import Modal from '../../components/Modal';
 import LoadingPage from '../../components/LoadingPage';
 
 export default function Results() {
-
   const [ModalOpen, setModalOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  //4초뒤 사라짐
+  const [loading, setLoading] = useState(true);
   const [showImage, setShowImage] = useState(true);
 
   useEffect(() => {
-    const imageTimer = setTimeout(() => {
-      setShowImage(false);
-    }, 4000);
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 2500);
 
-    return () => clearTimeout(imageTimer);
+    return () => {
+      clearTimeout(timeout);
+    };
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
+    if (!loading) {
+      const imageTimer = setTimeout(() => {
+        setShowImage(false);
+      }, 4000);
 
-    if (ModalOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
+      return () => clearTimeout(imageTimer);
     }
-  }, [ModalOpen]);
+  }, [loading]);
 
-  //모달창 노출
   const openModal = () => {
     setModalOpen(true);
   };
 
-  useEffect(() => {
-    setLoading(true);
-
-
-    const timeout = setTimeout(() => {
-      setLoading(false); 
-    }, 2500); // 2.5초 동안 로딩 상태를 유지한 후에 false로 변경
-
-    return () => {
-      clearTimeout(timeout); 
-    };
-  }, []);
-
   if (loading) {
-    return <LoadingPage />; 
+    return <LoadingPage />;
   }
- 
+
   return (
     <div className='wrapper'>
     <section className='result_layout'>
@@ -62,7 +47,7 @@ export default function Results() {
       <div className="result">
         <img src='/i_box.png'/>
         <p>시가를 피우는 너구리</p>
-        <img src='/tooltip.png'/>
+        <img src='/tooltip.png' className={showImage ? 'tooltip-show' : 'tooltip-hide'} />
         <img src='/dice.png'/>
         <div className='spot_img'>
           <img src='/spotImg.png'/>
@@ -199,6 +184,13 @@ export default function Results() {
 
         transform: rotate(7.10deg);
       }
+      .tooltip-show {
+          display: block;
+        }
+
+        .tooltip-hide {
+          display: none;
+        }
       .spot_img{
         position: absolute;
         width: 419px;

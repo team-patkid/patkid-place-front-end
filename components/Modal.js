@@ -4,7 +4,7 @@ import styles from './modal.module.css';
 const Modal = ({ setModalOpen}) => {
   const closeModal = () => {
       setModalOpen(false);
-      console.log('끄기 성공')
+      console.log('닫기')
   };
 
   //4초뒤 사라짐
