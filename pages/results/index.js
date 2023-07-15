@@ -7,6 +7,8 @@ export default function Results() {
   const [ModalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showImage, setShowImage] = useState(true);
+  const [shared, setShared] = useState(false);
+  const [visited, setVisited] = useState(false); 
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -32,12 +34,23 @@ export default function Results() {
     setModalOpen(true);
   };
 
+  const handleShare = () => {
+    setShared(true);
+  };
+
+  useEffect(() => {
+    // URL을 통해 방문 여부 확인
+    if (window.location.href.includes('/results?shared=true')) {
+      setVisited(true);
+    }
+  }, []);
+
   if (loading) {
     return <LoadingPage />;
   }
 
   return (
-    <div className='wrapper'>
+    <div className={`wrapper ${shared ? 'shared' : ''}`}>
     <section className='result_layout'>
     <div>
     <img src='/background_h_2.png' className='result_layout'/>
@@ -100,10 +113,18 @@ export default function Results() {
       </div>
       </section>
       <footer>
-      <img className='footer_left' src='/share_btn.png'/>
-      <Link href="/">
-      <img className='footer_right' src='/restart_btn.png'/>
-      </Link>
+        {visited ? (
+          <Link href="/">
+            <img className='footer_share' src='/share_button2.png' />
+          </Link>
+        ) : (
+          <>
+            <img className='footer_left' src='/share_btn.png' />
+            <Link href="/">
+              <img className='footer_right' src='/restart_btn.png' />
+            </Link>
+          </>
+        )}
       </footer>
 
   
@@ -363,15 +384,15 @@ export default function Results() {
 
         color: #000000;
       }
-      footer{
-        position: fixed;
-        bottom: 0px;
-        width: 500px;
-        margin: 0 auto;
-        height: 100px;
+      footer {
+          position: fixed;
+          bottom: 0px;
+          width: 500px;
+          margin: 0 auto;
+          height: 100px;
+          background: ${shared ? '#FF448D' : '#000000'};
+        }
 
-        background: #000000;
-      }
       .footer_left{
         position: absolute;
         width: 344px;
@@ -385,6 +406,13 @@ export default function Results() {
         height: 67px;
         left: 393px;
         top: 18px;
+      }
+      .footer_share{
+        position: absolute;
+        width: 466px;
+        height: 67px;
+        left: 17px;
+        top: 2427px;
       }
     `}
       </style>
