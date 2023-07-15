@@ -63,7 +63,6 @@ export default function Results() {
         <img src='/i_box.png'/>
         <p>시가를 피우는 너구리</p>
         <img src='/tooltip.png'/>
-        <p className='preText'>더욱 색다른 장소를 원한다면!</p>
         <img src='/dice.png'/>
         <div className='spot_img'>
           <img src='/spotImg.png'/>
