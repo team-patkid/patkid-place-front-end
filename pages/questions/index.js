@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { questions } from '../../data.js';
+import { questions as imgQuestions } from '../../data.js';
 import Image from 'next/image';
-import Link from 'next/link';
 import Button from '@/components/Button/Button.js';
 import styles from '../../styles/questions.module.css';
+import axios from 'axios';
 
 const ProgressBar = ({ currentNumber }) => {
 
@@ -21,7 +21,7 @@ const ProgressBar = ({ currentNumber }) => {
             marginLeft: '5.5px',
           }}
         >
-          <Image src="/progress.png" width={14} height={12} />
+          <Image src="/progress.png" width={14} height={12} alt='progress_Img' />
           <div
             className="padding"
             style={{
@@ -30,14 +30,14 @@ const ProgressBar = ({ currentNumber }) => {
               display: 'inline-block',
             }}
           />
-          <Image src="/progress.png" width={14} height={12} />
+          <Image src="/progress.png" width={14} height={12} alt='progress_Img'/>
         </div>
         
       );
   }
   return (
     <div className="progress_bar">
-      <Image src="/progress_bar.png" width={471} height={39} />
+      <Image src="/progress_bar.png" width={471} height={39} alt='progress_bar_Img'/>
       <div className="progress_container">
         {progressImages}
         {currentNumber >= 0 && (
@@ -50,7 +50,7 @@ const ProgressBar = ({ currentNumber }) => {
               marginLeft: '2px',
             }}
           >
-            <Image src="/progress_heart.png" width={45} height={39} />
+            <Image src="/progress_heart.png" width={45} height={39} alt='progress_heart_Img'/>
           </div>
         )}
       </div>
@@ -86,18 +86,40 @@ const ProgressBar = ({ currentNumber }) => {
 export default function Questions() {
   const [currentNumber, setCurrentNumber] = useState(0);
   const [mbti, setMbti] = useState('');
+  const [questionsData, setQuestionsData] = useState([]);  // 질문 데이터를 저장할 상태 변수
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
 
   const router = useRouter();
 
-  const question = questions[currentNumber];
+  const question = imgQuestions[currentNumber];
+
+
+  useEffect(() => {
+    // 컴포넌트가 마운트되면 백엔드 API에서 질문 데이터를 가져옵니다.
+    axios.get('https://api.patkid.kr/question/list')
+      .then((response) => {
+        setQuestionsData(response.data); // 가져온 질문 데이터를 상태에 저장합니다.
+        setCurrentNumber(0); 
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        setError(error);
+        setLoading(false);
+      });
+    },[]);
 
   useEffect(() => {
     // 질문 번호가 변경될 때마다 화면 맨 위로 스크롤
     window.scrollTo(0, 0);
   }, [currentNumber]);
 
+
+
   const nextQuestion = (choiceNumber) => {
-    if (currentNumber === questions.length - 1) {
+    if (currentNumber === imgQuestions.length - 1) {
       showResultPage();
       return;
     }
@@ -111,9 +133,17 @@ export default function Questions() {
     router.push(`/results?mbti=${mbti}`);
   };
 
+  if (loading) {
+    return <div></div>;
+  }
+  
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <div className="questions_layout">
-      <Image src="/background_h_2.png" className="questions_layout" width={500} height={1081} />
+      <Image src="/background_h_2.png" className="questions_layout" width={500} height={1081} quality={80} alt="questions_Image"/>
 
       <div className="title">
         <img src="/back.png" width={12} height={25} />
@@ -133,8 +163,13 @@ export default function Questions() {
             />
           )
         ))}
-        <p className="number">{question.number}/12</p>
-        <p className="question">{question.question}</p>
+        
+        {questionsData.data && questionsData.data.list && questionsData.data.list.length > 0 && (
+        <div className="questions">
+          <p className="number">{questionsData.data.list[currentNumber]?.questionId}/12</p>
+          <p className="question">{questionsData.data.list[currentNumber]?.content}</p>
+        </div>
+      )}
       </div>
       <div className="answer">
         <div className="choice1">
@@ -145,10 +180,10 @@ export default function Questions() {
             buttonText={
               <span
                 className={`choice1_answer ${
-                  question.choices[0].text.length > 25 ? 'choice1_answer2' : 'choice1_answer1'
+                  questionsData.data.list[currentNumber]?.questionSub[0].content.length > 25 ? 'choice1_answer2' : 'choice1_answer1'
                 }`}
               >
-                {question.choices[0].text}
+                {questionsData.data.list[currentNumber]?.questionSub[0].content}
               </span>
             }
           />
@@ -161,10 +196,10 @@ export default function Questions() {
             buttonText={
               <span
                 className={`choice2_answer ${
-                  question.choices[1].text.length > 25 ? 'choice2_answer2' : 'choice2_answer1'
+                  questionsData.data.list[currentNumber]?.questionSub[1].content.length > 25 ? 'choice2_answer2' : 'choice2_answer1'
                 }`}
               >
-                {question.choices[1].text}
+                {questionsData.data.list[currentNumber]?.questionSub[1].content}
               </span>
             }
           />
@@ -214,7 +249,7 @@ export default function Questions() {
           left: calc(50% - 466px/2);
           top: 182px;
         }
-        .question > p:nth-of-type(1) {
+        .questions > p:nth-of-type(1) {
           position: absolute;
           width: 57px;
           height: 23px;
@@ -225,12 +260,12 @@ export default function Questions() {
           line-height: 23px;
           color: #000000;
         }
-        .question > p:nth-of-type(2) {
+        .questions > p:nth-of-type(2) {
           position: absolute;
           width: 341px;
-          height: 26px;
+          height: 50px;
           left: calc(50% - 341px/2);
-          top: 587px;
+          top: 578px;
           font-weight: 400;
           font-size: 24px;
           line-height: 26px;
@@ -256,7 +291,7 @@ export default function Questions() {
           width: 386px;
           height: 52px;
           left: calc(50% - 386px/2);
-          top: calc(90px/2);
+          top: calc(84px/2);
           font-weight: 400;
           font-size: 24px;
           line-height: 26px;
@@ -268,7 +303,7 @@ export default function Questions() {
           width: 386px;
           height: 52px;
           left: calc(50% - 386px/2);
-          top: calc(70px/2);
+          top: calc(58px/2);
           font-weight: 400;
           font-size: 24px;
           line-height: 26px;
@@ -280,7 +315,7 @@ export default function Questions() {
           width: 386px;
           height: 52px;
           left: calc(50% - 386px/2);
-          top: calc(90px/2);
+          top: calc(84px/2);
           font-weight: 400;
           font-size: 24px;
           line-height: 26px;
@@ -292,7 +327,7 @@ export default function Questions() {
           width: 386px;
           height: 52px;
           left: calc(50% - 386px/2);
-          top: calc(60px/2);
+          top: calc(58px/2);
           font-weight: 400;
           font-size: 24px;
           line-height: 26px;
