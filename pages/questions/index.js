@@ -97,10 +97,9 @@ export default function Questions() {
 
 
   useEffect(() => {
-    // 컴포넌트가 마운트되면 백엔드 API에서 질문 데이터를 가져옵니다.
     axios.get('https://api.patkid.kr/question/list')
       .then((response) => {
-        setQuestionsData(response.data); // 가져온 질문 데이터를 상태에 저장합니다.
+        setQuestionsData(response.data);
         setCurrentNumber(0); 
         setLoading(false);
       })
