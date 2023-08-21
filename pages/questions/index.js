@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { questions as imgQuestions } from '../../data.js';
+import { questions as imgQuestions } from '../data.js';
 import Image from 'next/image';
 import Button from '@/components/Button/Button.js';
 import styles from '../../styles/questions.module.css';
@@ -110,15 +110,15 @@ export default function Questions() {
       });
     },[]);
 
+  // 질문 번호가 변경될 때마다 화면 맨 위로 스크롤
   useEffect(() => {
-    // 질문 번호가 변경될 때마다 화면 맨 위로 스크롤
     window.scrollTo(0, 0);
   }, [currentNumber]);
 
 
-
+  //결과 페이지 이동
   const nextQuestion = (choiceNumber) => {
-    if (currentNumber === imgQuestions.length - 1) {
+    if (currentNumber === questionsData.data.total - 1) {
       showResultPage();
       return;
     }

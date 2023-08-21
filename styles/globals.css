@@ -36,3 +36,7 @@ p{
   font-family: 'Pretendard-Regular';
   font-style: normal;
 }
+
+html {
+  scroll-behavior: smooth;
+}

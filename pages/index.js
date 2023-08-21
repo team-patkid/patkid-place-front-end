@@ -1,16 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from "next/link";
+import axios from 'axios';
 
 export default function Home() {
 
   const [isClicked, setIsClicked] = useState(false);
+  const [visitorCount, setVisitorCount] = useState(0);
 
+  useEffect(() => {
+    axios.get('https://api.patkid.kr/user/visit')
+      .then((response) => {
+        setVisitorCount(response.data.count);
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
+
+  
   const handleClick = () => {
     setIsClicked(true);
+
+    setVisitorCount(prevCount => prevCount + 1);
    
     setTimeout(() => {
       window.location.href = '/questions';
-    }, 500);  //0.5s뒤 페이지이동
+    }, 300); //0.3s뒤 페이지이동
   };
 
   const handleMouseEnter = () => {
@@ -53,7 +69,7 @@ export default function Home() {
                       )}
         <div className='start_btn'>
         <p>시작하기</p>
-        <p className='isaText'>참여자 수 표시 멘트 멘트 멘트</p>
+        <p className='isaText'>참여자 수 {visitorCount}</p>
       </div>
       </div>
       </a>
@@ -245,7 +261,7 @@ export default function Home() {
           position: absolute;
           width: 209px;
           height: 20px;
-          left: calc(50% - 209px/2 + 0.5px);
+          left: calc(50% - 100px/2 + 0.5px);
           top: 865px;
           margin: 0px auto;
 
