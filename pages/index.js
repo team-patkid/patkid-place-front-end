@@ -10,8 +10,8 @@ export default function Home() {
   useEffect(() => {
     axios.get('https://api.patkid.kr/user/visit')
       .then((response) => {
-        setVisitorCount(response.data.count);
-        console.log(response.data)
+        setVisitorCount(response.data.data.count);
+        console.log(response.data.data.count)
       })
       .catch((error) => {
         console.error('Error:', error);
