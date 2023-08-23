@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 import Link from 'next/link';
 import Modal from '../../components/Modal';
 import LoadingPage from '../../components/LoadingPage';
+
 
 export default function Results() {
   const [ModalOpen, setModalOpen] = useState(false);
@@ -9,6 +12,13 @@ export default function Results() {
   const [showImage, setShowImage] = useState(true);
   const [shared, setShared] = useState(false);
   const [visited, setVisited] = useState(false); 
+  const [isShare, setIsShare] = useState(false);
+  const [resultData, setResultData] = useState(null);
+  const router = useRouter();
+
+  const handleShareButtonClick = () => {
+    setIsShare(prevIsShare => !prevIsShare);
+  };
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -38,6 +48,7 @@ export default function Results() {
     setShared(true);
   };
 
+
   useEffect(() => {
     // URL을 통해 방문 여부 확인
     if (window.location.href.includes('/results?shared=true')) {
@@ -45,9 +56,29 @@ export default function Results() {
     }
   }, []);
 
-  if (loading) {
+  useEffect(() => {
+    const { mbti } = router.query;
+    
+    if (mbti) {
+      // 서버로 결과 데이터를 가져오는 POST 요청 보내기
+      axios.post('https://api.patkid.kr/user/result', {
+        mbti : mbti
+      })
+      .then((response) => {
+        setResultData(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching result data:', error);
+      });
+    }
+    console.log(mbti)
+  }, [router.query.mbti]);
+
+
+
+  if (!resultData) {
     return <LoadingPage />;
-  }
+ }
 
   return (
     <div className={`wrapper ${shared ? 'shared' : ''}`}>
@@ -57,30 +88,29 @@ export default function Results() {
     <img src='/background_h_2_2.png' className='result_layout layout2'/>
     <img src='/background_h_2_3.png' className='result_layout layout3'/>
     </div>
+    {resultData && resultData.data && (
+      <>
       <div className="result">
         <img src='/i_box.png'/>
-        <p>시가를 피우는 너구리</p>
+        <p>{resultData.data.result.name}</p>
         <img src='/tooltip.png' className={showImage ? 'tooltip-show' : 'tooltip-hide'} />
         <img src='/dice.png'/>
         <div className='spot_img'>
-          <img src='/spotImg.png'/>
+          <img src={resultData.data.result.place.imageUrl}/>
         </div>
         <div className='tag'>
             <div className='tag1'>
-              <p className='isaText hashtag'>#Sunday_Bar</p>
-              {/* <div className='underline'></div> */}
+              <p className='isaText hashtag'>#{resultData.data.result.place.tags[0].tag}</p>
             </div>
             <div className='tag2'>
-              <p className='isaText hashtag tag2'>#성수</p>
-              {/* <div className='underline'></div> */}
+              <p className='isaText hashtag tag2'>#{resultData.data.result.place.tags[1].tag}</p>
             </div>
             <div className='tag3'>
-              <p className='isaText hashtag tag3'>#파리느낌</p>
-              {/* <div className='underline'></div> */}
+              <p className='isaText hashtag tag3'>#{resultData.data.result.place.tags[2].tag}</p>
             </div>
         </div>
         <img src='/box.png'/>
-        <div className='box_text'></div>
+        <div className='box_text'>{resultData.data.result.place.content}</div>
       </div>
       <div className="location">
         <img src='/location.png'/>
@@ -111,6 +141,8 @@ export default function Results() {
       <p className="visitP" >펫키드 팀 페이지 방문하기</p>
       </Link>
       </div>
+      </>
+    )}
       </section>
       <footer>
         {visited ? (
@@ -119,7 +151,13 @@ export default function Results() {
           </Link>
         ) : (
           <>
-            <img className='footer_left' src='/share_btn.png' />
+            <img
+              className='footer_left'
+              src='/share_btn.png'
+              onClick={() => {
+                handleShare();
+                handleShareButtonClick();}}
+            />
             <Link href="/">
               <img className='footer_right' src='/restart_btn.png' />
             </Link>
@@ -234,16 +272,16 @@ export default function Results() {
       }
       .tag2 p{
         position: absolute;
-        width: 55px;
+        width: 114px;
         height: 17px;
-        left: 192px;
+        left: 182px;
         top: 537px;
       }
       .tag3 p{
         position: absolute;
-        width: 84px;
+        width: 114px;
         height: 17px;
-        left: 255px;
+        left: 295px;
         top: 537px;
       }
       .tag1 .underline{
