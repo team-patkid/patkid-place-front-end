@@ -85,7 +85,7 @@ const ProgressBar = ({ currentNumber }) => {
 
 export default function Questions() {
   const [currentNumber, setCurrentNumber] = useState(0);
-  const [mbti, setMbti] = useState('');
+  const [mbtiList, setMbtiList] = useState([]);
   const [questionsData, setQuestionsData] = useState([]);  // 질문 데이터를 저장할 상태 변수
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -117,20 +117,42 @@ export default function Questions() {
 
 
   //결과 페이지 이동
-  const nextQuestion = (choiceNumber) => {
-    if (currentNumber === questionsData.data.total - 1) {
-      showResultPage();
-      return;
+  const nextQuestion = (choiceNumber) => { 
+    const isLastQuestion = currentNumber === questionsData.data.total - 1;
+    const selectedChoice = questionsData.data.list[currentNumber]?.questionSub[choiceNumber].type;
+    setMbtiList((prevList) => [...prevList, selectedChoice]);
+  
+    if (isLastQuestion) {
+      showResultPage(choiceNumber); 
+    } else {
+      setCurrentNumber(currentNumber + 1);
     }
-
-    const selectedChoice = question.choices[choiceNumber].value;
-    setMbti(mbti + selectedChoice);
-    setCurrentNumber(currentNumber + 1);
   };
+  
+  const showResultPage = (choiceNumber) => { 
+    const lastChoiceType = questionsData.data.list[currentNumber].questionSub[choiceNumber].type;
+    const updatedMbtiList = [...mbtiList, lastChoiceType];
+  
+    setMbtiList(updatedMbtiList);
 
-  const showResultPage = () => {
-    router.push(`/results?mbti=${mbti}`);
+    const groupedMbti = [];
+    for (let i = 0; i < updatedMbtiList.length; i += 3) {
+      groupedMbti.push(updatedMbtiList.slice(i, i + 3));
+    }
+  
+    const mbtiCounts = {};
+    updatedMbtiList.forEach((mbti) => {
+      mbtiCounts[mbti] = (mbtiCounts[mbti] || 0) + 1;
+    });
+  
+    const mostFrequentMbti = Object.keys(mbtiCounts).sort((a, b) => mbtiCounts[b] - mbtiCounts[a]).slice(0, 4);
+  
+    const resultMbtiList = mostFrequentMbti;
+  
+    const mbtiQueryString = resultMbtiList.map(mbti => `${mbti}`).join('');
+    router.push(`/results?mbti=${mbtiQueryString}`);
   };
+  
 
   if (loading) {
     return <div></div>;
