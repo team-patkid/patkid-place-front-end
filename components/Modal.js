@@ -8,15 +8,15 @@ const Modal = ({ setModalOpen}) => {
   };
 
   //4초뒤 사라짐
-  const [showImage, setShowImage] = useState(true);
+  // const [showImage, setShowImage] = useState(true);
 
-  useEffect(() => {
-    const imageTimer = setTimeout(() => {
-      setShowImage(false);
-    }, 4000);
+  // useEffect(() => {
+  //   const imageTimer = setTimeout(() => {
+  //     setShowImage(false);
+  //   }, 4000);
 
-    return () => clearTimeout(imageTimer);
-  }, []);
+  //   return () => clearTimeout(imageTimer);
+  // }, []);
 
 
 
@@ -50,7 +50,7 @@ const Modal = ({ setModalOpen}) => {
         <div>
         <p className={styles['modal_title']}>시가를 피우는 너구리</p>
         <div>
-        {showImage && <img src='/tooltip.png' className={styles['modal_tooltip']}/>}
+        {/* {showImage && <img src='/tooltip.png' className={styles['modal_tooltip']}/>} */}
         </div>
           <img src='/dice.png' className={styles['modal_dice']}/>
             <div className={styles['modal_img']}>
