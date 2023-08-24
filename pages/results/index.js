@@ -4,9 +4,11 @@ import axios from 'axios';
 import Link from 'next/link';
 import Modal from '../../components/Modal';
 import LoadingPage from '../../components/LoadingPage';
+import Head from 'next/head';
 
 
 export default function Results() {
+
   const [ModalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showImage, setShowImage] = useState(true);
@@ -75,6 +77,47 @@ export default function Results() {
   }, [router.query.mbti]);
 
 
+  //지도 api
+  useEffect(() => {
+    axios.get('https://api.patkid.kr/user/result')
+      .then(response => {
+        setResultData(response.data.data.result);
+      })
+      .catch(error => {
+        console.error('Error fetching result data:', error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (resultData) {
+      const script = document.createElement('script');
+      script.src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ljyaizmmy4';
+      script.async = true;
+      script.onload = () => {
+        const mapOptions = {
+          center: new window.naver.maps.LatLng(resultData.data.result.place.y, resultData.data.result.place.x),
+          zoom: 15
+        };
+
+        const map = new window.naver.maps.Map('map', mapOptions);
+
+        const markerOptions = {
+          position: new window.naver.maps.LatLng(resultData.data.result.place.y, resultData.data.result.place.x),
+          map: map
+        };
+
+        const marker = new window.naver.maps.Marker(markerOptions);
+      };
+      document.head.appendChild(script);
+    }
+  }, [resultData]);
+    // 지도 URL 가져오기
+    const handleMapClick = () => {
+      if (resultData && resultData.data && resultData.data.result.place.naverUrl) {
+        window.location.href = resultData.data.result.place.naverUrl;
+      }
+    };
+
 
   if (!resultData) {
     return <LoadingPage />;
@@ -115,7 +158,8 @@ export default function Results() {
       <div className="location">
         <img src='/location.png'/>
         <p>위치를 알려줄게!</p>
-        <img src='/box_stroke.png'/>
+        <img src='/box_stroke.png'></img> 
+        <div className='map' id='map' onClick={handleMapClick}></div>
       </div>
       <div className="hot_spot">
         <img src='/hotspot.png'/>
@@ -344,6 +388,13 @@ export default function Results() {
         height: 242px;
         left: calc(50% - 468px/2);
         top: 1002px;
+      }
+      .map{
+        position: absolute;
+        width: 452px;
+        height: 226px;
+        left: calc(50% - 452px/2);
+        top: -75px;
       }
       .hot_spot > img:nth-of-type(1){
         position: absolute;
