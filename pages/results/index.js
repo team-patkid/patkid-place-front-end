@@ -4,7 +4,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import Modal from '../../components/Modal';
 import LoadingPage from '../../components/LoadingPage';
-import Head from 'next/head';
+import KakaoShareButton from '@/components/KakaoShare';
 
 
 export default function Results() {
@@ -18,9 +18,9 @@ export default function Results() {
   const [resultData, setResultData] = useState(null);
   const router = useRouter();
 
-  const handleShareButtonClick = () => {
-    setIsShare(prevIsShare => !prevIsShare);
-  };
+  // const handleShareButtonClick = () => {
+  //   setIsShare(prevIsShare => !prevIsShare);
+  // };
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -62,7 +62,6 @@ export default function Results() {
     const { mbti } = router.query;
     
     if (mbti) {
-      // 서버로 결과 데이터를 가져오는 POST 요청 보내기
       axios.post('https://api.patkid.kr/user/result', {
         mbti : mbti
       })
@@ -118,10 +117,19 @@ export default function Results() {
       }
     };
 
+    //카카오톡 공유하기
+    useEffect(() => {
+      if (!Kakao.isInitialized()) { 
+        Kakao.init('dc448d19d55ef2f3302fceaacee793ea');
+      }
+    }, []);
 
   if (!resultData) {
     return <LoadingPage />;
  }
+
+ if (resultData && resultData.data && resultData.data.result.place) {
+  const { name, description, imageUrl, naverUrl } = resultData.data.result.place;
 
   return (
     <div className={`wrapper ${shared ? 'shared' : ''}`}>
@@ -158,7 +166,7 @@ export default function Results() {
       <div className="location">
         <img src='/location.png'/>
         <p>위치를 알려줄게!</p>
-        <img src='/box_stroke.png'></img> 
+        <img src='/box_stroke.png' id="cross"></img> 
         <div className='map' id='map' onClick={handleMapClick}></div>
       </div>
       <div className="hot_spot">
@@ -195,13 +203,12 @@ export default function Results() {
           </Link>
         ) : (
           <>
-            <img
-              className='footer_left'
-              src='/share_btn.png'
-              onClick={() => {
-                handleShare();
-                handleShareButtonClick();}}
-            />
+      <KakaoShareButton
+        description={description}
+        imageUrl={imageUrl}
+        mobileWebUrl={naverUrl}
+        webUrl={naverUrl}
+      />
             <Link href="/">
               <img className='footer_right' src='/restart_btn.png' />
             </Link>
@@ -480,6 +487,7 @@ export default function Results() {
           margin: 0 auto;
           height: 100px;
           background: ${shared ? '#FF448D' : '#000000'};
+          z-index: 99;
         }
 
       .footer_left{
@@ -503,9 +511,13 @@ export default function Results() {
         left: 17px;
         top: 2427px;
       }
+      
     `}
+
+    
       </style>
       </div>
 
     )
   };
+};
