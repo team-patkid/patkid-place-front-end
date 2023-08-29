@@ -13,7 +13,7 @@ export default function Results() {
   const [loading, setLoading] = useState(true);
   const [showImage, setShowImage] = useState(true);
   const [shared, setShared] = useState(false);
-  const [visited, setVisited] = useState(false); 
+  const [visited, setVisited] = useState(false);
   const [isShare, setIsShare] = useState(false);
   const [resultData, setResultData] = useState(null);
   const router = useRouter();
@@ -60,17 +60,17 @@ export default function Results() {
 
   useEffect(() => {
     const { mbti } = router.query;
-    
+
     if (mbti) {
       axios.post('https://api.patkid.kr/user/result', {
-        mbti : mbti
+        mbti: mbti
       })
-      .then((response) => {
-        setResultData(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching result data:', error);
-      });
+        .then((response) => {
+          setResultData(response.data);
+        })
+        .catch((error) => {
+          console.error('Error fetching result data:', error);
+        });
     }
     console.log(mbti)
   }, [router.query.mbti]);
@@ -110,114 +110,123 @@ export default function Results() {
       document.head.appendChild(script);
     }
   }, [resultData]);
-    // 지도 URL 가져오기
-    const handleMapClick = () => {
-      if (resultData && resultData.data && resultData.data.result.place.naverUrl) {
-        window.location.href = resultData.data.result.place.naverUrl;
-      }
-    };
+  // 지도 URL 가져오기
+  const handleMapClick = () => {
+    if (resultData && resultData.data && resultData.data.result.place.naverUrl) {
+      window.location.href = resultData.data.result.place.naverUrl;
+    }
+  };
 
-    //카카오톡 공유하기
-    useEffect(() => {
-      if (!Kakao.isInitialized()) { 
-        Kakao.init('dc448d19d55ef2f3302fceaacee793ea');
-      }
-    }, []);
+  //카카오톡 공유하기
+  useEffect(() => {
+    if (!Kakao.isInitialized()) {
+      Kakao.init('dc448d19d55ef2f3302fceaacee793ea');
+    }
+  }, []);
 
   if (!resultData) {
     return <LoadingPage />;
- }
+  }
 
- if (resultData && resultData.data && resultData.data.result.place) {
-  const { name, description, imageUrl, naverUrl } = resultData.data.result.place;
+  if (resultData && resultData.data && resultData.data.result.place) {
+    const { name, description, imageUrl, naverUrl } = resultData.data.result.place;
 
-  return (
-    <div className={`wrapper ${shared ? 'shared' : ''}`}>
-    <section className='result_layout'>
-    <div>
-    <img src='/background_h_2.png' className='result_layout'/>
-    <img src='/background_h_2_2.png' className='result_layout layout2'/>
-    <img src='/background_h_2_3.png' className='result_layout layout3'/>
-    </div>
-    {resultData && resultData.data && (
-      <>
-      <div className="result">
-        <img src='/i_box.png'/>
-        <p>{resultData.data.result.name}</p>
-        <img src='/tooltip.png' className={showImage ? 'tooltip-show' : 'tooltip-hide'} />
-        <img src='/dice.png'/>
-        <div className='spot_img'>
-          <img src={resultData.data.result.place.imageUrl}/>
-        </div>
-        <div className='tag'>
-            <div className='tag1'>
-              <p className='isaText hashtag'>#{resultData.data.result.place.tags[0].tag}</p>
-            </div>
-            <div className='tag2'>
-              <p className='isaText hashtag tag2'>#{resultData.data.result.place.tags[1].tag}</p>
-            </div>
-            <div className='tag3'>
-              <p className='isaText hashtag tag3'>#{resultData.data.result.place.tags[2].tag}</p>
-            </div>
-        </div>
-        <img src='/box.png'/>
-        <div className='box_text'>{resultData.data.result.place.content}</div>
-      </div>
-      <div className="location">
-        <img src='/location.png'/>
-        <p>위치를 알려줄게!</p>
-        <img src='/box_stroke.png' id="cross"></img> 
-        <div className='map' id='map' onClick={handleMapClick}></div>
-      </div>
-      <div className="hot_spot">
-        <img src='/hotspot.png'/>
-        <p>가장 많은 선택을 받은 핫스팟</p>
-        <div className='hot_spotImg1' onClick={openModal}>
-        {ModalOpen && <Modal setModalOpen={setModalOpen} />}
-        <img src='/box_stroke.png'/>
-        </div>
-        <div className='hot_spotImg2' onClick={openModal}>
-        {ModalOpen && <Modal setModalOpen={setModalOpen} />}
-          <img src='/box_stroke.png'/>
-        </div>
-        <div className='hot_spotImg3' onClick={openModal}>
-        {ModalOpen && <Modal setModalOpen={setModalOpen} />}
-          <img src='/box_stroke.png'/>
-        </div>
-      </div>
-      <div className="visit">
-      <img src='/go.png'/>
-      <p>펫키드 팀을 더 알고 싶다면</p>
-      <Link href="https://www.notion.so/PATKID-b28bf7de62bb4e95919b5dca4e8c08ec?pvs=4" target='_blank'>
-      <img className="visitImg" src='/visit.png'/>
-      <p className="visitP" >펫키드 팀 페이지 방문하기</p>
-      </Link>
-      </div>
-      </>
-    )}
-      </section>
-      <footer>
-        {visited ? (
-          <Link href="/">
-            <img className='footer_share' src='/share_button2.png' />
-          </Link>
-        ) : (
-          <>
-      <KakaoShareButton
-        description={description}
-        imageUrl={imageUrl}
-        mobileWebUrl={naverUrl}
-        webUrl={naverUrl}
-      />
+    return (
+      <div className={`wrapper ${shared ? 'shared' : ''}`}>
+        <section className='result_layout'>
+          <div>
+            <img src='/background_h_2.png' className='result_layout' />
+            <img src='/background_h_2_2.png' className='result_layout layout2' />
+            <img src='/background_h_2_3.png' className='result_layout layout3' />
+          </div>
+          {resultData && resultData.data && (
+            <>
+              <div className="result">
+                <img src='/i_box.png' />
+                <p>{resultData.data.result.name}</p>
+                <img src='/tooltip.png' className={showImage ? 'tooltip-show' : 'tooltip-hide'} />
+                <img src='/dice.png' />
+                <div className='spot_img'>
+                  <img src={resultData.data.result.place.imageUrl} />
+                </div>
+                <div className='tag'>
+                  <div className='tag1'>
+                    <p className='isaText hashtag'>#{resultData.data.result.place.tags[0].tag}</p>
+                  </div>
+                  <div className='tag2'>
+                    <p className='isaText hashtag tag2'>#{resultData.data.result.place.tags[1].tag}</p>
+                  </div>
+                  <div className='tag3'>
+                    <p className='isaText hashtag tag3'>#{resultData.data.result.place.tags[2].tag}</p>
+                  </div>
+                </div>
+                <img src='/box.png' />
+                <div className='box_text'>
+                  {resultData.data.result.place.content.split('\n').map((v, index, array) => (
+                    <li key={index} style={{ marginBottom: index !== array.length - 1 ? '30px' : '0' }}>
+                      {v}
+                    </li>
+                  ))}
+                </div>
+              </div>
+              <div className="location">
+                <img src='/location.png' />
+                <p>위치를 알려줄게!</p>
+                <img src='/box_stroke.png' id="cross"></img>
+                <div className='map' id='map' onClick={handleMapClick}></div>
+              </div>
+              <div className="hot_spot">
+                <img src='/hotspot.png' />
+                <p>가장 많은 선택을 받은 핫스팟</p>
+                <div className='hot_spotImg1' onClick={openModal}>
+                  <img class='hot_spot_image' src={resultData.data.hotPlace[0].imageUrl} />
+                  {ModalOpen && <Modal setModalOpen={setModalOpen} />}
+                  <img src='/box_stroke.png' />
+                </div>
+                <div className='hot_spotImg2' onClick={openModal}>
+                  <img class='hot_spot_image' src={resultData.data.hotPlace[1].imageUrl} />
+                  {ModalOpen && <Modal setModalOpen={setModalOpen} />}
+                  <img src='/box_stroke.png' />
+                </div>
+                <div className='hot_spotImg3' onClick={openModal}>
+                  <img class='hot_spot_image' src={resultData.data.hotPlace[2].imageUrl} />
+                  {ModalOpen && <Modal setModalOpen={setModalOpen} />}
+                  <img src='/box_stroke.png' />
+                </div>
+              </div>
+              <div className="visit">
+                <img src='/go.png' />
+                <p>펫키드 팀을 더 알고 싶다면</p>
+                <Link href="https://www.notion.so/PATKID-b28bf7de62bb4e95919b5dca4e8c08ec?pvs=4" target='_blank'>
+                  <img className="visitImg" src='/visit.png' />
+                  <p className="visitP" >펫키드 팀 페이지 방문하기</p>
+                </Link>
+              </div>
+            </>
+          )}
+        </section>
+        <footer>
+          {visited ? (
             <Link href="/">
-              <img className='footer_right' src='/restart_btn.png' />
+              <img className='footer_share' src='/share_button2.png' />
             </Link>
-          </>
-        )}
-      </footer>
+          ) : (
+            <>
+              <KakaoShareButton
+                description={description}
+                imageUrl={imageUrl}
+                mobileWebUrl={naverUrl}
+                webUrl={naverUrl}
+              />
+              <Link href="/">
+                <img className='footer_right' src='/restart_btn.png' />
+              </Link>
+            </>
+          )}
+        </footer>
 
-  
-    <style jsx>{`
+
+        <style jsx>{`
 
       .wrapper{
         position: relative;
@@ -263,9 +272,9 @@ export default function Results() {
         left: calc(50% - 290px/2);
 
         font-weight: 400;
-        font-size: 38px;
         line-height: 41px;
         color: #000000;
+        font-size: 38px;
       }
       .result > p:nth-of-type(2){
         position: absolute;
@@ -421,21 +430,54 @@ export default function Results() {
         font-size: 32px;
         color: #000000;
       }
-      .hot_spotImg1 img{
+      .hot_spotImg1 > img:nth-of-type(1){
+        position: absolute;
+        width: 452px;
+        height: 226px;
+        left: calc(50% - 452px/2);
+        top: 1376px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        object-fit: cover;
+      }
+      .hot_spotImg2 > img:nth-of-type(1){
+        position: absolute;
+        width: 452px;
+        height: 226px;
+        left: calc(50% - 452px/2);
+        top: 1642px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        object-fit: cover;
+      }
+      .hot_spotImg3 > img:nth-of-type(1){
+        position: absolute;
+        width: 452px;
+        height: 226px;
+        left: calc(50% - 452px/2);
+        top: 1908px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        object-fit: cover;
+      }
+      .hot_spotImg1 > img:nth-of-type(2){
         position: absolute;
         width: 468px;
         height: 242px;
         left: calc(50% - 468px/2);
         top: 1368px;
       }
-      .hot_spotImg2 img{
+      .hot_spotImg2 > img:nth-of-type(2){
         position: absolute;
         width: 468px;
         height: 242px;
         left: calc(50% - 468px/2);
         top: 1634px;
       }
-      .hot_spotImg3 img{
+      .hot_spotImg3 > img:nth-of-type(2){
         position: absolute;
         width: 468px;
         height: 242px;
@@ -511,11 +553,10 @@ export default function Results() {
         left: 17px;
         top: 2427px;
       }
-      
     `}
 
-    
-      </style>
+
+        </style>
       </div>
 
     )
