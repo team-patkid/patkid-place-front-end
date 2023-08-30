@@ -22,8 +22,6 @@ export default function Home() {
   const handleClick = () => {
     setIsClicked(true);
 
-    setVisitorCount(prevCount => prevCount + 1);
-   
     setTimeout(() => {
       window.location.href = '/questions';
     }, 300); //0.3s뒤 페이지이동
