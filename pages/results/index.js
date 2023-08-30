@@ -7,12 +7,12 @@ import LoadingPage from "../../components/LoadingPage";
 import KakaoShareButton from "@/components/KakaoShare";
 
 export default function Results() {
-  const [ModalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpenIndex, setModalOpenIndex] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showImage, setShowImage] = useState(true);
   const [shared, setShared] = useState(false);
   const [visited, setVisited] = useState(false);
-  const [isShare, setIsShare] = useState(false);
   const [resultData, setResultData] = useState(null);
   const router = useRouter();
 
@@ -36,8 +36,9 @@ export default function Results() {
     }
   }, [loading]);
 
-  const openModal = (openState) => () => {
+  const openModal = (openState, index) => () => {
     setModalOpen(openState);
+    setModalOpenIndex(index);
   };
 
   const handleShare = () => {
@@ -214,13 +215,15 @@ export default function Results() {
                   <Fragment key={`hotspot-${index}`}>
                     <div
                       className={`hot_spotImg${index + 1}`}
-                      onClick={openModal(true)}
+                      onClick={openModal(true, index)}
                     >
                       <img class="hot_spot_image" src={item.imageUrl} />
 
                       <img src="/box_stroke.png" />
                     </div>
-                    {ModalOpen && <Modal handleOpen={openModal} data={item} />}
+                    {modalOpen && index === modalOpenIndex && (
+                      <Modal handleOpen={openModal} data={item} index={index} />
+                    )}
                   </Fragment>
                 ))}
               </div>
