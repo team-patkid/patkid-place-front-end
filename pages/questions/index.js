@@ -85,7 +85,7 @@ const ProgressBar = ({ currentNumber }) => {
 
 export default function Questions() {
   const [currentNumber, setCurrentNumber] = useState(0);
-  const [mbtiList, setMbtiList] = useState([]);
+  const [mbtiList, setMbtiList] = useState({ EI: [], NS: [], FT: [], PJ: [] });
   const [questionsData, setQuestionsData] = useState([]);  // 질문 데이터를 저장할 상태 변수
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -120,8 +120,14 @@ export default function Questions() {
   const nextQuestion = (choiceNumber) => { 
     const isLastQuestion = currentNumber === questionsData.data.total - 1;
     const selectedChoice = questionsData.data.list[currentNumber]?.questionSub[choiceNumber].type;
-    setMbtiList((prevList) => [...prevList, selectedChoice]);
-  
+    
+    setMbtiList((prevState) => {
+      return {
+        ...prevState,
+        [questionsData.data.list[currentNumber].type]: [...(prevState[questionsData.data.list[currentNumber].type]), selectedChoice],
+      };
+    });
+
     if (isLastQuestion) {
       showResultPage(choiceNumber); 
     } else {
@@ -131,25 +137,47 @@ export default function Questions() {
   
   const showResultPage = (choiceNumber) => { 
     const lastChoiceType = questionsData.data.list[currentNumber].questionSub[choiceNumber].type;
-    const updatedMbtiList = [...mbtiList, lastChoiceType];
-  
+    const updatedMbtiList = {
+      ...mbtiList,
+      [questionsData.data.list[currentNumber].type]: [...(mbtiList[questionsData.data.list[currentNumber].type]), lastChoiceType],
+    };
+
     setMbtiList(updatedMbtiList);
 
-    const groupedMbti = [];
-    for (let i = 0; i < updatedMbtiList.length; i += 3) {
-      groupedMbti.push(updatedMbtiList.slice(i, i + 3));
+    const mbtiCount = {
+      "EI": {
+        'E': 0,
+        'I': 0,
+      },
+      "NS": {
+        'N': 0,
+        'S': 0,
+      },
+      "FT": {
+        'F': 0,
+        'T': 0,
+      },
+      "PJ": {
+        'P': 0,
+        'J': 0,
+      },
     }
+    
+
+    for (const key of Object.keys(mbtiList)){
+      for (const value of mbtiList[key]) {
+          mbtiCount[key][value] += 1
+      } 
+    }
+
+    let mbtiQueryString = '';
+
+    for (const value in mbtiCount) {
+      const type = mbtiCount[value];
+      const resultType = Object.keys(type).reduce((a, b) => type[a] > type[b] ? a : b);
+      mbtiQueryString += resultType;
+    }  
   
-    const mbtiCounts = {};
-    updatedMbtiList.forEach((mbti) => {
-      mbtiCounts[mbti] = (mbtiCounts[mbti] || 0) + 1;
-    });
-  
-    const mostFrequentMbti = Object.keys(mbtiCounts).sort((a, b) => mbtiCounts[b] - mbtiCounts[a]).slice(0, 4);
-  
-    const resultMbtiList = mostFrequentMbti;
-  
-    const mbtiQueryString = resultMbtiList.map(mbti => `${mbti}`).join('');
     router.push(`/results?mbti=${mbtiQueryString}`);
   };
   
