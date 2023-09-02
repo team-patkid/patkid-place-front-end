@@ -6,6 +6,8 @@ import Modal from "../../components/Modal";
 import LoadingPage from "../../components/LoadingPage";
 import KakaoShareButton from "@/components/KakaoShare";
 
+
+
 export default function Results() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalOpenIndex, setModalOpenIndex] = useState(null);
@@ -112,6 +114,30 @@ export default function Results() {
       document.head.appendChild(script);
     }
   }, [resultData]);
+
+  //폰트크기 유동적 조절
+  const calculateFontSize = () => {
+    const containerWidth = 290; 
+    const desiredFontSize = 38; 
+
+    if (!resultData || !resultData.data || !resultData.data.result || !resultData.data.result.name) {
+      return desiredFontSize;
+    }
+
+    const fontSize = Math.min(
+      desiredFontSize,
+      (containerWidth / resultData.data.result.name.length) * 1.5
+    );
+    return fontSize;
+  };
+
+    const [fontSize, setFontSize] = useState(calculateFontSize());
+
+    useEffect(() => {
+      setFontSize(calculateFontSize());
+    }, [resultData]);
+
+
   // 지도 URL 가져오기
   const handleMapClick = () => {
     if (
@@ -135,8 +161,14 @@ export default function Results() {
   }
 
   if (resultData && resultData.data && resultData.data.result.place) {
-    const { name, description, imageUrl, naverUrl } =
-      resultData.data.result.place;
+    const { name, description, imageUrl, naverUrl } = resultData.data.result.place;
+    const tags = resultData.data.result.place.tags;
+
+    const combinedTags = tags.map((tag, index) => (
+      <span key={`tag-${index}`} className={`isaText hashtag marginR tag${index + 1}`}>
+        #{tag.tag}{' '}
+      </span>
+    ));
 
     return (
       <div className={`wrapper ${shared ? "shared" : ""}`}>
@@ -156,7 +188,7 @@ export default function Results() {
             <>
               <div className="result">
                 <img src="/i_box.png" />
-                <p>{resultData.data.result.name}</p>
+                <p style={{ fontSize: `${fontSize}px`, whiteSpace: 'nowrap' }}>{resultData?.data?.result?.name}</p>
                 <img
                   src="/tooltip.png"
                   className={showImage ? "tooltip-show" : "tooltip-hide"}
@@ -166,21 +198,7 @@ export default function Results() {
                   <img src={resultData.data.result.place.imageUrl} />
                 </div>
                 <div className="tag">
-                  <div className="tag1">
-                    <p className="isaText hashtag">
-                      #{resultData.data.result.place.tags[0].tag}
-                    </p>
-                  </div>
-                  <div className="tag2">
-                    <p className="isaText hashtag tag2">
-                      #{resultData.data.result.place.tags[1].tag}
-                    </p>
-                  </div>
-                  <div className="tag3">
-                    <p className="isaText hashtag tag3">
-                      #{resultData.data.result.place.tags[2].tag}
-                    </p>
-                  </div>
+                {combinedTags}
                 </div>
                 <img src="/box.png" />
                 <div className="box_text">
@@ -217,7 +235,7 @@ export default function Results() {
                       className={`hot_spotImg${index + 1}`}
                       onClick={openModal(true, index)}
                     >
-                      <img class="hot_spot_image" src={item.imageUrl} />
+                      <img className="hot_spot_image" src={item.imageUrl} />
 
                       <img src="/box_stroke.png" />
                     </div>
@@ -303,13 +321,14 @@ export default function Results() {
               position: absolute;
               width: 290px;
               height: 41px;
-              top: 112px;
-              left: calc(50% - 290px / 2);
+              top: 116px;
+              left: calc(50% - 310px / 2);
 
               font-weight: 400;
               line-height: 41px;
               color: #000000;
               font-size: 38px;
+              text-align:center;
             }
             .result > p:nth-of-type(2) {
               position: absolute;
@@ -358,34 +377,21 @@ export default function Results() {
               height: 100%;
               object-fit: cover;
             }
-            .tag1 p {
-              position: absolute;
-              width: 114px;
-              height: 17px;
-              left: 68px;
-              top: 537px;
-            }
-            .tag2 p {
-              position: absolute;
-              width: 114px;
-              height: 17px;
-              left: 182px;
-              top: 537px;
-            }
-            .tag3 p {
-              position: absolute;
-              width: 114px;
-              height: 17px;
-              left: 295px;
-              top: 537px;
-            }
-            .tag1 .underline {
-              position: absolute;
-              top: 543px;
-              width: 114px;
-              height: 11px;
-              background: #ffbdd7;
-            }
+            .tag {
+                  position: absolute;
+                  width: 360px;
+                  height: 24px;
+                  left: 68px;
+                  top: 540px;
+                  display: flex;
+                  flex-wrap: wrap;
+                }
+
+                .isaText.hashtag.tag1::after,
+                .isaText.hashtag.tag2::after,
+                .isaText.hashtag.tag3::after {
+                  content: ' ';
+                }
             .hashtag p {
               position: absolute;
               width: 100%;
@@ -408,11 +414,12 @@ export default function Results() {
               width: 397px;
               height: 180px;
               left: 52px;
-              top: 674px;
+              top: 670px;
               z-index: 999;
 
               font-weight: 500;
               font-size: 20px;
+              font-family: 'Pretendard';
             }
 
             .location > img:nth-of-type(1) {

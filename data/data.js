@@ -13,7 +13,7 @@ export const questions = [
   },
   { 
     img: [
-      {src: 'tiket.png', css: 'question3_img1'},
+      {src: 'ticket.png', css: 'question3_img1'},
       {src: 'effect_1.png', css: 'question3_img2'},
       {src: 'effect_2.png', css: 'question3_img3'},
       {src: 'effect_3.png', css: 'question3_img4'}
@@ -80,28 +80,3 @@ export const questions = [
   },
 ];
 
-export const results = [
-  {
-    title: '타이틀',
-  },
-
-];
-
-export const mbtis = {
-  entj: 0,
-  entp: 1,
-  estp: 2,
-  esfp: 3,
-  esfj: 4,
-  enfj: 5,
-  infp: 6,
-  isfp: 7,
-  isfj: 8,
-  infj: 9,
-  estj: 10,
-  istp: 11,
-  intj: 12,
-  intp: 13,
-  istj: 14,
-  enfp: 15
-};

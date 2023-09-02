@@ -32,6 +32,9 @@ p{
   font-style: normal;
   font-weight: 300;
 }
+.marginR{
+margin-right: 17px;
+}
 .preText{
   font-family: 'Pretendard-Regular';
   font-style: normal;
