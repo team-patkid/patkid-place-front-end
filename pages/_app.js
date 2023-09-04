@@ -18,6 +18,7 @@ export default function MyApp({ Component, pageProps }) {
           content="두근두근 핫스팟 테스트~ 나의 성향에 딱 맞는 요즘 핫스팟은 어디일까?"
         ></meta>
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+        <link rel="icon" href="/favicon.png"></link>
       </Head>
       <Component {...pageProps} />
     </>
