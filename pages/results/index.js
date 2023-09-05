@@ -571,7 +571,7 @@ export default function Results() {
               margin: 0 auto;
               height: 100px;
               background: ${shared ? "#FF448D" : "#000000"};
-              z-index: 99;
+              z-index: 999;
             }
 
             .footer_left {
