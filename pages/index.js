@@ -1,29 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import axios from 'axios';
+import axios from "axios";
 
 export default function Home() {
-
   const [isClicked, setIsClicked] = useState(false);
   const [visitorCount, setVisitorCount] = useState(0);
 
   useEffect(() => {
-    axios.get('https://api.patkid.kr/user/visit')
+    axios
+      .get("https://api.patkid.kr/user/visit")
       .then((response) => {
         setVisitorCount(response.data.data.count);
-        console.log(response.data.data.count)
+        console.log(response.data.data.count);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
   }, []);
 
-  
   const handleClick = () => {
     setIsClicked(true);
 
     setTimeout(() => {
-      window.location.href = '/questions';
+      window.location.href = "/questions";
     }, 300); //0.3s뒤 페이지이동
   };
 
@@ -41,43 +40,50 @@ export default function Home() {
 
   return (
     <div className="main_layout">
-      <img src='/background_h_1.png' className='main_layout'/>
+      <img src="/background_h_1.png" className="main_layout" />
       <div className="main_layout_icon">
-        <img src="/coffee.png"/>
-        <img src="/heart_1.png"/>
-        <img src="/music.png"/>
-        <img src="/cake.png"/>
-        <img src="/heart_2.png"/>
-        <img src="/book.png"/>
+        <img src="/coffee.png" />
+        <img src="/heart_1.png" />
+        <img src="/music.png" />
+        <img src="/cake.png" />
+        <img src="/heart_2.png" />
+        <img src="/book.png" />
       </div>
-      <img src="/title.png" className='main_title'/>
-      <p className='isaText'>나의 성향에 딱 맞는 요즘 핫스팟은 어디일까?</p>
+      <img src="/title.png" className="main_title" />
+      <p className="isaText">나의 성향에 딱 맞는 요즘 핫스팟은 어디일까?</p>
       <Link href="/questions" legacyBehavior>
         <a>
-        <div
+          <div
             onClick={handleClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className={`isClicked ${isClicked ? 'clicked' : ''}`}
+            className={`isClicked ${isClicked ? "clicked" : ""}`}
           >
-        {isClicked ? (
-                        <img src="/start_btn_click.png" className="main_start_btn btn_click" alt="Clicked Button" />
-                      ) : (
-                        <img src="/start_btn.png" className="main_start_btn" alt="Button" />
-                      )}
-        <div className='start_btn'>
-        <p>시작하기</p>
-        <p className='isaText'>참여자 수 {visitorCount}</p>
-      </div>
-      </div>
-      </a>
+            {isClicked ? (
+              <img
+                src="/start_btn_click.png"
+                className="main_start_btn btn_click"
+                alt="Clicked Button"
+              />
+            ) : (
+              <img
+                src="/start_btn.png"
+                className="main_start_btn"
+                alt="Button"
+              />
+            )}
+            <div className="start_btn">
+              <p>시작하기</p>
+              <p className="isaText">참여자 수 {visitorCount}</p>
+            </div>
+          </div>
+        </a>
       </Link>
-      <img src='/logo_patKid.png' className='main_logo'/>
-
+      <img src="/logo_patKid.png" className="main_logo" />
 
       <style jsx>{`
-      @keyframes clickAnimation {
-        0% {
+        @keyframes clickAnimation {
+          0% {
             transform: scale(1);
           }
           50% {
@@ -94,17 +100,17 @@ export default function Home() {
           25% {
             top: 218px;
           }
-          50%{
+          50% {
             top: 212px;
           }
           75% {
             top: 218px;
           }
           100% {
-             top: 224px;
+            top: 224px;
           }
-      }
-          
+        }
+
         @keyframes sixAnimation {
           0% {
             transform: rotate(0deg);
@@ -120,9 +126,9 @@ export default function Home() {
           }
           100% {
             transform: rotate(0deg);
+          }
         }
-        }
-          @keyframes tenAnimation {
+        @keyframes tenAnimation {
           0% {
             transform: rotate(0deg);
           }
@@ -139,18 +145,18 @@ export default function Home() {
             transform: rotate(0deg);
           }
         }
-        *{
+        * {
           box-sizing: border-box;
         }
-        .main_layout{
+        .main_layout {
           position: relative;
           position: center;
-          margin-left:auto;
-          margin-right:auto;
+          margin-left: auto;
+          margin-right: auto;
           width: 500px;
           height: 1081px;
         }
-        .main_title{
+        .main_title {
           position: absolute;
           width: 418px;
           height: 411px;
@@ -158,14 +164,14 @@ export default function Home() {
           top: 224px;
           animation: titleAnimation 650ms infinite;
         }
-        .main_layout_icon{
+        .main_layout_icon {
           position: absolute;
           width: 500px;
           height: 1081px;
           left: 0px;
           top: 0px;
         }
-        .main_layout_icon > img:nth-of-type(1){
+        .main_layout_icon > img:nth-of-type(1) {
           position: absolute;
           width: 142px;
           height: 140px;
@@ -173,22 +179,22 @@ export default function Home() {
           top: 57px;
           animation: sixAnimation 650ms infinite;
         }
-        .main_layout_icon > img:nth-of-type(2){
+        .main_layout_icon > img:nth-of-type(2) {
           position: absolute;
           width: 43px;
           height: 41px;
           left: 286px;
           top: 80px;
         }
-        .main_layout_icon > img:nth-of-type(3){
-        position: absolute;
-        width: 118px;
-        height: 112px;
-        left: 350px;
-        top: 103px;
-        animation: tenAnimation 650ms infinite;
+        .main_layout_icon > img:nth-of-type(3) {
+          position: absolute;
+          width: 118px;
+          height: 112px;
+          left: 350px;
+          top: 103px;
+          animation: tenAnimation 650ms infinite;
         }
-        .main_layout_icon > img:nth-of-type(4){
+        .main_layout_icon > img:nth-of-type(4) {
           position: absolute;
           width: 86px;
           height: 128px;
@@ -196,14 +202,14 @@ export default function Home() {
           top: 523px;
           animation: sixAnimation 650ms infinite;
         }
-        .main_layout_icon > img:nth-of-type(5){
+        .main_layout_icon > img:nth-of-type(5) {
           position: absolute;
           width: 47px;
           height: 45px;
           left: 433px;
           top: 549px;
         }
-        .main_layout_icon > img:nth-of-type(6){
+        .main_layout_icon > img:nth-of-type(6) {
           position: absolute;
           width: 99px;
           height: 90px;
@@ -211,65 +217,64 @@ export default function Home() {
           top: 658px;
           animation: sixAnimation 650ms infinite;
         }
-        .main_layout p{
+        .main_layout p {
           position: absolute;
           width: 318.86px;
           height: 22px;
-          top: 658px;;
-          left: calc(50% - 318.86px/2);
+          top: 658px;
+          left: calc(50% - 318.86px / 2);
           font-weight: 300;
           font-size: 17px;
           line-height: 22px;
           color: #363636;
         }
-        .main_start_btn{
-        position: absolute;
-        width: 462px;
-        height: 104px;
-        left: 19px;
-        top: 797px;
-        cursor: pointer;
-        transition: background-color 0.7s ease;
+        .main_start_btn {
+          position: absolute;
+          width: 462px;
+          height: 104px;
+          left: 19px;
+          top: 757px;
+          cursor: pointer;
+          transition: background-color 0.7s ease;
         }
-        .btn_click{
+        .btn_click {
           animation: clickAnimation 0.5s linear;
           animation-delay: 0.1s;
         }
-        .main_logo{
+        .main_logo {
           position: absolute;
           width: 103px;
           height: 33px;
-          left: calc(50% - 103px/2 + 0.5px);
-          top: 924px;
+          left: calc(50% - 103px / 2 + 0.5px);
+          top: 884px;
         }
-        .start_btn > p:nth-of-type(1){
+        .start_btn > p:nth-of-type(1) {
           position: absolute;
           width: 133px;
           height: 44px;
-          left: calc(50% - 133px/2 + 0.5px);
-          top: 814px;
+          left: calc(50% - 133px / 2 + 0.5px);
+          top: 774px;
           margin: 0px auto;
 
           font-weight: 400;
           font-size: 41px;
           line-height: 44px;
-          color: #FFFFFF;
+          color: #ffffff;
         }
-        .start_btn > p:nth-of-type(2){
+        .start_btn > p:nth-of-type(2) {
           position: absolute;
           width: 209px;
           height: 20px;
-          left: calc(50% - 100px/2 + 0.5px);
-          top: 865px;
+          left: calc(50% - 100px / 2 + 0.5px);
+          top: 825px;
           margin: 0px auto;
 
           font-weight: 300;
           font-size: 17px;
           line-height: 20px;
-          color: #FFFFFF;
+          color: #ffffff;
         }
-        `}</style>
+      `}</style>
     </div>
-  )
+  );
 }
-
