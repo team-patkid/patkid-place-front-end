@@ -324,21 +324,21 @@ export default function Questions() {
           width: 466px;
           height: 34px;
           left: calc(50% - 466px / 2);
-          top: 118px;
+          top: 88px;
         }
         .question img:nth-of-type(1) {
           position: absolute;
           width: 466px;
           height: 490px;
           left: calc(50% - 466px / 2);
-          top: 182px;
+          top: 152px;
         }
         .questions > p:nth-of-type(1) {
           position: absolute;
           width: 57px;
           height: 23px;
           left: calc(50% - 57px / 2 + 0.5px);
-          top: 199px;
+          top: 169px;
           font-weight: 400;
           font-size: 21px;
           line-height: 23px;
@@ -349,7 +349,7 @@ export default function Questions() {
           width: 341px;
           height: 50px;
           left: calc(50% - 341px / 2);
-          top: 578px;
+          top: 548px;
           font-weight: 400;
           font-size: 24px;
           line-height: 26px;
@@ -361,14 +361,14 @@ export default function Questions() {
           height: 105px;
           position: absolute;
           left: 17px;
-          top: 774px;
+          top: 684px;
         }
         .choice2 {
           width: 466px;
           height: 105px;
           position: absolute;
           left: 17px;
-          top: 902px;
+          top: 802px;
         }
         .choice1_answer1 {
           position: absolute;
