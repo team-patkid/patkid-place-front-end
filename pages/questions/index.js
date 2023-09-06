@@ -304,17 +304,17 @@ export default function Questions() {
           width: 12px;
           height: 25px;
           left: 31px;
-          top: 70px;
+          top: 43px;
         }
         .title p {
           position: absolute;
-          width: 132px;
+          width: 200px;
           height: 28px;
-          left: calc(50% - 132px / 2);
+          left: calc(50% - 185px / 2);
           top: 43px;
           font-style: normal;
           font-weight: 400;
-          font-size: 26px;
+          font-size: 32px;
           line-height: 28px;
           text-align: center;
           color: #000000;

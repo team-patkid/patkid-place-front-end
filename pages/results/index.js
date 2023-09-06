@@ -6,8 +6,6 @@ import Modal from "../../components/Modal";
 import LoadingPage from "../../components/LoadingPage";
 import KakaoShareButton from "@/components/KakaoShare";
 
-
-
 export default function Results() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalOpenIndex, setModalOpenIndex] = useState(null);
@@ -117,10 +115,15 @@ export default function Results() {
 
   //폰트크기 유동적 조절
   const calculateFontSize = () => {
-    const containerWidth = 290; 
-    const desiredFontSize = 38; 
+    const containerWidth = 290;
+    const desiredFontSize = 38;
 
-    if (!resultData || !resultData.data || !resultData.data.result || !resultData.data.result.name) {
+    if (
+      !resultData ||
+      !resultData.data ||
+      !resultData.data.result ||
+      !resultData.data.result.name
+    ) {
       return desiredFontSize;
     }
 
@@ -131,12 +134,11 @@ export default function Results() {
     return fontSize;
   };
 
-    const [fontSize, setFontSize] = useState(calculateFontSize());
+  const [fontSize, setFontSize] = useState(calculateFontSize());
 
-    useEffect(() => {
-      setFontSize(calculateFontSize());
-    }, [resultData]);
-
+  useEffect(() => {
+    setFontSize(calculateFontSize());
+  }, [resultData]);
 
   // 지도 URL 가져오기
   const handleMapClick = () => {
@@ -161,12 +163,16 @@ export default function Results() {
   }
 
   if (resultData && resultData.data && resultData.data.result.place) {
-    const { name, description, imageUrl, naverUrl } = resultData.data.result.place;
+    const { name, description, imageUrl, naverUrl } =
+      resultData.data.result.place;
     const tags = resultData.data.result.place.tags;
 
     const combinedTags = tags.map((tag, index) => (
-      <span key={`tag-${index}`} className={`isaText hashtag marginR tag${index + 1}`}>
-        #{tag.tag}{' '}
+      <span
+        key={`tag-${index}`}
+        className={`isaText hashtag marginR tag${index + 1}`}
+      >
+        #{tag.tag}{" "}
       </span>
     ));
 
@@ -188,7 +194,9 @@ export default function Results() {
             <>
               <div className="result">
                 <img src="/i_box.png" />
-                <p style={{ fontSize: `${fontSize}px`, whiteSpace: 'nowrap' }}>{resultData?.data?.result?.name}</p>
+                <p style={{ fontSize: `${fontSize}px`, whiteSpace: "nowrap" }}>
+                  {resultData?.data?.result?.name}
+                </p>
                 <img
                   src="/tooltip.png"
                   className={showImage ? "tooltip-show" : "tooltip-hide"}
@@ -197,9 +205,7 @@ export default function Results() {
                 <div className="spot_img">
                   <img src={resultData.data.result.place.imageUrl} />
                 </div>
-                <div className="tag">
-                {combinedTags}
-                </div>
+                <div className="tag">{combinedTags}</div>
                 <img src="/box.png" />
                 <div className="box_text">
                   {resultData.data.result.place.content
@@ -247,13 +253,13 @@ export default function Results() {
               </div>
               <div className="visit">
                 <img src="/go.png" />
-                <p>펫키드 팀을 더 알고 싶다면</p>
+                <p>PATKID 팀을 더 알고 싶다면</p>
                 <Link
                   href="https://www.notion.so/PATKID-b28bf7de62bb4e95919b5dca4e8c08ec?pvs=4"
                   target="_blank"
                 >
                   <img className="visitImg" src="/visit.png" />
-                  <p className="visitP">펫키드 팀 페이지 방문하기</p>
+                  <p className="visitP">PATKID 팀 페이지 방문하기</p>
                 </Link>
               </div>
             </>
@@ -328,7 +334,7 @@ export default function Results() {
               line-height: 41px;
               color: #000000;
               font-size: 38px;
-              text-align:center;
+              text-align: center;
             }
             .result > p:nth-of-type(2) {
               position: absolute;
@@ -378,20 +384,20 @@ export default function Results() {
               object-fit: cover;
             }
             .tag {
-                  position: absolute;
-                  width: 360px;
-                  height: 24px;
-                  left: 68px;
-                  top: 540px;
-                  display: flex;
-                  flex-wrap: wrap;
-                }
+              position: absolute;
+              width: 360px;
+              height: 24px;
+              left: 68px;
+              top: 540px;
+              display: flex;
+              flex-wrap: wrap;
+            }
 
-                .isaText.hashtag.tag1::after,
-                .isaText.hashtag.tag2::after,
-                .isaText.hashtag.tag3::after {
-                  content: ' ';
-                }
+            .isaText.hashtag.tag1::after,
+            .isaText.hashtag.tag2::after,
+            .isaText.hashtag.tag3::after {
+              content: " ";
+            }
             .hashtag p {
               position: absolute;
               width: 100%;
@@ -419,7 +425,7 @@ export default function Results() {
 
               font-weight: 500;
               font-size: 20px;
-              font-family: 'Pretendard';
+              font-family: "Pretendard";
             }
 
             .location > img:nth-of-type(1) {
@@ -458,14 +464,14 @@ export default function Results() {
               position: absolute;
               width: 27px;
               height: 31px;
-              top: 1307px;
+              top: 1315px;
               left: 17px;
             }
             .hot_spot p {
               position: absolute;
               width: 337px;
               height: 18px;
-              left: 62px;
+              left: 50px;
               top: 1317px;
 
               font-weight: 400;
@@ -541,7 +547,7 @@ export default function Results() {
               left: 62px;
               top: 2205px;
               font-weight: 400;
-              font-size: 32px;
+              font-size: 28px;
 
               color: #000000;
             }
@@ -554,15 +560,13 @@ export default function Results() {
             }
             .visitP {
               position: absolute;
-              width: 246px;
+              width: 291px;
               height: 28px;
-              left: calc(50% - 246px / 2);
+              left: calc(50% - 270px / 2);
               top: 2304px;
-
               font-weight: 400;
-              font-size: 26px;
-
-              color: #000000;
+              font-size: 25px;
+              color: #000;
             }
             footer {
               position: fixed;
