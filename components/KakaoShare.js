@@ -1,6 +1,6 @@
 import React from "react";
 
-const KakaoShareButton = ({}) => {
+const KakaoShareButton = ({description,imageUrl,mobileWebUrl,webUrl,mbti}) => {
   const kakaoShare = () => {
     Kakao.Link.sendDefault({
       objectType: "feed",
@@ -9,16 +9,16 @@ const KakaoShareButton = ({}) => {
         description: "나의 성향에 딱 맞는 요즘 핫스팟은 어디일까?",
         imageUrl: "https://image.patkid.kr/common/kakao_share_thum.png",
         link: {
-          mobileWebUrl: "카카오공유하기 시 클릭 후 이동 경로",
-          webUrl: "카카오공유하기 시 클릭 후 이동 경로",
+          mobileWebUrl: `http://localhost:3000/results?mbti=${mbti}&shared=true`,
+          webUrl: `http://localhost:3000/results?mbti=${mbti}&shared=true`,
         },
       },
       buttons: [
         {
-          title: "테스트 하러 가기",
+          title: "우리 핫플 찾고 데이트 갈래?💖",
           link: {
-            mobileWebUrl: "카카오공유하기 시 클릭 후 이동 경로",
-            webUrl: "카카오공유하기 시 클릭 후 이동 경로",
+            mobileWebUrl: `http://localhost:3000/results?mbti=${mbti}&shared=true`,
+            webUrl: `http://localhost:3000/results?mbti=${mbti}&shared=true`,
           },
         },
       ],

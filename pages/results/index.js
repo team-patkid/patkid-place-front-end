@@ -41,16 +41,21 @@ export default function Results() {
     setModalOpenIndex(index);
   };
 
-  const handleShare = () => {
-    setShared(true);
-  };
+  // const handleShare = () => {
+  //   setShared(true);
+  // };
 
-  useEffect(() => {
-    // URL을 통해 방문 여부 확인
-    if (window.location.href.includes("/results?shared=true")) {
-      setVisited(true);
-    }
-  }, []);
+      // URL을 통해 파라미터 읽기
+      useEffect(() => {
+        const queryParams = new URLSearchParams(window.location.search);
+        const sharedParam = queryParams.get("shared");
+      
+        if (sharedParam === "true") {
+          setVisited(true);
+        } else {
+          setVisited(false);
+        }
+      }, []);
 
   useEffect(() => {
     const { mbti } = router.query;
@@ -71,16 +76,16 @@ export default function Results() {
   }, [router.query.mbti]);
 
   //지도 api
-  useEffect(() => {
-    axios
-      .get("https://api.patkid.kr/user/result")
-      .then((response) => {
-        setResultData(response.data.data.result);
-      })
-      .catch((error) => {
-        console.error("Error fetching result data:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("https://api.patkid.kr/user/result")
+  //     .then((response) => {
+  //       setResultData(response.data.data.result);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching result data:", error);
+  //     });
+  // }, []);
 
   useEffect(() => {
     if (resultData) {
@@ -175,6 +180,7 @@ export default function Results() {
         #{tag.tag}{" "}
       </span>
     ));
+
 
     return (
       <div className={`wrapper ${shared ? "shared" : ""}`}>
@@ -277,6 +283,7 @@ export default function Results() {
                 imageUrl={imageUrl}
                 mobileWebUrl={naverUrl}
                 webUrl={naverUrl}
+                mbti={router.query.mbti}
               />
               <Link href="/">
                 <img className="footer_right" src="/restart_btn.png" />
@@ -574,10 +581,9 @@ export default function Results() {
               width: 500px;
               margin: 0 auto;
               height: 100px;
-              background: ${shared ? "#FF448D" : "#000000"};
+              background: ${visited ? "#FF448D" : "#000000"};
               z-index: 999;
             }
-
             .footer_left {
               position: absolute;
               width: 344px;
@@ -597,7 +603,7 @@ export default function Results() {
               width: 466px;
               height: 67px;
               left: 17px;
-              top: 2427px;
+              top: 18px;
             }
           `}
         </style>
