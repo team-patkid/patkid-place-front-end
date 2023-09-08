@@ -9,16 +9,16 @@ const KakaoShareButton = ({description,imageUrl,mobileWebUrl,webUrl,mbti}) => {
         description: "나의 성향에 딱 맞는 요즘 핫스팟은 어디일까?",
         imageUrl: "https://image.patkid.kr/common/kakao_share_thum.png",
         link: {
-          mobileWebUrl: `http://localhost:3000/results?mbti=${mbti}&shared=true`,
-          webUrl: `http://localhost:3000/results?mbti=${mbti}&shared=true`,
+          mobileWebUrl: `https://place.patkid.kr/results?mbti=${mbti}&shared=true`,
+          webUrl: `https://place.patkid.kr/results?mbti=${mbti}&shared=true`,
         },
       },
       buttons: [
         {
           title: "우리 핫플 찾고 데이트 갈래?💖",
           link: {
-            mobileWebUrl: `http://localhost:3000/results?mbti=${mbti}&shared=true`,
-            webUrl: `http://localhost:3000/results?mbti=${mbti}&shared=true`,
+            mobileWebUrl: `https://place.patkid.kr/results?mbti=${mbti}&shared=true`,
+            webUrl: `https://place.patkid.kr/results?mbti=${mbti}&shared=true`,
           },
         },
       ],
