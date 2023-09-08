@@ -6,117 +6,93 @@ import Modal from "../../components/Modal";
 import LoadingPage from "../../components/LoadingPage";
 import KakaoShareButton from "@/components/KakaoShare";
 
-export default function Results() {
+export async function getServerSideProps(context) {
+  const { mbti } = context.query;
+
+  const response = await axios.post("https://api.patkid.kr/user/result", {
+    mbti: mbti,
+  });
+
+  return {
+    props: {
+      resultData: response.data,
+    },
+  };
+}
+
+const useTimeout = (callback, delay) => {
+  useEffect(() => {
+    const timeoutId = setTimeout(callback, delay);
+    return () => clearTimeout(timeoutId);
+  }, [callback, delay]);
+};
+
+export default function Results({resultData}) {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalOpenIndex, setModalOpenIndex] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [showImage, setShowImage] = useState(true);
   const [shared, setShared] = useState(false);
   const [visited, setVisited] = useState(false);
-  const [resultData, setResultData] = useState(null);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setLoading(false);
-    }, 2500);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!loading) {
-      const imageTimer = setTimeout(() => {
-        setShowImage(false);
-      }, 4000);
-
-      return () => clearTimeout(imageTimer);
+    if (resultData) { 
+      setTimeout(() => {
+        setIsLoading(false);
+    }, 1600); // Set loading to false when data is loaded
     }
-  }, [loading]);
+    }, [resultData]);
+
 
   const openModal = (openState, index) => () => {
     setModalOpen(openState);
     setModalOpenIndex(index);
   };
 
-  // const handleShare = () => {
-  //   setShared(true);
-  // };
 
       // URL을 통해 파라미터 읽기
       useEffect(() => {
-        const queryParams = new URLSearchParams(window.location.search);
-        const sharedParam = queryParams.get("shared");
+        const sharedParam = router.query.shared;
       
         if (sharedParam === "true") {
           setVisited(true);
         } else {
           setVisited(false);
         }
-      }, []);
+      }, [router.query]);
 
-  useEffect(() => {
-    const { mbti } = router.query;
-
-    if (mbti) {
-      axios
-        .post("https://api.patkid.kr/user/result", {
-          mbti: mbti,
-        })
-        .then((response) => {
-          setResultData(response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching result data:", error);
-        });
-    }
-    console.log(mbti);
-  }, [router.query.mbti]);
-
-  //지도 api
-  // useEffect(() => {
-  //   axios
-  //     .get("https://api.patkid.kr/user/result")
-  //     .then((response) => {
-  //       setResultData(response.data.data.result);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching result data:", error);
-  //     });
-  // }, []);
-
-  useEffect(() => {
-    if (resultData) {
-      const script = document.createElement("script");
-      script.src =
-        "https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ljyaizmmy4";
-      script.async = true;
-      script.onload = () => {
-        const mapOptions = {
-          center: new window.naver.maps.LatLng(
-            resultData.data.result.place.y,
-            resultData.data.result.place.x
-          ),
-          zoom: 15,
-        };
-
-        const map = new window.naver.maps.Map("map", mapOptions);
-
-        const markerOptions = {
-          position: new window.naver.maps.LatLng(
-            resultData.data.result.place.y,
-            resultData.data.result.place.x
-          ),
-          map: map,
-        };
-
-        const marker = new window.naver.maps.Marker(markerOptions);
-      };
-      document.head.appendChild(script);
-    }
-  }, [resultData]);
+      useEffect(() => {
+        if (resultData) {
+          const script = document.createElement("script");
+          script.src =
+            "https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ljyaizmmy4";
+          script.async = true;
+          script.onload = () => {
+            const mapOptions = {
+              center: new window.naver.maps.LatLng(
+                resultData.data.result.place.y,
+                resultData.data.result.place.x
+              ),
+              zoom: 15,
+            };
+    
+            const map = new window.naver.maps.Map("map", mapOptions);
+    
+            const markerOptions = {
+              position: new window.naver.maps.LatLng(
+                resultData.data.result.place.y,
+                resultData.data.result.place.x
+              ),
+              map: map,
+            };
+    
+            const marker = new window.naver.maps.Marker(markerOptions);
+          };
+          document.head.appendChild(script);
+        }
+      }, [resultData]);
+    
 
   //폰트크기 유동적 조절
   const calculateFontSize = () => {
@@ -145,7 +121,14 @@ export default function Results() {
     setFontSize(calculateFontSize());
   }, [resultData]);
 
-  // 지도 URL 가져오기
+    //카카오톡 공유하기
+  useEffect(() => {
+    if (!Kakao.isInitialized()) {
+      Kakao.init("dc448d19d55ef2f3302fceaacee793ea");
+    }
+  }, []);
+
+  // // 지도 URL 가져오기
   const handleMapClick = () => {
     if (
       resultData &&
@@ -156,14 +139,7 @@ export default function Results() {
     }
   };
 
-  //카카오톡 공유하기
-  useEffect(() => {
-    if (!Kakao.isInitialized()) {
-      Kakao.init("dc448d19d55ef2f3302fceaacee793ea");
-    }
-  }, []);
-
-  if (!resultData) {
+  if (isLoading) {
     return <LoadingPage />;
   }
 
@@ -180,6 +156,35 @@ export default function Results() {
         #{tag.tag}{" "}
       </span>
     ));
+
+  // 지도 URL 가져오기
+// const handleMapClick = () => {
+//   if (
+//   resultData &&
+//   resultData.data &&
+//   resultData.data.result.place.naverUrl
+//   ) {
+//   window.location.href = resultData.data.result.place.naverUrl;
+//   }
+//   };
+  
+//   if (!resultData) {
+//   return <LoadingPage />;
+//   }
+  
+//   if (resultData && resultData.data && resultData.data.result.place) {
+//   const { name, description, imageUrl, naverUrl } =
+//   resultData.data.result.place;
+//   const tags = resultData.data.result.place.tags;
+  
+//   const combinedTags = tags.map((tag, index) => (
+//     <span
+//       key={`tag-${index}`}
+//       className={`isaText hashtag marginR tag${index + 1}`}
+//     >
+//       #{tag.tag}{" "}
+//     </span>
+//   ));
 
 
     return (
