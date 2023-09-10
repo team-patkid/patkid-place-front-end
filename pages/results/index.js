@@ -35,7 +35,31 @@ export default function Results({resultData}) {
   const [visited, setVisited] = useState(false);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
+  const [diceClicks, setDiceClicks] = useState(0);
+  const [results, setResults] = useState([]);
 
+  //랜덤 결과 값 도출
+  const handleDiceClick = async () => {
+    if (diceClicks < 3) {
+      try {
+        const response = await axios.post(
+          "https://api.patkid.kr/user/result",
+          { mbti: router.query.mbti }
+        );
+        if (
+          !results.find((result) => result.id === response.data.result.id)
+        ) {
+          setResults([...results, response.data.result]);
+          setDiceClicks(diceClicks + 1);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    if (diceClicks >= 2) setShowImage(false);
+  };
+
+  //로딩페이지 지연
   useEffect(() => {
     if (resultData) { 
       setTimeout(() => {
@@ -53,17 +77,7 @@ export default function Results({resultData}) {
 
       // URL을 통해 파라미터 읽기
       useEffect(() => {
-        const sharedParam = router.query.shared;
-      
-        if (sharedParam === "true") {
-          setVisited(true);
-        } else {
-          setVisited(false);
-        }
-      }, [router.query]);
-
-      useEffect(() => {
-        if (resultData) {
+        if (!isLoading && resultData) {
           const script = document.createElement("script");
           script.src =
             "https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ljyaizmmy4";
@@ -76,9 +90,9 @@ export default function Results({resultData}) {
               ),
               zoom: 15,
             };
-    
+      
             const map = new window.naver.maps.Map("map", mapOptions);
-    
+      
             const markerOptions = {
               position: new window.naver.maps.LatLng(
                 resultData.data.result.place.y,
@@ -86,12 +100,16 @@ export default function Results({resultData}) {
               ),
               map: map,
             };
-    
+      
             const marker = new window.naver.maps.Marker(markerOptions);
           };
-          document.head.appendChild(script);
+          script.onerror = (error) => {
+            console.error("Error loading Naver Map script:", error);
+          };
+          document.body.appendChild(script);
         }
-      }, [resultData]);
+      }, [isLoading, resultData]);
+      
     
 
   //폰트크기 유동적 조절
@@ -212,7 +230,7 @@ export default function Results({resultData}) {
                   src="/tooltip.png"
                   className={showImage ? "tooltip-show" : "tooltip-hide"}
                 />
-                <img src="/dice.png" />
+                <img src="/dice.png" onClick={handleDiceClick} style={{ display: showImage ? 'block' : 'none' }} />
                 <div className="spot_img">
                   <img src={resultData.data.result.place.imageUrl} />
                 </div>
