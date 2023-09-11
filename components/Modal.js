@@ -15,14 +15,13 @@ const Modal = ({ handleOpen, data }) => {
         <div>
           <p className={styles["modal_title"]}>{data.name}</p>
           <div>
-            {/* {showImage && <img src='/tooltip.png' className={styles['modal_tooltip']}/>} */}
           </div>
           <div className={styles["modal_img"]}>
             <img src={data.imageUrl} />
           </div>
-          <div className={styles["modal_hash"]}>
+          <div className={`${styles["modal_hash"]}`}>
             {data.tags.map((v, index) => (
-              <p key={`hotspot-modal-${index}`}>{v.tag}</p>
+              <p className='isaText modal_hashtag' key={`hotspot-modal-${index}`}>#{v.tag}</p>
             ))}
           </div>
           <div className={styles["modal-line"]}></div>

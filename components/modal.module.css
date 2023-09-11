@@ -25,11 +25,12 @@
   position: absolute;
   width: 290px;
   height: 41px;
-  top: 100px;
+  top: 90px;
   left: calc(50% - 290px/2);
 
   font-weight: 400;
-  font-size: 38px;
+  font-size: 41px;
+  text-align: center;
   line-height: 41px;
   color: #000000;
 }
@@ -60,14 +61,6 @@
   left: 407px;
   top: 21px;
 }
-.modal_dice{
-  position: absolute;
-  width: 26px;
-  height: 26px;
-  top: 105px;
-  left: 398px;
-  transform: rotate(7.10deg);
-}
 
 .modal.open {
   opacity: 1;
@@ -90,11 +83,15 @@
 .modal_hash{
   position: absolute;
   width: 326px;
-  height: 22px;
+  height: 46px;
   left: calc(50% - 326px/2);
-  top: 474px;
-  background-color: aliceblue;
+  top: 464px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
+
 
 .modal-line{
   position: absolute;
@@ -111,12 +108,13 @@
     width: 397px;
     height: 217px;
     left: calc(50% - 397px/2 + 0.5px);
-    top: 658px;
+    top: 558px;
+    margin-left: 16px;
 
     font-family: 'Pretendard';
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 24px;
 
     color: #000000;
