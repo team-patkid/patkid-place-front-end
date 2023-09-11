@@ -11,7 +11,6 @@ export async function getServerSideProps(context) {
 
   const response = await axios.post("https://api.patkid.kr/user/result", {
     mbti: mbti,
-    // userid: userid
   });
 
   return {
@@ -70,6 +69,7 @@ export default function Results({resultData}) {
     setModalOpen(openState);
     setModalOpenIndex(index);
   };
+
 
       // URL을 통해 파라미터 읽기
       useEffect(() => {
