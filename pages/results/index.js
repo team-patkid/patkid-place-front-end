@@ -11,6 +11,7 @@ export async function getServerSideProps(context) {
 
   const response = await axios.post("https://api.patkid.kr/user/result", {
     mbti: mbti,
+    // userid: userid
   });
 
   return {
@@ -36,27 +37,23 @@ export default function Results({resultData}) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [diceClicks, setDiceClicks] = useState(0);
-  const [results, setResults] = useState([]);
+  const [randomResults, setRandomResults] = useState([]);
 
-  //랜덤 결과 값 도출
-  const handleDiceClick = async () => {
+
+  //랜덤 결과값 도출
+  const handleDiceClick = () => {
     if (diceClicks < 3) {
-      try {
-        const response = await axios.post(
-          "https://api.patkid.kr/user/result",
-          { mbti: router.query.mbti }
-        );
-        if (
-          !results.find((result) => result.id === response.data.result.id)
-        ) {
-          setResults([...results, response.data.result]);
-          setDiceClicks(diceClicks + 1);
-        }
-      } catch (error) {
-        console.error(error);
-      }
+      const randomResult = generateRandomResult(resultData);
+      setRandomResults([...randomResults, randomResult]);
+      setDiceClicks(diceClicks + 1);
     }
     if (diceClicks >= 2) setShowImage(false);
+  };
+
+  const generateRandomResult = (resultData) => {
+    const resultsArray = resultData.data.result;
+    const randomIndex = Math.floor(Math.random() * resultsArray.length);
+    return resultsArray[randomIndex];
   };
 
   //로딩페이지 지연
@@ -64,7 +61,7 @@ export default function Results({resultData}) {
     if (resultData) { 
       setTimeout(() => {
         setIsLoading(false);
-    }, 1600); // Set loading to false when data is loaded
+    }, 1600);
     }
     }, [resultData]);
 
@@ -73,7 +70,6 @@ export default function Results({resultData}) {
     setModalOpen(openState);
     setModalOpenIndex(index);
   };
-
 
       // URL을 통해 파라미터 읽기
       useEffect(() => {
@@ -174,36 +170,6 @@ export default function Results({resultData}) {
         #{tag.tag}{" "}
       </span>
     ));
-
-  // 지도 URL 가져오기
-// const handleMapClick = () => {
-//   if (
-//   resultData &&
-//   resultData.data &&
-//   resultData.data.result.place.naverUrl
-//   ) {
-//   window.location.href = resultData.data.result.place.naverUrl;
-//   }
-//   };
-  
-//   if (!resultData) {
-//   return <LoadingPage />;
-//   }
-  
-//   if (resultData && resultData.data && resultData.data.result.place) {
-//   const { name, description, imageUrl, naverUrl } =
-//   resultData.data.result.place;
-//   const tags = resultData.data.result.place.tags;
-  
-//   const combinedTags = tags.map((tag, index) => (
-//     <span
-//       key={`tag-${index}`}
-//       className={`isaText hashtag marginR tag${index + 1}`}
-//     >
-//       #{tag.tag}{" "}
-//     </span>
-//   ));
-
 
     return (
       <div className={`wrapper ${shared ? "shared" : ""}`}>
