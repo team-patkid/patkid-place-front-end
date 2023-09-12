@@ -7,10 +7,11 @@ import LoadingPage from "../../components/LoadingPage";
 import KakaoShareButton from "@/components/KakaoShare";
 
 export async function getServerSideProps(context) {
-  const { mbti } = context.query;
+  const { mbti,userId } = context.query;
 
   const response = await axios.post("https://api.patkid.kr/user/result", {
     mbti: mbti,
+    userId: userId,
   });
 
   return {
@@ -18,16 +19,10 @@ export async function getServerSideProps(context) {
       resultData: response.data,
     },
   };
+
 }
 
-const useTimeout = (callback, delay) => {
-  useEffect(() => {
-    const timeoutId = setTimeout(callback, delay);
-    return () => clearTimeout(timeoutId);
-  }, [callback, delay]);
-};
-
-export default function Results({resultData}) {
+export default function Results({resultData: initialResultData}) {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalOpenIndex, setModalOpenIndex] = useState(null);
   const [showImage, setShowImage] = useState(true);
@@ -36,23 +31,42 @@ export default function Results({resultData}) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [diceClicks, setDiceClicks] = useState(0);
-  const [randomResults, setRandomResults] = useState([]);
+  const [resultData, setResultData] = useState(initialResultData);
+  const [isFetching, setIsFetching] = useState(false);
+  const [isOverflow, setIsOverflow] = useState(false);
+  
 
-
-  //랜덤 결과값 도출
-  const handleDiceClick = () => {
-    if (diceClicks < 3) {
-      const randomResult = generateRandomResult(resultData);
-      setRandomResults([...randomResults, randomResult]);
-      setDiceClicks(diceClicks + 1);
+  //랜덤 결과값
+  useEffect(() => {
+    if (diceClicks > 0 && diceClicks <= 2) { 
+      const fetchData = async () => {
+        setIsFetching(true);
+        try {
+          let response = await axios.post("https://api.patkid.kr/user/result", {
+            mbti: router.query.mbti,
+            userId: router.query.userId,
+          });
+          setResultData(response.data);
+        } catch (error) {
+          console.error(error);
+        } finally { 
+          setIsFetching(false);
+        }
+      };
+      
+      fetchData();
     }
-    if (diceClicks >= 2) setShowImage(false);
-  };
+  
+    if(diceClicks >=2){
+       setShowImage(false); 
+    }
+  }, [diceClicks]);
 
-  const generateRandomResult = (resultData) => {
-    const resultsArray = resultData.data.result;
-    const randomIndex = Math.floor(Math.random() * resultsArray.length);
-    return resultsArray[randomIndex];
+  const handleDiceClick= () => {
+    if (!isFetching) { 
+      setDiceClicks(prevDice => prevDice +1);
+      console.log("성공")
+    }
   };
 
   //로딩페이지 지연
@@ -71,7 +85,7 @@ export default function Results({resultData}) {
   };
 
 
-      // URL을 통해 파라미터 읽기
+      // 지도 api
       useEffect(() => {
         if (!isLoading && resultData) {
           const script = document.createElement("script");
@@ -130,6 +144,7 @@ export default function Results({resultData}) {
   };
 
   const [fontSize, setFontSize] = useState(calculateFontSize());
+
 
   useEffect(() => {
     setFontSize(calculateFontSize());
@@ -208,10 +223,12 @@ export default function Results({resultData}) {
                     .map((v, index, array) => (
                       <li
                         key={index}
-                        style={{
-                          marginBottom:
-                            index !== array.length - 1 ? "30px" : "0",
-                        }}
+                        // style={{
+                        //   marginBottom:
+                        //     index !== array.length - 1
+                        //       ? (isOverflow ? "16px" : "32px")
+                        //       : "0",
+                        // }}
                       >
                         {v}
                       </li>
@@ -414,7 +431,7 @@ export default function Results({resultData}) {
             .box_text {
               position: absolute;
               width: 397px;
-              height: 180px;
+              height: 190px;
               left: 52px;
               top: 670px;
               z-index: 999;
@@ -422,7 +439,16 @@ export default function Results({resultData}) {
               font-weight: 500;
               font-size: 20px;
               font-family: "Pretendard";
+
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
             }
+
+            .box_text li {
+                flex: 1;
+                margin-bottom: 18px;
+              }
 
             .location > img:nth-of-type(1) {
               position: absolute;
