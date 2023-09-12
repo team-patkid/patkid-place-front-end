@@ -5,7 +5,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>🥰 두근두근 핫스팟 테스트 🥰</title>
+        <title>두근두근 핫스팟 테스트 🥰</title>
         <meta property="og:url" content="https://place.patkid.kr"></meta>
         <meta property="og:title" content="두근두근 핫스팟 테스트"></meta>
         <meta property="og:type" content="website"></meta>
@@ -19,6 +19,10 @@ export default function MyApp({ Component, pageProps }) {
         ></meta>
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
         <link rel="icon" href="/favicon.png"></link>
+        <meta
+          name="google-site-verification"
+          content="sjjZOY_v9rpwOKcwC9ulDLGS-yIS2jgOv3QyBPgvH2I"
+        />
       </Head>
       <Component {...pageProps} />
     </>
