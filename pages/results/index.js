@@ -223,12 +223,6 @@ export default function Results({resultData: initialResultData}) {
                     .map((v, index, array) => (
                       <li
                         key={index}
-                        // style={{
-                        //   marginBottom:
-                        //     index !== array.length - 1
-                        //       ? (isOverflow ? "16px" : "32px")
-                        //       : "0",
-                        // }}
                       >
                         {v}
                       </li>

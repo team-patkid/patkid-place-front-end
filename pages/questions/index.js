@@ -20,7 +20,7 @@ const ProgressBar = ({ currentNumber }) => {
           marginLeft: "5.5px",
         }}
       >
-        <Image src="/progress.png" width={14} height={12} alt="progress_Img" />
+        <Image src="/progress.png" width={14} height={12} quality={80} alt="progress_Img" />
         <div
           className="padding"
           style={{
@@ -29,7 +29,7 @@ const ProgressBar = ({ currentNumber }) => {
             display: "inline-block",
           }}
         />
-        <Image src="/progress.png" width={14} height={12} alt="progress_Img" />
+        <Image src="/progress.png" width={14} height={12} quality={80} alt="progress_Img" />
       </div>
     );
   }
@@ -39,6 +39,7 @@ const ProgressBar = ({ currentNumber }) => {
         src="/progress_bar.png"
         width={471}
         height={39}
+        quality={80}
         alt="progress_bar_Img"
       />
       <div className="progress_container">
@@ -57,6 +58,7 @@ const ProgressBar = ({ currentNumber }) => {
               src="/progress_heart.png"
               width={45}
               height={39}
+              quality={80}
               alt="progress_heart_Img"
             />
           </div>
@@ -211,7 +213,7 @@ export default function Questions() {
         className="questions_layout"
         width={500}
         height={1081}
-        quality={80}
+        quality={60}
         alt="questions_Image"
       />
 
