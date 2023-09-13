@@ -23,17 +23,16 @@ export async function getServerSideProps(context) {
 }
 
 export default function Results({resultData: initialResultData}) {
+  const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalOpenIndex, setModalOpenIndex] = useState(null);
   const [showImage, setShowImage] = useState(true);
-  const [shared, setShared] = useState(false);
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [diceClicks, setDiceClicks] = useState(0);
   const [resultData, setResultData] = useState(initialResultData);
   const [isFetching, setIsFetching] = useState(false);
   const [isDiceButtonDisabled, setIsDiceButtonDisabled] = useState(false);
-  const [visited, setVisited] = useState(false);
+  const isShared = router.query.shared === 'true';
   const [visitedPlaceIds, setVisitedPlaceIds] = useState([]);
   
 
@@ -162,7 +161,15 @@ export default function Results({resultData: initialResultData}) {
     }
   }, []);
 
-  // // 지도 URL 가져오기
+  useEffect(() => {
+    console.log('router.query.shared:', router.query.shared);
+    
+    if (router.query.shared === 'true') {
+      setIsShared(true);    
+    }
+  }, [router.query.shared]);
+
+  //지도 URL 가져오기
   const handleMapClick = () => {
     if (
       resultData &&
@@ -192,7 +199,7 @@ export default function Results({resultData: initialResultData}) {
     ));
 
     return (
-      <div className={`wrapper ${shared ? "shared" : ""}`}>
+      <div className={`wrapper ${isShared ? "shared" : ""}`}>
         <section className="result_layout">
           <div>
             <img src="/background_h_2.png" className="result_layout" />
@@ -284,18 +291,18 @@ export default function Results({resultData: initialResultData}) {
           )}
         </section>
         <footer>
-          {visited ? (
+          {isShared ? (
             <Link href="/">
               <img className="footer_share" src="/share_button2.png" />
             </Link>
           ) : (
             <>
               <KakaoShareButton
-                description={description}
-                imageUrl={imageUrl}
-                mobileWebUrl={naverUrl}
-                webUrl={naverUrl}
-                mbti={router.query.mbti}
+                  description={description}
+                  imageUrl={imageUrl}
+                  mobileWebUrl={naverUrl}
+                  webUrl={naverUrl}
+                  mbti={router.query.mbti}
               />
               <Link href="/">
                 <img className="footer_right" src="/restart_btn.png" />
@@ -602,7 +609,7 @@ export default function Results({resultData: initialResultData}) {
               width: 500px;
               margin: 0 auto;
               height: 100px;
-              background: ${visited ? "#FF448D" : "#000000"};
+              background: ${isShared ? "#FF448D" : "#000000"};
               z-index: 999;
             }
             .footer_left {

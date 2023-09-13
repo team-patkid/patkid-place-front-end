@@ -1,6 +1,6 @@
 import React from "react";
 
-const KakaoShareButton = ({description,imageUrl,mobileWebUrl,webUrl,mbti}) => {
+const KakaoShareButton = ({description, imageUrl, mobileWebUrl, webUrl, mbti}) => {
   const kakaoShare = () => {
     Kakao.Link.sendDefault({
       objectType: "feed",
@@ -10,7 +10,8 @@ const KakaoShareButton = ({description,imageUrl,mobileWebUrl,webUrl,mbti}) => {
         imageUrl: "https://image.patkid.kr/common/kakao_share_thum.png",
         link: {
           mobileWebUrl: `https://place.patkid.kr/results?mbti=${mbti}&shared=true`,
-          webUrl: `https://place.patkid.kr/results?mbti=${mbti}&shared=true`,
+    webUrl: `https://place.patkid.kr/results?mbti=${mbti}&shared=true`,
+  
         },
       },
       buttons: [
@@ -18,7 +19,8 @@ const KakaoShareButton = ({description,imageUrl,mobileWebUrl,webUrl,mbti}) => {
           title: "우리 핫플 찾고 데이트 갈래?💖",
           link: {
             mobileWebUrl: `https://place.patkid.kr/results?mbti=${mbti}&shared=true`,
-            webUrl: `https://place.patkid.kr/results?mbti=${mbti}&shared=true`,
+    webUrl: `https://place.patkid.kr/results?mbti=${mbti}&shared=true`,
+  
           },
         },
       ],
@@ -28,7 +30,7 @@ const KakaoShareButton = ({description,imageUrl,mobileWebUrl,webUrl,mbti}) => {
 
   return (
     <img
-      className="footer_left"
+      className="footer"
       style={{
         position: "absolute",
         width: "344px",
