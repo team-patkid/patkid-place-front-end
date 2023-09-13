@@ -27,48 +27,53 @@ export default function Results({resultData: initialResultData}) {
   const [modalOpenIndex, setModalOpenIndex] = useState(null);
   const [showImage, setShowImage] = useState(true);
   const [shared, setShared] = useState(false);
-  const [visited, setVisited] = useState(false);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [diceClicks, setDiceClicks] = useState(0);
   const [resultData, setResultData] = useState(initialResultData);
   const [isFetching, setIsFetching] = useState(false);
-  const [isOverflow, setIsOverflow] = useState(false);
+  const [isDiceButtonDisabled, setIsDiceButtonDisabled] = useState(false);
+  const [visited, setVisited] = useState(false);
+  const [visitedPlaceIds, setVisitedPlaceIds] = useState([]);
   
 
   //랜덤 결과값
   useEffect(() => {
-    if (diceClicks > 0 && diceClicks <= 2) { 
+    if (diceClicks > 0 && diceClicks <= 2) {
       const fetchData = async () => {
         setIsFetching(true);
         try {
-          let response = await axios.post("https://api.patkid.kr/user/result", {
-            mbti: router.query.mbti,
-            userId: router.query.userId,
-          });
+          let response;
+          do {
+            response = await axios.post("https://api.patkid.kr/user/result", {
+              mbti: router.query.mbti,
+              userId: router.query.userId,
+            });
+          } while (visitedPlaceIds.includes(response?.data?.result?.place?.placeId));
+          setVisitedPlaceIds((prevIds) => [...prevIds, response?.data?.result?.place?.placeId]);
           setResultData(response.data);
+          console.log(response?.data);
         } catch (error) {
           console.error(error);
-        } finally { 
+        } finally {
           setIsFetching(false);
         }
       };
-      
+
       fetchData();
     }
-  
-    if(diceClicks >=2){
-       setShowImage(false); 
-    }
+
+    if (diceClicks >= 2) setShowImage(false);
   }, [diceClicks]);
 
-  const handleDiceClick= () => {
-    if (!isFetching) { 
-      setDiceClicks(prevDice => prevDice +1);
-      console.log("성공")
+  const handleDiceClick = () => {
+    if (!isFetching && diceClicks < 2) {
+      setDiceClicks((prevDice) => prevDice + 1);
+      console.log("랜덤 데이터 호출");
     }
   };
 
+  
   //로딩페이지 지연
   useEffect(() => {
     if (resultData) { 
@@ -85,42 +90,42 @@ export default function Results({resultData: initialResultData}) {
   };
 
 
-      // 지도 api
-      useEffect(() => {
-        if (!isLoading && resultData) {
-          const script = document.createElement("script");
-          script.src =
-            "https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ljyaizmmy4";
-          script.async = true;
-          script.onload = () => {
-            const mapOptions = {
-              center: new window.naver.maps.LatLng(
-                resultData.data.result.place.y,
-                resultData.data.result.place.x
-              ),
-              zoom: 15,
-            };
-      
-            const map = new window.naver.maps.Map("map", mapOptions);
-      
-            const markerOptions = {
-              position: new window.naver.maps.LatLng(
-                resultData.data.result.place.y,
-                resultData.data.result.place.x
-              ),
-              map: map,
-            };
-      
-            const marker = new window.naver.maps.Marker(markerOptions);
-          };
-          script.onerror = (error) => {
-            console.error("Error loading Naver Map script:", error);
-          };
-          document.body.appendChild(script);
-        }
-      }, [isLoading, resultData]);
-      
-    
+  // 지도 api
+  useEffect(() => {
+    if (!isLoading && resultData) {
+      const script = document.createElement("script");
+      script.src =
+        "https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ljyaizmmy4";
+      script.async = true;
+      script.onload = () => {
+        const mapOptions = {
+          center: new window.naver.maps.LatLng(
+            resultData.data.result.place.y,
+            resultData.data.result.place.x
+          ),
+          zoom: 15,
+        };
+  
+        const map = new window.naver.maps.Map("map", mapOptions);
+  
+        const markerOptions = {
+          position: new window.naver.maps.LatLng(
+            resultData.data.result.place.y,
+            resultData.data.result.place.x
+          ),
+          map: map,
+        };
+  
+        const marker = new window.naver.maps.Marker(markerOptions);
+      };
+      script.onerror = (error) => {
+        console.error("Error loading Naver Map script:", error);
+      };
+      document.body.appendChild(script);
+    }
+  }, [isLoading, resultData]);
+  
+
 
   //폰트크기 유동적 조절
   const calculateFontSize = () => {
@@ -211,7 +216,14 @@ export default function Results({resultData: initialResultData}) {
                   src="/tooltip.png"
                   className={showImage ? "tooltip-show" : "tooltip-hide"}
                 />
-                <img src="/dice.png" onClick={handleDiceClick} style={{ display: showImage ? 'block' : 'none' }} />
+                <img
+                  src="/dice.png"
+                  onClick={handleDiceClick}
+                  style={{
+                    display: showImage ? "block" : "none",
+                    pointerEvents: isDiceButtonDisabled ? "none" : "auto",
+                  }}
+                />
                 <div className="spot_img">
                   <img src={resultData.data.result.place.imageUrl} />
                 </div>

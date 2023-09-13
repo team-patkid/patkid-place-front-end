@@ -96,7 +96,7 @@ const ProgressBar = ({ currentNumber }) => {
 export default function Questions() {
   const [currentNumber, setCurrentNumber] = useState(0);
   const [mbtiList, setMbtiList] = useState({ EI: [], NS: [], FT: [], PJ: [] });
-  const [questionsData, setQuestionsData] = useState([]); // 질문 데이터를 저장할 상태 변수
+  const [questionsData, setQuestionsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
