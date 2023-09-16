@@ -1,45 +1,29 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import axios from "axios";
 import ProgressBar from "@/components/progress.js";
-import { questions as imgQuestions } from "../../data/data.js";
+import { questions as imgQuestions } from "@/data/data.js";
 import Button from "@/components/Button/Button.js";
-import styles from "../../styles/questions.module.css";
+import styles from "@/styles/questions.module.css";
 
-export default function Questions() {
+export default function Questions({ questionsData }) {
   const [currentNumber, setCurrentNumber] = useState(0);
   const [mbtiList, setMbtiList] = useState({ EI: [], NS: [], FT: [], PJ: [] });
-  const [questionsData, setQuestionsData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const router = useRouter();
 
   const question = imgQuestions[currentNumber];
 
-  useEffect(() => {
-    axios
-      .get("https://api.patkid.kr/question/list")
-      .then((response) => {
-        setQuestionsData(response.data);
-        setCurrentNumber(0);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setError(error);
-        setLoading(false);
-      });
-  }, []);
-
   // 질문 번호가 변경될 때마다 화면 맨 위로 스크롤
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [currentNumber]);
 
-  //결과 페이지 이동
-  const nextQuestion = (choiceNumber) => {
+
+  // 결과 페이지 이동
+  const showResultPage = (choiceNumber) => {
     const isLastQuestion = currentNumber === questionsData.data.total - 1;
     const selectedChoice =
       questionsData.data.list[currentNumber]?.questionSub[choiceNumber].type;
@@ -55,25 +39,15 @@ export default function Questions() {
     });
 
     if (isLastQuestion) {
-      showResultPage(choiceNumber);
+      // 결과 페이지로 이동
+      redirectToResultPage();
     } else {
       setCurrentNumber(currentNumber + 1);
     }
   };
 
-  const showResultPage = (choiceNumber) => {
-    const lastChoiceType =
-      questionsData.data.list[currentNumber].questionSub[choiceNumber].type;
-    const updatedMbtiList = {
-      ...mbtiList,
-      [questionsData.data.list[currentNumber].type]: [
-        ...mbtiList[questionsData.data.list[currentNumber].type],
-        lastChoiceType,
-      ],
-    };
-
-    setMbtiList(updatedMbtiList);
-
+  // 결과 페이지로 이동하는 함수
+  const redirectToResultPage = () => {
     const mbtiCount = {
       EI: {
         E: 0,
@@ -110,6 +84,30 @@ export default function Questions() {
     }
 
     router.push(`/results?mbti=${mbtiQueryString}`);
+  };
+
+  // 다음 질문으로 이동
+  const nextQuestion = (choiceNumber) => {
+    const isLastQuestion = currentNumber === questionsData.data.total - 1;
+    const selectedChoice =
+      questionsData.data.list[currentNumber]?.questionSub[choiceNumber].type;
+
+    setMbtiList((prevState) => {
+      return {
+        ...prevState,
+        [questionsData.data.list[currentNumber].type]: [
+          ...prevState[questionsData.data.list[currentNumber].type],
+          selectedChoice,
+        ],
+      };
+    });
+
+    if (isLastQuestion) {
+      // 결과 페이지로 이동
+      redirectToResultPage();
+    } else {
+      setCurrentNumber(currentNumber + 1);
+    }
   };
 
   if (loading) {
@@ -337,4 +335,24 @@ export default function Questions() {
       `}</style>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  try {
+    const response = await fetch("https://api.patkid.kr/question/list");
+    const questionsData = await response.json();
+
+    return {
+      props: {
+        questionsData,
+      },
+    };
+  } catch (error) {
+    console.error("Error:", error);
+    return {
+      props: {
+        questionsData: null,
+      },
+    };
+  }
 }
