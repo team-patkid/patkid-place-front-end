@@ -8,9 +8,9 @@ import KakaoShareButton from "@/components/KakaoShare";
 import MapComponent from '@/components/map';
 
 export async function getServerSideProps(context) {
-  const { mbti,userId } = context.query;
+  const { mbti, userId } = context.query;
 
-  const response = await axios.post("https://api.patkid.kr/user/result", {
+  const response = await axios.post('https://api.patkid.kr/user/result', {
     mbti: mbti,
     userId: userId,
   });
@@ -20,10 +20,9 @@ export async function getServerSideProps(context) {
       resultData: response.data,
     },
   };
-
 }
 
-export default function Results({resultData: initialResultData}) {
+export default function Results({ resultData: initialResultData }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalOpenIndex, setModalOpenIndex] = useState(null);
   const [showImage, setShowImage] = useState(true);
