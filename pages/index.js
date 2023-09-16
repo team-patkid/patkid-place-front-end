@@ -28,16 +28,16 @@ export default function Home({ visitorCount }) {
 
   return (
     <div className="main_layout">
-      <img src="/background_h_1.png" className="main_layout" />
+      <img src="/background_h_1.webp" className="main_layout" />
       <div className="main_layout_icon">
-        <img src="/coffee.png" />
-        <img src="/heart_1.png" />
-        <img src="/music.png" />
-        <img src="/cake.png" />
-        <img src="/heart_2.png" />
-        <img src="/book.png" />
+        <img src="/coffee.webp" />
+        <img src="/heart_1.webp" />
+        <img src="/music.webp" />
+        <img src="/cake.webp" />
+        <img src="/heart_2.webp" />
+        <img src="/book.webp" />
       </div>
-      <img src="/title.png" className="main_title" />
+      <img src="/title.webp" className="main_title" />
       <p className="isaText">나의 성향에 딱 맞는 요즘 핫스팟은 어디일까?</p>
       <Link href="/questions" legacyBehavior>
         <a>
@@ -49,13 +49,13 @@ export default function Home({ visitorCount }) {
           >
             {isClicked ? (
               <img
-                src="/start_btn_click.png"
+                src="/start_btn_click.webp"
                 className="main_start_btn btn_click"
                 alt="Clicked Button"
               />
             ) : (
               <img
-                src="/start_btn.png"
+                src="/start_btn.webp"
                 className="main_start_btn"
                 alt="Button"
               />
@@ -67,7 +67,7 @@ export default function Home({ visitorCount }) {
           </div>
         </a>
       </Link>
-      <img src="/logo_patKid.png" className="main_logo" />
+      <img src="/logo_patKid.webp" className="main_logo" />
 
       <style jsx>{`
         @keyframes clickAnimation {

@@ -86,43 +86,6 @@ export default function Results({resultData: initialResultData}) {
   };
 
 
-      // 지도 api
-      // useEffect(() => {
-      //   if (!isLoading && resultData) {
-      //     const script = document.createElement("script");
-      //     script.src =
-      //       "https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ljyaizmmy4";
-      //     script.async = true;
-      //     script.onload = () => {
-      //       const mapOptions = {
-      //         center: new window.naver.maps.LatLng(
-      //           resultData.data.result.place.y,
-      //           resultData.data.result.place.x
-      //         ),
-      //         zoom: 15,
-      //       };
-      
-      //       const map = new window.naver.maps.Map("map", mapOptions);
-      
-      //       const markerOptions = {
-      //         position: new window.naver.maps.LatLng(
-      //           resultData.data.result.place.y,
-      //           resultData.data.result.place.x
-      //         ),
-      //         map: map,
-      //       };
-      
-      //       const marker = new window.naver.maps.Marker(markerOptions);
-      //     };
-      //     script.onerror = (error) => {
-      //       console.error("Error loading Naver Map script:", error);
-      //     };
-      //     document.body.appendChild(script);
-      //   }
-      // }, [isLoading, resultData]);
-      
-    
-
   //폰트크기 유동적 조절
   const calculateFontSize = () => {
     const containerWidth = 290;
@@ -152,22 +115,12 @@ export default function Results({resultData: initialResultData}) {
   }, [resultData]);
 
     //카카오톡 공유하기
-  useEffect(() => {
-    if (!Kakao.isInitialized()) {
-      Kakao.init("dc448d19d55ef2f3302fceaacee793ea");
-    }
-  }, []);
+    useEffect(() => {
+      if (typeof Kakao !== 'undefined') {
+        Kakao.init("dc448d19d55ef2f3302fceaacee793ea");
+      }
+    }, []);
 
-  // // 지도 URL 가져오기
-  // const handleMapClick = () => {
-  //   if (
-  //     resultData &&
-  //     resultData.data &&
-  //     resultData.data.result.place.naverUrl
-  //   ) {
-  //     window.location.href = resultData.data.result.place.naverUrl;
-  //   }
-  // };
 
   if (isLoading) {
     return <LoadingPage />;
@@ -191,33 +144,33 @@ export default function Results({resultData: initialResultData}) {
       <div className={`wrapper ${shared ? "shared" : ""}`}>
         <section className="result_layout">
           <div>
-            <img src="/background_h_2.png" className="result_layout" />
+            <img src="/background_h_2.webp" className="result_layout" />
             <img
-              src="/background_h_2_2.png"
+              src="/background_h_2_2.webp"
               className="result_layout layout2"
             />
             <img
-              src="/background_h_2_3.png"
+              src="/background_h_2_3.webp"
               className="result_layout layout3"
             />
           </div>
           {resultData && resultData.data && (
             <>
               <div className="result">
-                <img src="/i_box.png" />
+                <img src="/i_box.webp" />
                 <p style={{ fontSize: `${fontSize}px`, whiteSpace: "nowrap" }}>
                   {resultData?.data?.result?.name}
                 </p>
                 <img
-                  src="/tooltip.png"
+                  src="/tooltip.webp"
                   className={showImage ? "tooltip-show" : "tooltip-hide"}
                 />
-                <img src="/dice.png" onClick={handleDiceClick} style={{ display: showImage ? 'block' : 'none' }} />
+                <img src="/dice.webp" onClick={handleDiceClick} style={{ display: showImage ? 'block' : 'none' }} />
                 <div className="spot_img">
                   <img src={resultData.data.result.place.imageUrl} />
                 </div>
                 <div className="tag">{combinedTags}</div>
-                <img src="/box.png" />
+                <img src="/box.webp" />
                 <div className="box_text">
                   {resultData.data.result.place.content
                     .split("\n")
@@ -237,16 +190,16 @@ export default function Results({resultData: initialResultData}) {
                 </div>
               </div>
               <div className="location">
-                <img src="/location.png" />
+                <img src="/location.webp" />
                 <p>위치를 알려줄게!</p>
-                <img src="/box_stroke.png" id="cross"></img>
+                <img src="/box_stroke.webp" id="cross"></img>
                 <div className="map" id="map">
                 <MapComponent isLoading={isLoading} resultData={resultData} />
                 </div>
               </div>
 
               <div className="hot_spot">
-                <img src="/hotspot.png" />
+                <img src="/hotspot.webp" />
 
                 <p>가장 많은 선택을 받은 핫스팟</p>
 
@@ -258,7 +211,7 @@ export default function Results({resultData: initialResultData}) {
                     >
                       <img className="hot_spot_image" src={item.imageUrl} />
 
-                      <img src="/box_stroke.png" />
+                      <img src="/box_stroke.webp" />
                     </div>
                     {modalOpen && index === modalOpenIndex && (
                       <Modal handleOpen={openModal} data={item} index={index} />
@@ -267,13 +220,13 @@ export default function Results({resultData: initialResultData}) {
                 ))}
               </div>
               <div className="visit">
-                <img src="/go.png" />
+                <img src="/go.webp" />
                 <p>PATKID 팀을 더 알고 싶다면</p>
                 <Link
                   href="https://www.notion.so/PATKID-b28bf7de62bb4e95919b5dca4e8c08ec?pvs=4"
                   target="_blank"
                 >
-                  <img className="visitImg" src="/visit.png" />
+                  <img className="visitImg" src="/visit.webp" />
                   <p className="visitP">PATKID 팀 페이지 방문하기</p>
                 </Link>
               </div>
@@ -283,7 +236,7 @@ export default function Results({resultData: initialResultData}) {
         <footer>
           {visited ? (
             <Link href="/">
-              <img className="footer_share" src="/share_button2.png" />
+              <img className="footer_share" src="/share_button2.webp" />
             </Link>
           ) : (
             <>
@@ -295,7 +248,7 @@ export default function Results({resultData: initialResultData}) {
                 mbti={router.query.mbti}
               />
               <Link href="/">
-                <img className="footer_right" src="/restart_btn.png" />
+                <img className="footer_right" src="/restart_btn.webp" />
               </Link>
             </>
           )}

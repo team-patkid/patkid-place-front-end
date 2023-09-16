@@ -8,9 +8,9 @@ const Modal = ({ handleOpen, data }) => {
         className={styles["modal-container"]}
         onClick={(e) => e.stopPropagation()}
       >
-        <img src="modal_box.png" className={styles["modal-content"]} />
+        <img src="modal_box.webp" className={styles["modal-content"]} />
         <button onClick={handleOpen(false)}>
-          <img src="close_btn.png" className={styles["modal_close"]} />
+          <img src="close_btn.webp" className={styles["modal_close"]} />
         </button>
         <div>
           <p className={styles["modal_title"]}>{data.name}</p>

@@ -2,19 +2,19 @@ export default function LoadingPage() {
 
   return (
     <div className="main_layout">
-      <img src='/background_h_3.png' className='main_layout'/>
+      <img src='/background_h_3.webp' className='main_layout'/>
       <div className="main_title">
-        <img src="loding.png"/>
-        <img src="loding_text.png"/>
+        <img src="loding.webp"/>
+        <img src="loding_text.webp"/>
       </div>
       <div className="main_layout_icon">
-        <img src="/coffee.png"/>
-        <img src="/heart_1.png"/>
-        <img src="/heart_1.png"/>
-        <img src="/music.png"/>
-        <img src="/cake.png"/>
-        <img src="/heart_2.png"/>
-        <img src="/book.png"/>
+        <img src="/coffee.webp"/>
+        <img src="/heart_1.webp"/>
+        <img src="/heart_1.webp"/>
+        <img src="/music.webp"/>
+        <img src="/cake.webp"/>
+        <img src="/heart_2.webp"/>
+        <img src="/book.webp"/>
       </div>
 
       <style jsx>{`

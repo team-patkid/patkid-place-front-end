@@ -20,7 +20,7 @@ const ProgressBar = ({ currentNumber }) => {
           marginLeft: "5.5px",
         }}
       >
-        <Image src="/progress.png" width={14} height={12} quality={80} alt="progress_Img" />
+        <Image src="/progress.webp" width={14} height={12} quality={80} alt="progress_Img" />
         <div
           className="padding"
           style={{
@@ -29,14 +29,14 @@ const ProgressBar = ({ currentNumber }) => {
             display: "inline-block",
           }}
         />
-        <Image src="/progress.png" width={14} height={12} quality={80} alt="progress_Img" />
+        <Image src="/progress.webp" width={14} height={12} quality={80} alt="progress_Img" />
       </div>
     );
   }
   return (
     <div className="progress_bar">
       <Image
-        src="/progress_bar.png"
+        src="/progress_bar.webp"
         width={471}
         height={39}
         quality={80}
@@ -55,7 +55,7 @@ const ProgressBar = ({ currentNumber }) => {
             }}
           >
             <Image
-              src="/progress_heart.png"
+              src="/progress_heart.webp"
               width={45}
               height={39}
               quality={80}
@@ -209,7 +209,7 @@ export default function Questions() {
   return (
     <div className="questions_layout">
       <Image
-        src="/background_h_2.png"
+        src="/background_h_2.webp"
         className="questions_layout"
         width={500}
         height={1081}
@@ -218,14 +218,14 @@ export default function Questions() {
       />
 
       <div className="title">
-        <img src="/back.png" width={12} height={25} />
+        <img src="/back.webp" width={12} height={25} />
         <p>핫스팟 테스트</p>
       </div>
       <div className="progress_bar">
         <ProgressBar currentNumber={currentNumber} />
       </div>
       <div className="question">
-        <img src="/questions.png" />
+        <img src="/questions.webp" />
         {question.img.map(
           (img, index) =>
             img.src &&
@@ -255,8 +255,8 @@ export default function Questions() {
         <div className="choice1">
           <Button
             onClick={() => nextQuestion(0)}
-            buttonImage="/answer.png"
-            clickedButtonImage="/visit_click.png"
+            buttonImage="/answer.webp"
+            clickedButtonImage="/visit_click.webp"
             buttonText={
               <span
                 className={`choice1_answer ${
@@ -274,8 +274,8 @@ export default function Questions() {
         <div className="choice2">
           <Button
             onClick={() => nextQuestion(1)}
-            buttonImage="/answer.png"
-            clickedButtonImage="/visit_click.png"
+            buttonImage="/answer.webp"
+            clickedButtonImage="/visit_click.webp"
             buttonText={
               <span
                 className={`choice2_answer ${

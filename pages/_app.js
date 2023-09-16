@@ -1,5 +1,6 @@
 import Head from "next/head";
 import "../styles/globals.css";
+import Script from 'next/script';
 
 export default function MyApp({ Component, pageProps }) {
   return (
@@ -17,13 +18,16 @@ export default function MyApp({ Component, pageProps }) {
           property="og:description"
           content="두근두근 핫스팟 테스트~ 나의 성향에 딱 맞는 요즘 핫스팟은 어디일까?"
         ></meta>
-        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-        <link rel="icon" href="/favicon.png"></link>
+        <link rel="icon" href="/favicon.webp"></link>
         <meta
           name="google-site-verification"
           content="sjjZOY_v9rpwOKcwC9ulDLGS-yIS2jgOv3QyBPgvH2I"
         />
       </Head>
+      <Script
+          src="https://developers.kakao.com/sdk/js/kakao.js"
+          strategy="beforeInteractive"
+        />
       <Component {...pageProps} />
     </>
   );

@@ -36,7 +36,7 @@ const Button = ({ onClick, buttonImage, clickedButtonImage, buttonText }) => {
       onMouseLeave={handleMouseLeave}
     >
       <img
-        src={isClicked ? clickedButtonImage : isHovered ? '/visit_click.png' : buttonImage}
+        src={isClicked ? clickedButtonImage : isHovered ? '/visit_click.webp' : buttonImage}
         alt="Button"
         className={`button-image ${isHovered && !isClicked ? 'hovered' : ''}`}
       />
