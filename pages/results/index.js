@@ -7,28 +7,13 @@ import LoadingPage from "../../components/LoadingPage";
 import KakaoShareButton from "@/components/KakaoShare";
 import MapComponent from '@/components/map';
 
-export async function getServerSideProps(context) {
-  const { mbti, userId } = context.query;
-
-  const response = await axios.post('https://api.patkid.kr/user/result', {
-    mbti: mbti,
-    userId: userId,
-  });
-
-  return {
-    props: {
-      resultData: response.data,
-    },
-  };
-}
-
 export default function Results({ resultData: initialResultData }) {
+    const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalOpenIndex, setModalOpenIndex] = useState(null);
   const [showImage, setShowImage] = useState(true);
   const [shared, setShared] = useState(false);
   const [visited, setVisited] = useState(false);
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [diceClicks, setDiceClicks] = useState(0);
   const [resultData, setResultData] = useState(initialResultData);
@@ -68,6 +53,19 @@ export default function Results({ resultData: initialResultData }) {
       console.log("성공")
     }
   };
+
+  // URL을 통해 공유페이지 접속 여부 확인
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const sharedParam = queryParams.get("shared");
+
+    if (sharedParam === "true") {
+      setVisited(true);
+      // setIsLoading(false);
+    } else {
+      setVisited(false);
+    }
+  }, []);
 
   //로딩페이지 지연
   useEffect(() => {
@@ -580,4 +578,19 @@ export default function Results({ resultData: initialResultData }) {
       </div>
     );
   }
+}
+
+export async function getServerSideProps(context) {
+  const { mbti, userId } = context.query;
+
+  const response = await axios.post('https://api.patkid.kr/user/result', {
+    mbti: mbti,
+    userId: userId,
+  });
+
+  return {
+    props: {
+      resultData: response.data,
+    },
+  };
 }

@@ -25,7 +25,7 @@ const Button = ({ onClick, buttonImage, clickedButtonImage, buttonText }) => {
   };
 
   useEffect(() => {
-    setIsHovered(false); // 컴포넌트가 업데이트되면 버튼 이미지 초기화
+    setIsHovered(false);
   }, [isClicked]);
 
   return (
