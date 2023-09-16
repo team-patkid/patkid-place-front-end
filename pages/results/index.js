@@ -5,6 +5,7 @@ import Link from "next/link";
 import Modal from "../../components/Modal";
 import LoadingPage from "../../components/LoadingPage";
 import KakaoShareButton from "@/components/KakaoShare";
+import MapComponent from '@/components/map';
 
 export async function getServerSideProps(context) {
   const { mbti,userId } = context.query;
@@ -86,39 +87,39 @@ export default function Results({resultData: initialResultData}) {
 
 
       // 지도 api
-      useEffect(() => {
-        if (!isLoading && resultData) {
-          const script = document.createElement("script");
-          script.src =
-            "https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ljyaizmmy4";
-          script.async = true;
-          script.onload = () => {
-            const mapOptions = {
-              center: new window.naver.maps.LatLng(
-                resultData.data.result.place.y,
-                resultData.data.result.place.x
-              ),
-              zoom: 15,
-            };
+      // useEffect(() => {
+      //   if (!isLoading && resultData) {
+      //     const script = document.createElement("script");
+      //     script.src =
+      //       "https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ljyaizmmy4";
+      //     script.async = true;
+      //     script.onload = () => {
+      //       const mapOptions = {
+      //         center: new window.naver.maps.LatLng(
+      //           resultData.data.result.place.y,
+      //           resultData.data.result.place.x
+      //         ),
+      //         zoom: 15,
+      //       };
       
-            const map = new window.naver.maps.Map("map", mapOptions);
+      //       const map = new window.naver.maps.Map("map", mapOptions);
       
-            const markerOptions = {
-              position: new window.naver.maps.LatLng(
-                resultData.data.result.place.y,
-                resultData.data.result.place.x
-              ),
-              map: map,
-            };
+      //       const markerOptions = {
+      //         position: new window.naver.maps.LatLng(
+      //           resultData.data.result.place.y,
+      //           resultData.data.result.place.x
+      //         ),
+      //         map: map,
+      //       };
       
-            const marker = new window.naver.maps.Marker(markerOptions);
-          };
-          script.onerror = (error) => {
-            console.error("Error loading Naver Map script:", error);
-          };
-          document.body.appendChild(script);
-        }
-      }, [isLoading, resultData]);
+      //       const marker = new window.naver.maps.Marker(markerOptions);
+      //     };
+      //     script.onerror = (error) => {
+      //       console.error("Error loading Naver Map script:", error);
+      //     };
+      //     document.body.appendChild(script);
+      //   }
+      // }, [isLoading, resultData]);
       
     
 
@@ -158,15 +159,15 @@ export default function Results({resultData: initialResultData}) {
   }, []);
 
   // // 지도 URL 가져오기
-  const handleMapClick = () => {
-    if (
-      resultData &&
-      resultData.data &&
-      resultData.data.result.place.naverUrl
-    ) {
-      window.location.href = resultData.data.result.place.naverUrl;
-    }
-  };
+  // const handleMapClick = () => {
+  //   if (
+  //     resultData &&
+  //     resultData.data &&
+  //     resultData.data.result.place.naverUrl
+  //   ) {
+  //     window.location.href = resultData.data.result.place.naverUrl;
+  //   }
+  // };
 
   if (isLoading) {
     return <LoadingPage />;
@@ -239,7 +240,9 @@ export default function Results({resultData: initialResultData}) {
                 <img src="/location.png" />
                 <p>위치를 알려줄게!</p>
                 <img src="/box_stroke.png" id="cross"></img>
-                <div className="map" id="map" onClick={handleMapClick}></div>
+                <div className="map" id="map">
+                <MapComponent isLoading={isLoading} resultData={resultData} />
+                </div>
               </div>
 
               <div className="hot_spot">

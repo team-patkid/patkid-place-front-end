@@ -1,22 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 
-export default function Home() {
+export default function Home({ visitorCount }) {
   const [isClicked, setIsClicked] = useState(false);
-  const [visitorCount, setVisitorCount] = useState(0);
 
-  useEffect(() => {
-    axios
-      .get("https://api.patkid.kr/user/visit")
-      .then((response) => {
-        setVisitorCount(response.data.data.count);
-        console.log(response.data.data.count);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
 
   const handleClick = () => {
     setIsClicked(true);
@@ -277,4 +265,15 @@ export default function Home() {
       `}</style>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const response = await axios.get("https://api.patkid.kr/user/visit");
+  const visitorCount = response.data.data.count;
+
+  return {
+    props: {
+      visitorCount,
+    },
+  };
 }
