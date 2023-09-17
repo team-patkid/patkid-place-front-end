@@ -21,6 +21,11 @@ export default function Questions({ questionsData }) {
   //   window.scrollTo(0, 0);
   // }, [currentNumber]);
 
+  useEffect(() => {
+    if (questionsData.data.list[currentNumber]) {
+      setLoading(false);
+    }
+  }, [questionsData, currentNumber]);
 
   // 결과 페이지 이동
   const showResultPage = (choiceNumber) => {
@@ -102,7 +107,6 @@ export default function Questions({ questionsData }) {
     });
 
     if (isLastQuestion) {
-      // 결과 페이지로 이동
       redirectToResultPage();
     } else {
       setCurrentNumber(currentNumber + 1);
@@ -126,6 +130,7 @@ export default function Questions({ questionsData }) {
         height={1081}
         quality={50}
         alt="questions_Image"
+        priority
       />
 
       <div className="title">
@@ -170,12 +175,11 @@ export default function Questions({ questionsData }) {
             clickedButtonImage="/visit_click.webp"
             buttonText={
               <span
-                className={`choice1_answer ${
-                  questionsData.data.list[currentNumber]?.questionSub[0].content
-                    .length > 25
-                    ? "choice1_answer2"
-                    : "choice1_answer1"
-                }`}
+                className={`choice1_answer ${questionsData.data.list[currentNumber]?.questionSub[0].content
+                  .length > 25
+                  ? "choice1_answer2"
+                  : "choice1_answer1"
+                  }`}
               >
                 {questionsData.data.list[currentNumber]?.questionSub[0].content}
               </span>
@@ -189,12 +193,11 @@ export default function Questions({ questionsData }) {
             clickedButtonImage="/visit_click.webp"
             buttonText={
               <span
-                className={`choice2_answer ${
-                  questionsData.data.list[currentNumber]?.questionSub[1].content
-                    .length > 25
-                    ? "choice2_answer2"
-                    : "choice2_answer1"
-                }`}
+                className={`choice2_answer ${questionsData.data.list[currentNumber]?.questionSub[1].content
+                  .length > 25
+                  ? "choice2_answer2"
+                  : "choice2_answer1"
+                  }`}
               >
                 {questionsData.data.list[currentNumber]?.questionSub[1].content}
               </span>

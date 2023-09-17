@@ -18,11 +18,11 @@ export default function Results({ resultData: initialResultData }) {
   const [diceClicks, setDiceClicks] = useState(0);
   const [resultData, setResultData] = useState(initialResultData);
   const [isFetching, setIsFetching] = useState(false);
-  
+
 
   //랜덤 결과값
   useEffect(() => {
-    if (diceClicks > 0 && diceClicks <= 2) { 
+    if (diceClicks > 0 && diceClicks <= 2) {
       const fetchData = async () => {
         setIsFetching(true);
         try {
@@ -33,22 +33,23 @@ export default function Results({ resultData: initialResultData }) {
           setResultData(response.data);
         } catch (error) {
           console.error(error);
-        } finally { 
+        } finally {
           setIsFetching(false);
         }
       };
-      
+
       fetchData();
     }
-  
-    if(diceClicks >=2){
-       setShowImage(false); 
+
+    if (diceClicks >= 2) {
+      setShowImage(false);
     }
+    console.log(diceClicks);
   }, [diceClicks]);
 
-  const handleDiceClick= () => {
-    if (!isFetching) { 
-      setDiceClicks(prevDice => prevDice +1);
+  const handleDiceClick = () => {
+    if (!isFetching) {
+      setDiceClicks(prevDice => prevDice + 1);
       console.log("성공")
     }
   };
@@ -68,12 +69,12 @@ export default function Results({ resultData: initialResultData }) {
 
   //로딩페이지 지연
   useEffect(() => {
-    if (resultData) { 
+    if (resultData) {
       setTimeout(() => {
         setIsLoading(false);
-    }, 1600);
+      }, 1600);
     }
-    }, [resultData]);
+  }, [resultData]);
 
 
   const openModal = (openState, index) => () => {
@@ -110,12 +111,12 @@ export default function Results({ resultData: initialResultData }) {
     setFontSize(calculateFontSize());
   }, [resultData]);
 
-    //카카오톡 공유하기
-    useEffect(() => {
-      if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
-        Kakao.init("dc448d19d55ef2f3302fceaacee793ea");
-      }
-    }, []);
+  //카카오톡 공유하기
+  useEffect(() => {
+    if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
+      Kakao.init("dc448d19d55ef2f3302fceaacee793ea");
+    }
+  }, []);
 
 
   if (isLoading) {
@@ -178,7 +179,7 @@ export default function Results({ resultData: initialResultData }) {
                 <p>위치를 알려줄게!</p>
                 <img src="/box_stroke.webp" id="cross"></img>
                 <div className="map" id="map">
-                <MapComponent isLoading={isLoading} resultData={resultData} />
+                  <MapComponent isLoading={isLoading} resultData={resultData} />
                 </div>
               </div>
 

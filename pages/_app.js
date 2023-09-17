@@ -25,9 +25,9 @@ export default function MyApp({ Component, pageProps }) {
         />
       </Head>
       <Script
-          src="https://developers.kakao.com/sdk/js/kakao.js"
-          strategy="beforeInteractive"
-        />
+        src="https://developers.kakao.com/sdk/js/kakao.js"
+        strategy="beforeInteractive"
+      />
       <Component {...pageProps} />
     </>
   );
