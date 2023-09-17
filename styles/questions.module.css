@@ -39,75 +39,75 @@
 }
 @keyframes Animation31 {
   0% {
-    transform: rotate(0);
+    transform: translateZ(0) rotate(0);
   }
   50% {
-    transform: rotate(-7deg);
+    transform: translateZ(0) rotate(-7deg);
   }
   100% {
-    transform: rotate(0);
+    transform: translateZ(0) rotate(0);
   }
 }
 @keyframes Animation32 {
   0% {
     left: 335px;
     top: 244px;
-    transform: rotate(0);
+    transform: translateZ(0) rotate(0);
   }
   50% {
     left: 336px;
   top: 234px;
-    transform: rotate(-15deg);
+    transform: translateZ(0) rotate(-15deg);
   }
   100% {
     left: 335px;
   top: 244px;
-    transform: rotate(0);
+    transform: translateZ(0) rotate(0);
   }
 }
 @keyframes Animation33 {
   0% {
     left: 285px;
     top: 266px;
-    transform: rotate(0);
+    transform: translateZ(0) rotate(0);
   }
   50% {
     left: 287px;
     top: 261px;
-    transform: rotate(-10deg);
+    transform: translateZ(0) rotate(-10deg);
   }
   100% {
     left: 285px;
   top: 266px;
-    transform: rotate(0);
+    transform: translateZ(0) rotate(0);
   }
 }
 @keyframes Animation34 {
   0% {
     left: 360px;
     top: 307px;  
-    transform: rotate(0);
+    transform: translateZ(0) rotate(0);
   }
   50% {
     left: 362px;
     top: 295px;  
-    transform: rotate(-10deg);
+    transform: translateZ(0) rotate(-10deg);
   }
   100% {
     left: 360px;
     top: 307px;  
-    transform: rotate(0);
+    transform: translateZ(0) rotate(0);
   }
 }
 @keyframes Animation41 {
   0% {
-    transform: rotate(3deg);
+    transform: translateZ(0) rotate(3deg);
   }
   50% {
-    transform: rotate(-3deg);
+    transform: translateZ(0) rotate(-3deg);
   }
   100% {
-    transform: rotate(3deg);
+    transform: translateZ(0) rotate(3deg);
   }
 }
 @keyframes Animation42 {
@@ -156,24 +156,24 @@
 }
 @keyframes Animation61 {
   0% {
-    transform: rotate(8deg);
+    transform: translateZ(0) rotate(8deg);
   }
   50% {
-    transform: rotate(-3deg);
+    transform: translateZ(0) rotate(-3deg);
   }
   100% {
-    transform: rotate(8deg);
+    transform: translateZ(0) rotate(8deg);
   }
 }
 @keyframes Animation62 {
   0% {
-    transform: rotate(-7deg);
+    transform: translateZ(0) rotate(-7deg);
   }
   50% {
-    transform: rotate(-1deg);
+    transform: translateZ(0) rotate(-1deg);
   }
   100% {
-    transform: rotate(-7deg);
+    transform: translateZ(0) rotate(-7deg);
   }
 }
 @keyframes Animation63 {
@@ -272,13 +272,13 @@
 }
 @keyframes Animation111 {
   0% {
-    transform: rotate(6deg);
+    transform: translateZ(0) rotate(6deg);
   }
   50% {
-    transform: rotate(-6deg);
+    transform: translateZ(0) rotate(-6deg);
   }
   100% {
-    transform: rotate(6deg);
+    transform: translateZ(0) rotate(6deg);
   }
 }
 @keyframes Animation112 {
@@ -416,7 +416,7 @@
   height: 118px;
   left: 107.33px;
   top: 262.37px;
-  transform: rotate(-8deg);
+  transform: translateZ(0) rotate(-8deg);
   animation : Animation61 650ms infinite;
 }
 .question6_img2{
@@ -425,7 +425,7 @@
   height: 112px;
   left: 268.35px;
   top: 320.89px;
-  transform: rotate(7deg);
+  transform: translateZ(0) rotate(7deg);
   animation : Animation62 650ms infinite;
 }
 .question6_img3{
@@ -450,7 +450,7 @@
   height: 20px;
   left: 334px;
   top: 285.97px;
-  transform: rotate(-17.36deg);
+  transform: translateZ(0) rotate(-17.36deg);
   animation : Animation65 650ms infinite;
 }
 .question6_img6{
@@ -459,7 +459,7 @@
   height: 22px;
   left: 383.39px;
   top: 263px;
-  transform: rotate(6.24deg);
+  transform: translateZ(0) rotate(6.24deg);
   animation : Animation66 650ms infinite;
 }
 .question7_img1{
@@ -475,7 +475,7 @@
   height: 130px;
   left: 327px;
   top: 275px;
-  transform: rotate(5deg);
+  transform: translateZ(0) rotate(5deg);
   animation : Animation72 650ms infinite;
 }
 .question8_img1{
@@ -529,7 +529,7 @@
   height: 172px;
   left: 184px;
   top: 265px;
-  transform: rotate(-6deg);
+  transform: translateZ(0) rotate(-6deg);
   animation : Animation111 650ms infinite;
 }
 .question11_img2{
@@ -538,7 +538,7 @@
   height: 52px;
   left: 322px;
   top: 237px;
-  transform: rotate(9deg);
+  transform: translateZ(0) rotate(9deg);
   animation : Animation112  650ms infinite;
 }
 .question12_img1{
