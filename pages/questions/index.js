@@ -27,29 +27,6 @@ export default function Questions({ questionsData }) {
     }
   }, [questionsData, currentNumber]);
 
-  // 결과 페이지 이동
-  const showResultPage = (choiceNumber) => {
-    const isLastQuestion = currentNumber === questionsData.data.total - 1;
-    const selectedChoice =
-      questionsData.data.list[currentNumber]?.questionSub[choiceNumber].type;
-
-    setMbtiList((prevState) => {
-      return {
-        ...prevState,
-        [questionsData.data.list[currentNumber].type]: [
-          ...prevState[questionsData.data.list[currentNumber].type],
-          selectedChoice,
-        ],
-      };
-    });
-
-    if (isLastQuestion) {
-      redirectToResultPage();
-    } else {
-      setCurrentNumber(currentNumber + 1);
-    }
-  };
-
   // 결과 페이지로 이동하는 함수
   const redirectToResultPage = () => {
     const mbtiCount = {
@@ -93,7 +70,7 @@ export default function Questions({ questionsData }) {
   // 다음 질문으로 이동
   const nextQuestion = (choiceNumber) => {
     const isLastQuestion = currentNumber === questionsData.data.total - 1;
-    const selectedChoice =
+    const choiceType =
       questionsData.data.list[currentNumber]?.questionSub[choiceNumber].type;
 
     setMbtiList((prevState) => {
@@ -101,7 +78,7 @@ export default function Questions({ questionsData }) {
         ...prevState,
         [questionsData.data.list[currentNumber].type]: [
           ...prevState[questionsData.data.list[currentNumber].type],
-          selectedChoice,
+          choiceType,
         ],
       };
     });
