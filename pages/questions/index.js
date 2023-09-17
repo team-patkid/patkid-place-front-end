@@ -5,6 +5,7 @@ import ProgressBar from "@/components/progress.js";
 import { questions as imgQuestions } from "@/data/data.js";
 import Button from "@/components/Button/Button.js";
 import styles from "@/styles/questions.module.css";
+import dynamic from "next/dynamic";
 
 export default function Questions({ questionsData }) {
   const [currentNumber, setCurrentNumber] = useState(0);
