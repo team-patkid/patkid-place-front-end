@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import styles from "./modal.module.css";
+import styles from "@/styles/modal.module.css";
 
 const Modal = ({ handleOpen, data }) => {
   return (

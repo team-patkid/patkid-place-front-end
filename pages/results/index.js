@@ -2,13 +2,13 @@ import { Fragment, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
-import Modal from "../../components/Modal";
-import LoadingPage from "../../components/LoadingPage";
+import Modal from "@/components/Modal";
+import LoadingPage from "@/components/LoadingPage";
 import KakaoShareButton from "@/components/KakaoShare";
 import MapComponent from '@/components/map';
 
 export default function Results({ resultData: initialResultData }) {
-    const router = useRouter();
+  const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalOpenIndex, setModalOpenIndex] = useState(null);
   const [showImage, setShowImage] = useState(true);
@@ -18,7 +18,6 @@ export default function Results({ resultData: initialResultData }) {
   const [diceClicks, setDiceClicks] = useState(0);
   const [resultData, setResultData] = useState(initialResultData);
   const [isFetching, setIsFetching] = useState(false);
-  const [isOverflow, setIsOverflow] = useState(false);
   
 
   //랜덤 결과값
@@ -113,7 +112,7 @@ export default function Results({ resultData: initialResultData }) {
 
     //카카오톡 공유하기
     useEffect(() => {
-      if (typeof Kakao !== 'undefined') {
+      if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
         Kakao.init("dc448d19d55ef2f3302fceaacee793ea");
       }
     }, []);
@@ -127,16 +126,6 @@ export default function Results({ resultData: initialResultData }) {
     const { name, description, imageUrl, naverUrl } =
       resultData.data.result.place;
     const tags = resultData.data.result.place.tags;
-
-    const combinedTags = tags.map((tag, index) => (
-      <span
-        key={`tag-${index}`}
-        className={`isaText hashtag marginR tag${index + 1}`}
-      >
-        #{tag.tag}{" "}
-      </span>
-    ));
-
     return (
       <div className={`wrapper ${shared ? "shared" : ""}`}>
         <section className="result_layout">
@@ -166,7 +155,11 @@ export default function Results({ resultData: initialResultData }) {
                 <div className="spot_img">
                   <img src={resultData.data.result.place.imageUrl} />
                 </div>
-                <div className="tag">{combinedTags}</div>
+                <div className='tag'>
+                  {tags.map((v, index) => (
+                    <p className='isaText' key={`hotspot-modal-${index}`}>#{v.tag}</p>
+                  ))}
+                </div>
                 <img src="/box.webp" />
                 <div className="box_text">
                   {resultData.data.result.place.content
@@ -174,12 +167,6 @@ export default function Results({ resultData: initialResultData }) {
                     .map((v, index, array) => (
                       <li
                         key={index}
-                        // style={{
-                        //   marginBottom:
-                        //     index !== array.length - 1
-                        //       ? (isOverflow ? "16px" : "32px")
-                        //       : "0",
-                        // }}
                       >
                         {v}
                       </li>
@@ -349,31 +336,28 @@ export default function Results({ resultData: initialResultData }) {
               height: 100%;
               object-fit: cover;
             }
-            .tag {
-              position: absolute;
-              width: 360px;
-              height: 24px;
-              left: 68px;
-              top: 540px;
-              display: flex;
-              flex-wrap: wrap;
-            }
+          .tag{
+          position: absolute;
+          width: 326px;
+          height: 46px;
+          left: calc(50% - 326px/2);
+          top: 534px;
 
-            .isaText.hashtag.tag1::after,
-            .isaText.hashtag.tag2::after,
-            .isaText.hashtag.tag3::after {
-              content: " ";
-            }
-            .hashtag p {
-              position: absolute;
-              width: 100%;
-              height: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+        }
 
-              font-weight: 600;
-              font-size: 16px;
 
-              color: #000000;
-            }
+        .tag-line{
+          position: absolute;
+          width: 410px;
+          height: 0px;
+          left: calc(50% - 410px/2);
+          top: 525px;
+
+          border: 1px solid #FF448D;
+          }
             .result > img:nth-of-type(4) {
               position: absolute;
               width: 468px;

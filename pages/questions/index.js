@@ -17,9 +17,9 @@ export default function Questions({ questionsData }) {
   const question = imgQuestions[currentNumber];
 
   // 질문 번호가 변경될 때마다 화면 맨 위로 스크롤
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [currentNumber]);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, [currentNumber]);
 
 
   // 결과 페이지 이동
@@ -39,7 +39,6 @@ export default function Questions({ questionsData }) {
     });
 
     if (isLastQuestion) {
-      // 결과 페이지로 이동
       redirectToResultPage();
     } else {
       setCurrentNumber(currentNumber + 1);
@@ -125,7 +124,7 @@ export default function Questions({ questionsData }) {
         className="questions_layout"
         width={500}
         height={1081}
-        quality={60}
+        quality={50}
         alt="questions_Image"
       />
 

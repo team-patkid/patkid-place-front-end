@@ -44,4 +44,5 @@ const KakaoShareButton = ({description, imageUrl, mobileWebUrl, webUrl, mbti}) =
   );
 };
 
+
 export default KakaoShareButton;
