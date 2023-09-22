@@ -2,7 +2,7 @@ export default function LoadingPage() {
 
   return (
     <div className="main_layout">
-      <img src='/background_h_3.webp' className='main_layout'/>
+      <img src='/background_h_3.webp' quality={50} className='main_layout'/>
       <div className="main_title">
         <img src="loding.webp" quality={50}/>
         <img src="loding_text.webp" quality={50}/>

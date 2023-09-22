@@ -148,6 +148,31 @@ const handleDiceClick = () => {
   }, []);
   
 
+  useEffect(() => {
+    const handleStart = () => {
+      setIsLoading(true);
+    };
+
+    router.events.on("routeChangeStart", handleStart);
+
+    return () => {
+      router.events.off("routeChangeStart", handleStart);
+    };
+  }, [router]);
+
+  useEffect(() => {
+    const handleComplete = () => {
+      setIsLoading(false);
+    };
+
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleComplete);
+      router.events.off("routeChangeError", handleComplete);
+    };
+  }, [router]);
 
   if (isLoading) {
     return <LoadingPage />;
