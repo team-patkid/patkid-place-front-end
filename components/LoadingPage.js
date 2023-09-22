@@ -4,31 +4,28 @@ export default function LoadingPage() {
     <div className="main_layout">
       <img src='/background_h_3.webp' className='main_layout'/>
       <div className="main_title">
-        <img src="loding.webp"/>
-        <img src="loding_text.webp"/>
+        <img src="loding.webp" quality={50}/>
+        <img src="loding_text.webp" quality={50}/>
       </div>
       <div className="main_layout_icon">
-        <img src="/coffee.webp"/>
-        <img src="/heart_1.webp"/>
-        <img src="/heart_1.webp"/>
-        <img src="/music.webp"/>
-        <img src="/cake.webp"/>
-        <img src="/heart_2.webp"/>
-        <img src="/book.webp"/>
+        <img src="/coffee.webp" quality={50}/>
+        <img src="/heart_1.webp" quality={50}/>
+        <img src="/heart_1.webp" quality={50}/>
+        <img src="/music.webp"quality={50}/>
+        <img src="/cake.webp" quality={50}/>
+        <img src="/heart_2.webp"quality={50}/>
+        <img src="/book.webp" quality={50}/>
       </div>
 
       <style jsx>{`
       @keyframes loadingAnimation {
-          0% {
-            top: 283px;
+          0%, 100% {
+            transform: translateY(0);
           }
           50% {
-            top: 274px;
+            transform: translateY(-9px);
           }
-          100% {
-             top: 283px;
-          }
-      }
+}
           
       @keyframes sixAnimation {
           0% {
