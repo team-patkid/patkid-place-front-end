@@ -2,6 +2,17 @@ import { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 
+export async function getServerSideProps() {
+  const response = await axios.get("https://api.patkid.kr/user/visit");
+  const visitorCount = response.data.data.count;
+
+  return {
+    props: {
+      visitorCount,
+    },
+  };
+}
+
 export default function Home({ visitorCount }) {
   const [isClicked, setIsClicked] = useState(false);
 
@@ -267,13 +278,3 @@ export default function Home({ visitorCount }) {
   );
 }
 
-export async function getServerSideProps() {
-  const response = await axios.get("https://api.patkid.kr/user/visit");
-  const visitorCount = response.data.data.count;
-
-  return {
-    props: {
-      visitorCount,
-    },
-  };
-}

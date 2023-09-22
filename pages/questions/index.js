@@ -3,11 +3,11 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import ProgressBar from "@/components/progress.js";
 import { questions as imgQuestions } from "@/data/data.js";
-import Button from "@/components/Button/Button.js";
 import styles from "@/styles/questions.module.css";
 import dynamic from "next/dynamic";
 
 export default function Questions({ questionsData }) {
+  const DynamicButton = dynamic(() => import("@/components/Button/Button.js"));
   const [currentNumber, setCurrentNumber] = useState(0);
   const [mbtiList, setMbtiList] = useState({ EI: [], NS: [], FT: [], PJ: [] });
   const [loading, setLoading] = useState(false);
@@ -16,11 +16,6 @@ export default function Questions({ questionsData }) {
   const router = useRouter();
 
   const question = imgQuestions[currentNumber];
-
-  // 질문 번호가 변경될 때마다 화면 맨 위로 스크롤
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, [currentNumber]);
 
   useEffect(() => {
     if (questionsData.data.list[currentNumber]) {
@@ -31,22 +26,10 @@ export default function Questions({ questionsData }) {
   // 결과 페이지로 이동하는 함수
   const redirectToResultPage = () => {
     const mbtiCount = {
-      EI: {
-        E: 0,
-        I: 0,
-      },
-      NS: {
-        N: 0,
-        S: 0,
-      },
-      FT: {
-        F: 0,
-        T: 0,
-      },
-      PJ: {
-        P: 0,
-        J: 0,
-      },
+      EI: { E: 0, I: 0 },
+      NS: { N: 0, S: 0 },
+      FT: { F: 0, T: 0 },
+      PJ: { P: 0, J: 0 },
     };
 
     for (const key of Object.keys(mbtiList)) {
@@ -55,15 +38,11 @@ export default function Questions({ questionsData }) {
       }
     }
 
-    let mbtiQueryString = "";
-
-    for (const value in mbtiCount) {
-      const type = mbtiCount[value];
-      const resultType = Object.keys(type).reduce((a, b) =>
-        type[a] > type[b] ? a : b
-      );
-      mbtiQueryString += resultType;
-    }
+    const mbtiQueryString = Object.values(mbtiCount)
+      .map((type) =>
+        Object.keys(type).reduce((a, b) => (type[a] > type[b] ? a : b))
+      )
+      .join("");
 
     router.push(`/results?mbti=${mbtiQueryString}`);
   };
@@ -74,21 +53,36 @@ export default function Questions({ questionsData }) {
     const choiceType =
       questionsData.data.list[currentNumber]?.questionSub[choiceNumber].type;
 
-    setMbtiList((prevState) => {
-      return {
-        ...prevState,
-        [questionsData.data.list[currentNumber].type]: [
-          ...prevState[questionsData.data.list[currentNumber].type],
-          choiceType,
-        ],
-      };
-    });
+    setMbtiList((prevState) => ({
+      ...prevState,
+      [questionsData.data.list[currentNumber].type]: [
+        ...prevState[questionsData.data.list[currentNumber].type],
+        choiceType,
+      ],
+    }));
 
     if (isLastQuestion) {
       redirectToResultPage();
     } else {
       setCurrentNumber(currentNumber + 1);
     }
+  };
+
+  const renderQuestionImage = () => {
+    if (!question || !question.img) return null;
+
+    return question.img.map((img, index) => {
+      if (img.src && img.css) {
+        return (
+          <img
+            key={index}
+            src={`/${img.src}`}
+            className={`${styles[img.css]} ${styles.msAnimation}`}
+          />
+        );
+      }
+      return null;
+    });
   };
 
   if (loading) {
@@ -120,44 +114,32 @@ export default function Questions({ questionsData }) {
       </div>
       <div className="question">
         <img src="/questions.webp" />
-        {question.img.map(
-          (img, index) =>
-            img.src &&
-            img.css && (
-              <img
-                key={index}
-                src={`/${img.src}`}
-                className={`${styles[img.css]} ${styles.msAnimation}`}
-              />
-            )
+        {renderQuestionImage()}
+        {questionsData.data && questionsData.data.list && questionsData.data.list.length > 0 && (
+          <div className="questions">
+            <p className="number">
+              {questionsData.data.list[currentNumber]?.questionId}/12
+            </p>
+            <p className="question">
+              {questionsData.data.list[currentNumber]?.content}
+            </p>
+          </div>
         )}
-
-        {questionsData.data &&
-          questionsData.data.list &&
-          questionsData.data.list.length > 0 && (
-            <div className="questions">
-              <p className="number">
-                {questionsData.data.list[currentNumber]?.questionId}/12
-              </p>
-              <p className="question">
-                {questionsData.data.list[currentNumber]?.content}
-              </p>
-            </div>
-          )}
       </div>
       <div className="answer">
         <div className="choice1">
-          <Button
+          <DynamicButton
             onClick={() => nextQuestion(0)}
             buttonImage="/answer.webp"
             clickedButtonImage="/visit_click.webp"
             buttonText={
               <span
-                className={`choice1_answer ${questionsData.data.list[currentNumber]?.questionSub[0].content
-                  .length > 25
-                  ? "choice1_answer2"
-                  : "choice1_answer1"
-                  }`}
+                className={`choice1_answer ${
+                  questionsData.data.list[currentNumber]?.questionSub[0].content
+                    .length > 25
+                    ? "choice1_answer2"
+                    : "choice1_answer1"
+                }`}
               >
                 {questionsData.data.list[currentNumber]?.questionSub[0].content}
               </span>
@@ -165,17 +147,18 @@ export default function Questions({ questionsData }) {
           />
         </div>
         <div className="choice2">
-          <Button
+          <DynamicButton
             onClick={() => nextQuestion(1)}
             buttonImage="/answer.webp"
             clickedButtonImage="/visit_click.webp"
             buttonText={
               <span
-                className={`choice2_answer ${questionsData.data.list[currentNumber]?.questionSub[1].content
-                  .length > 25
-                  ? "choice2_answer2"
-                  : "choice2_answer1"
-                  }`}
+                className={`choice1_answer ${
+                  questionsData.data.list[currentNumber]?.questionSub[1].content
+                    .length > 25
+                    ? "choice1_answer2"
+                    : "choice1_answer1"
+                }`}
               >
                 {questionsData.data.list[currentNumber]?.questionSub[1].content}
               </span>
@@ -183,7 +166,6 @@ export default function Questions({ questionsData }) {
           />
         </div>
       </div>
-
       <style jsx>{`
         .questions_layout {
           position: relative;
