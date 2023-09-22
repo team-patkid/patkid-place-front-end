@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import ProgressBar from "@/components/progress.js";
 import { questions as imgQuestions } from "@/data/data.js";
 import styles from "@/styles/questions.module.css";
-import dynamic from "next/dynamic";
+
 
 export default function Questions({ questionsData }) {
-  const DynamicButton = dynamic(() => import("@/components/Button/Button.js"));
-  const DynamicProgressBar = dynamic(() => import("@/components/progress.js"));
+  const DynamicButton = React.lazy(() => import('@/components/Button/Button.js'));
+  const DynamicProgressBar = React.lazy(() => import('@/components/progress.js'));  
   const [currentNumber, setCurrentNumber] = useState(0);
   const [mbtiList, setMbtiList] = useState({ EI: [], NS: [], FT: [], PJ: [] });
   const [loading, setLoading] = useState(false);
@@ -305,7 +305,7 @@ export default function Questions({ questionsData }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   try {
     const questionsResponse = await fetch("https://api.patkid.kr/question/list");
     const questionsData = await questionsResponse.json();
