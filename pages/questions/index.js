@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 
 export default function Questions({ questionsData }) {
   const DynamicButton = dynamic(() => import("@/components/Button/Button.js"));
+  const DynamicProgressBar = dynamic(() => import("@/components/progress.js"));
   const [currentNumber, setCurrentNumber] = useState(0);
   const [mbtiList, setMbtiList] = useState({ EI: [], NS: [], FT: [], PJ: [] });
   const [loading, setLoading] = useState(false);
@@ -114,7 +115,7 @@ export default function Questions({ questionsData }) {
         <p>핫스팟 테스트</p>
       </div>
       <div className="progress_bar">
-        <ProgressBar currentNumber={currentNumber} />
+      <DynamicProgressBar currentNumber={currentNumber} />
       </div>
       <div className="question">
         <img src="/questions.webp" />

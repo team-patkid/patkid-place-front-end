@@ -10,7 +10,7 @@ const ProgressBarItem = ({ index }) => (
       marginLeft: "5.5px",
     }}
   >
-    <Image src="/progress.webp" width={14} height={12} quality={80} alt="progress_Img" />
+    <Image src="/progress.webp" width={14} height={12} quality={50} alt="progress_Img" />
     <div
       className="padding"
       style={{
@@ -19,7 +19,7 @@ const ProgressBarItem = ({ index }) => (
         display: "inline-block",
       }}
     />
-    <Image src="/progress.webp" width={14} height={12} quality={80} alt="progress_Img" />
+    <Image src="/progress.webp" width={14} height={12} quality={50} alt="progress_Img" />
   </div>
 );
 
@@ -36,7 +36,7 @@ const ProgressBar = ({ currentNumber }) => {
         src="/progress_bar.webp"
         width={471}
         height={39}
-        quality={80}
+        quality={50}
         alt="progress_bar_Img"
       />
       <div className="progress_container">
@@ -55,7 +55,7 @@ const ProgressBar = ({ currentNumber }) => {
               src="/progress_heart.webp"
               width={45}
               height={39}
-              quality={80}
+              quality={50}
               alt="progress_heart_Img"
             />
           </div>
