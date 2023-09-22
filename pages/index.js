@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
+import styles from "@/styles/main.module.css"
 
 export async function getServerSideProps() {
   const response = await axios.get("https://api.patkid.kr/user/visit");
@@ -81,69 +82,6 @@ export default function Home({ visitorCount }) {
       <img src="/logo_patKid.webp" className="main_logo" />
 
       <style jsx>{`
-        @keyframes clickAnimation {
-          0% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(0.95);
-          }
-          100% {
-            transform: scale(1);
-          }
-        }
-        @keyframes titleAnimation {
-          0% {
-            top: 224px;
-          }
-          25% {
-            top: 218px;
-          }
-          50% {
-            top: 212px;
-          }
-          75% {
-            top: 218px;
-          }
-          100% {
-            top: 224px;
-          }
-        }
-
-        @keyframes sixAnimation {
-          0% {
-            transform: rotate(0deg);
-          }
-          25% {
-            transform: rotate(-3deg);
-          }
-          50% {
-            transform: rotate(-6deg);
-          }
-          75% {
-            transform: rotate(-3deg);
-          }
-          100% {
-            transform: rotate(0deg);
-          }
-        }
-        @keyframes tenAnimation {
-          0% {
-            transform: rotate(0deg);
-          }
-          25% {
-            transform: rotate(5deg);
-          }
-          50% {
-            transform: rotate(10deg);
-          }
-          75% {
-            transform: rotate(5deg);
-          }
-          100% {
-            transform: rotate(0deg);
-          }
-        }
         * {
           box-sizing: border-box;
         }
@@ -161,7 +99,7 @@ export default function Home({ visitorCount }) {
           height: 411px;
           left: 41px;
           top: 224px;
-          animation: titleAnimation 650ms infinite;
+          animation: ${styles.titleAnimation} 650ms infinite;
         }
         .main_layout_icon {
           position: absolute;
@@ -176,7 +114,7 @@ export default function Home({ visitorCount }) {
           height: 140px;
           left: 32px;
           top: 57px;
-          animation: sixAnimation 650ms infinite;
+          animation: ${styles.sixAnimation} 650ms infinite;
         }
         .main_layout_icon > img:nth-of-type(2) {
           position: absolute;
@@ -191,7 +129,7 @@ export default function Home({ visitorCount }) {
           height: 112px;
           left: 350px;
           top: 103px;
-          animation: tenAnimation 650ms infinite;
+          animation: ${styles.tenAnimation} 650ms infinite;
         }
         .main_layout_icon > img:nth-of-type(4) {
           position: absolute;
@@ -199,7 +137,7 @@ export default function Home({ visitorCount }) {
           height: 128px;
           left: 7px;
           top: 523px;
-          animation: sixAnimation 650ms infinite;
+          animation: ${styles.sixAnimation} 650ms infinite;
         }
         .main_layout_icon > img:nth-of-type(5) {
           position: absolute;
@@ -214,7 +152,7 @@ export default function Home({ visitorCount }) {
           height: 90px;
           left: 377px;
           top: 658px;
-          animation: sixAnimation 650ms infinite;
+          animation: ${styles.sixAnimation} 650ms infinite;
         }
         .main_layout p {
           position: absolute;
@@ -237,7 +175,7 @@ export default function Home({ visitorCount }) {
           transition: background-color 0.7s ease;
         }
         .btn_click {
-          animation: clickAnimation 0.5s linear;
+          animation: ${styles.clickAnimation} 0.5s linear;
           animation-delay: 0.1s;
         }
         .main_logo {
