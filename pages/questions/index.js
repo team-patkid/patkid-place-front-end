@@ -3,11 +3,12 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { questions as imgQuestions } from "@/data/data.js";
 import styles from "@/styles/questions.module.css";
+import dynamic from 'next/dynamic';
 
 
 export default function Questions({ questionsData }) {
-  const DynamicButton = React.lazy(() => import('@/components/Button/Button'));
-  const DynamicProgressBar = React.lazy(() => import('@/components/progress'));
+  const DynamicButton = dynamic(() => import('@/components/Button/Button'));
+  const DynamicProgressBar = dynamic(() => import('@/components/progress'));
   const [currentNumber, setCurrentNumber] = useState(0);
   const [mbtiList, setMbtiList] = useState({ EI: [], NS: [], FT: [], PJ: [] });
   const [loading, setLoading] = useState(false);
@@ -114,9 +115,7 @@ export default function Questions({ questionsData }) {
         <p>핫스팟 테스트</p>
       </div>
       <div className="progress_bar">
-      <Suspense fallback={<div>Loading...</div>}>
       <DynamicProgressBar currentNumber={currentNumber} />
-      </Suspense>
       </div>
       <div className="question">
         <img src="/questions.webp" />
@@ -134,7 +133,6 @@ export default function Questions({ questionsData }) {
       </div>
       <div className="answer">
         <div className="choice1">
-        <Suspense fallback={<div>Loading...</div>}>
           <DynamicButton
             onClick={() => nextQuestion(0)}
             buttonImage="/answer.webp"
@@ -152,10 +150,8 @@ export default function Questions({ questionsData }) {
               </span>
             }
           />
-          </Suspense>
         </div>
         <div className="choice2">
-        <Suspense fallback={<div>Loading...</div>}>
           <DynamicButton
             onClick={() => nextQuestion(1)}
             buttonImage="/answer.webp"
@@ -173,7 +169,6 @@ export default function Questions({ questionsData }) {
               </span>
             }
           />
-          </Suspense>
         </div>
       </div>
       <style jsx>{`
