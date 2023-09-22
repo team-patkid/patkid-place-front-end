@@ -23,7 +23,6 @@ export default function Questions({ questionsData }) {
     }
   }, [questionsData, currentNumber]);
 
-  // 결과 페이지로 이동하는 함수
   const redirectToResultPage = () => {
     const mbtiCount = {
       EI: { E: 0, I: 0 },
@@ -47,7 +46,6 @@ export default function Questions({ questionsData }) {
     router.push(`/results?mbti=${mbtiQueryString}`);
   };
 
-  // 다음 질문으로 이동
   const nextQuestion = (choiceNumber) => {
     const isLastQuestion = currentNumber === questionsData.data.total - 1;
     const choiceType =
@@ -106,7 +104,13 @@ export default function Questions({ questionsData }) {
       />
 
       <div className="title">
-        <img src="/back.webp" width={12} height={25} />
+        <img 
+        src="/back.webp" 
+        width={12} 
+        height={25}
+        quality={50}
+        priority
+        />
         <p>핫스팟 테스트</p>
       </div>
       <div className="progress_bar">
@@ -294,11 +298,13 @@ export default function Questions({ questionsData }) {
           text-align: center;
           color: #000000;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 }
-export async function getStaticProps() {
+
+export async function getServerSideProps() {
   try {
     const questionsResponse = await fetch("https://api.patkid.kr/question/list");
     const questionsData = await questionsResponse.json();
