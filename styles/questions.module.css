@@ -1,311 +1,234 @@
 @keyframes Animation1 {
-  0% {
-    top: 307px;
+  0%, 100% {
+    transform: translateZ(0) translateY(0);
   }
   50% {
-    top: 296px;
-  }
-  100% {
-     top: 307px;
+    transform: translateZ(0) translateY(-11px);
   }
 }
+
 @keyframes Animation21 {
-  0% {
-    top: 281px;
-    left: 157px;
+  0%, 100% {
+    transform: translateZ(0) translate(0, 0);
   }
   50% {
-    top: 285px;
-    left: 153px;
-  } 
-  100% {
-     top: 281px; 
-     left: 157px;
+    transform: translateZ(0) translate(-4px, 4px);
   }
 }
+
 @keyframes Animation22 {
-  0% {
-    top: 251px;
-    left: 309px;
+  0%, 100% {
+    transform: translateZ(0) translate(0, 0);
   }
   50% {
-    top: 248px;
-    left: 316px;  
-  }
-  100% {
-    top: 251px;
-    left: 309px;
+    transform: translateZ(0) translate(7px, -3px);
   }
 }
+
 @keyframes Animation31 {
-  0% {
+  0%, 100% {
     transform: translateZ(0) rotate(0);
   }
   50% {
     transform: translateZ(0) rotate(-7deg);
   }
-  100% {
-    transform: translateZ(0) rotate(0);
-  }
 }
+
 @keyframes Animation32 {
-  0% {
-    left: 335px;
-    top: 244px;
-    transform: translateZ(0) rotate(0);
+  0%, 100% {
+    transform: translateZ(0) translateZ(0) rotate(0);
   }
   50% {
+    transform: translateZ(0) translateZ(0) rotate(-15deg);
     left: 336px;
-  top: 234px;
-    transform: translateZ(0) rotate(-15deg);
-  }
-  100% {
-    left: 335px;
-  top: 244px;
-    transform: translateZ(0) rotate(0);
+    top: 264px;
   }
 }
+
 @keyframes Animation33 {
-  0% {
-    left: 285px;
-    top: 266px;
-    transform: translateZ(0) rotate(0);
+  0%, 100% {
+    transform: translateZ(0) translateZ(0) rotate(0);
   }
   50% {
+    transform: translateZ(0) translateZ(0) rotate(-10deg);
     left: 287px;
     top: 261px;
-    transform: translateZ(0) rotate(-10deg);
-  }
-  100% {
-    left: 285px;
-  top: 266px;
-    transform: translateZ(0) rotate(0);
   }
 }
+
 @keyframes Animation34 {
-  0% {
-    left: 360px;
-    top: 307px;  
-    transform: translateZ(0) rotate(0);
+  0%, 100% {
+    transform: translateZ(0) translateZ(0) rotate(0);
   }
   50% {
+    transform: translateZ(0) translateZ(0) rotate(-10deg);
     left: 362px;
-    top: 295px;  
-    transform: translateZ(0) rotate(-10deg);
-  }
-  100% {
-    left: 360px;
-    top: 307px;  
-    transform: translateZ(0) rotate(0);
+    top: 295px;
   }
 }
+
 @keyframes Animation41 {
-  0% {
+  0%, 100% {
     transform: translateZ(0) rotate(3deg);
   }
   50% {
     transform: translateZ(0) rotate(-3deg);
   }
-  100% {
-    transform: translateZ(0) rotate(3deg);
-  }
 }
+
 @keyframes Animation42 {
-  0% {
-    top: 251px; 
+  0%, 100% {
+    transform: translateZ(0) translateY(0);
   }
   50% {
-    top: 240px;
-  }
-  100% {
-    top: 251px; 
+    transform: translateZ(0) translateY(-11px);
   }
 }
+
 @keyframes Animation51 {
-  0% {
-    top: 252px;
+  0%, 100% {
+    transform: translateZ(0) translateY(0);
   }
   50% {
-    top: 256px;
-  }
-  100% {
-    top: 252px;
+    transform: translateZ(0) translateY(4px);
   }
 }
+
 @keyframes Animation52 {
-  0% {
-    top: 297px;
+  0%, 100% {
+    transform: translateZ(0) translateY(0);
   }
   50% {
-    top: 317px;
-  }
-  100% {
-    top: 297px;
+    transform: translateZ(0) translateY(20px);
   }
 }
+
 @keyframes Animation53 {
-  0% {
-    top: 353px;
+  0%, 100% {
+    transform: translateZ(0) translateY(0);
   }
   50% {
-    top: 358px;
-  }
-  100% {
-    top: 353px;
+    transform: translateZ(0) translateY(5px);
   }
 }
+
 @keyframes Animation61 {
-  0% {
+  0%, 100% {
     transform: translateZ(0) rotate(8deg);
   }
   50% {
     transform: translateZ(0) rotate(-3deg);
   }
-  100% {
-    transform: translateZ(0) rotate(8deg);
-  }
 }
+
 @keyframes Animation62 {
-  0% {
+  0%, 100% {
     transform: translateZ(0) rotate(-7deg);
   }
   50% {
     transform: translateZ(0) rotate(-1deg);
   }
-  100% {
-    transform: translateZ(0) rotate(-7deg);
-  }
 }
+
 @keyframes Animation63 {
-  0% {
-    top: 293px;
+  0%, 100% {
+    transform: translateZ(0) translateY(0);
   }
   50% {
-    top: 288px;
-  }
-  100% {
-    top: 293px;
+    transform: translateZ(0) translateY(-5px);
   }
 }
+
 @keyframes Animation64 {
-  0% {
-    top: 407px;
+  0%, 100% {
+    transform: translateZ(0) translateY(0);
   }
   50% {
-    top: 404px;
-  }
-  100% {
-    top: 407px;
+    transform: translateZ(0) translateY(-3px);
   }
 }
+
 @keyframes Animation65 {
-  0% {
-    top: 285.97px;
+  0%, 100% {
+    transform: translateZ(0) translateY(0);
   }
   50% {
-    top: 282.97px;
-  }
-  100% {
-    top: 285.97px;
+    transform: translateZ(0) translateY(-2.98px);
   }
 }
+
 @keyframes Animation66 {
-  0% {
-    top: 263px;
+  0%, 100% {
+    transform: translateZ(0) translateY(0);
   }
   50% {
-    top: 257px;
-  }
-  100% {
-    top: 263px;
+    transform: translateZ(0) translateY(-6px);
   }
 }
+
 @keyframes Animation72 {
-  0% {
-    left: 277px;
-    top: 275px;
+  0%, 100% {
+    transform: translateZ(0) translate(0, 0);
   }
   50% {
-    left: 292px;
-    top: 262px;
-  } 
-  100% {
-    left: 277px;
-    top: 275px;
+    transform: translateZ(0) translate(15px, -13px);
   }
 }
+
 @keyframes Animation82 {
-  0% {
-    top: 263px;
+  0%, 100% {
+    transform: translateZ(0) translateY(0);
   }
   50% {
-    top: 251px;
-  }
-  100% {
-    top: 263px;
+    transform: translateZ(0) translateY(-12px);
   }
 }
+
 @keyframes Animation92 {
-  0% {
-    top: 268px;
+  0%, 100% {
+    transform: translateZ(0) translateY(0);
   }
   50% {
-    top: 258px;
-  }
-  100% {
-    top: 268px;
+    transform: translateZ(0) translateY(-10px);
   }
 }
+
 @keyframes Animation102 {
-  0% {
-    top: 248px;
-    left: 130px;
+  0%, 100% {
+    transform: translateZ(0) translate(0, 0);
   }
   50% {
-    top: 237px;
-    left: 122px;
-  }
-  100% {
-    top: 248px;
-    left: 130px;
+    transform: translateZ(0) translate(-8px, -11px);
   }
 }
+
 @keyframes Animation111 {
-  0% {
+  0%, 100% {
     transform: translateZ(0) rotate(6deg);
   }
   50% {
     transform: translateZ(0) rotate(-6deg);
   }
-  100% {
-    transform: translateZ(0) rotate(6deg);
-  }
 }
+
 @keyframes Animation112 {
-  0% {
-    top: 237px;
-    left: 312px;
+  0%, 100% {
+    transform: translateZ(0) translate(0, 0);
   }
   50% {
-    top: 227px;
-    left: 320px;
-  }
-  100% {
-    top: 237px;
-    left: 312px;
+    transform: translateZ(0) translate(8px, -10px);
   }
 }
+
 @keyframes Animation122 {
-  0% {
-    top: 258px;
+  0%, 100% {
+    transform: translateZ(0) translateY(0);
   }
   50% {
-    top: 248px;
-  }
-  100% {
-    top: 258px;
+    transform: translateZ(0) translateY(-10px);
   }
 }
+
 
 .question1_img1{
   position: absolute;
@@ -416,7 +339,7 @@
   height: 118px;
   left: 107.33px;
   top: 262.37px;
-  transform: translateZ(0) rotate(-8deg);
+  transform: translateZ(0) translateZ(0) rotate(-8deg);
   animation : Animation61 650ms infinite;
 }
 .question6_img2{
@@ -425,7 +348,7 @@
   height: 112px;
   left: 268.35px;
   top: 320.89px;
-  transform: translateZ(0) rotate(7deg);
+  transform: translateZ(0) translateZ(0) rotate(7deg);
   animation : Animation62 650ms infinite;
 }
 .question6_img3{
@@ -450,7 +373,7 @@
   height: 20px;
   left: 334px;
   top: 285.97px;
-  transform: translateZ(0) rotate(-17.36deg);
+  transform: translateZ(0) translateZ(0) rotate(-17.36deg);
   animation : Animation65 650ms infinite;
 }
 .question6_img6{
@@ -459,7 +382,7 @@
   height: 22px;
   left: 383.39px;
   top: 263px;
-  transform: translateZ(0) rotate(6.24deg);
+  transform: translateZ(0) translateZ(0) rotate(6.24deg);
   animation : Animation66 650ms infinite;
 }
 .question7_img1{
@@ -473,9 +396,9 @@
   position: absolute;
   width: 90px;
   height: 130px;
-  left: 327px;
+  left: 265px;
   top: 275px;
-  transform: translateZ(0) rotate(5deg);
+  transform: translateZ(0) translateZ(0) rotate(5deg);
   animation : Animation72 650ms infinite;
 }
 .question8_img1{
@@ -529,7 +452,7 @@
   height: 172px;
   left: 184px;
   top: 265px;
-  transform: translateZ(0) rotate(-6deg);
+  transform: translateZ(0) translateZ(0) rotate(-6deg);
   animation : Animation111 650ms infinite;
 }
 .question11_img2{
@@ -538,7 +461,7 @@
   height: 52px;
   left: 322px;
   top: 237px;
-  transform: translateZ(0) rotate(9deg);
+  transform: translateZ(0) translateZ(0) rotate(9deg);
   animation : Animation112  650ms infinite;
 }
 .question12_img1{
