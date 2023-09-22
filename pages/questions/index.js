@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import ProgressBar from "@/components/progress.js";
 import { questions as imgQuestions } from "@/data/data.js";
 import styles from "@/styles/questions.module.css";
 
 
 export default function Questions({ questionsData }) {
-  const DynamicButton = React.lazy(() => import('@/components/Button/Button.js'));
-  const DynamicProgressBar = React.lazy(() => import('@/components/progress.js'));  
+  const DynamicButton = React.lazy(() => import('@/components/Button/Button'));
+  const DynamicProgressBar = React.lazy(() => import('@/components/progress'));
   const [currentNumber, setCurrentNumber] = useState(0);
   const [mbtiList, setMbtiList] = useState({ EI: [], NS: [], FT: [], PJ: [] });
   const [loading, setLoading] = useState(false);
@@ -101,7 +100,7 @@ export default function Questions({ questionsData }) {
         height={1081}
         quality={50}
         alt="questions_Image"
-        priority
+        priority="true"
       />
 
       <div className="title">
@@ -110,12 +109,14 @@ export default function Questions({ questionsData }) {
         width={12} 
         height={25}
         quality={50}
-        priority
+        priority="true"
         />
         <p>핫스팟 테스트</p>
       </div>
       <div className="progress_bar">
+      <Suspense fallback={<div>Loading...</div>}>
       <DynamicProgressBar currentNumber={currentNumber} />
+      </Suspense>
       </div>
       <div className="question">
         <img src="/questions.webp" />
@@ -133,6 +134,7 @@ export default function Questions({ questionsData }) {
       </div>
       <div className="answer">
         <div className="choice1">
+        <Suspense fallback={<div>Loading...</div>}>
           <DynamicButton
             onClick={() => nextQuestion(0)}
             buttonImage="/answer.webp"
@@ -150,8 +152,10 @@ export default function Questions({ questionsData }) {
               </span>
             }
           />
+          </Suspense>
         </div>
         <div className="choice2">
+        <Suspense fallback={<div>Loading...</div>}>
           <DynamicButton
             onClick={() => nextQuestion(1)}
             buttonImage="/answer.webp"
@@ -169,6 +173,7 @@ export default function Questions({ questionsData }) {
               </span>
             }
           />
+          </Suspense>
         </div>
       </div>
       <style jsx>{`

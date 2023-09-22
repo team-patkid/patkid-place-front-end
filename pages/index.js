@@ -40,7 +40,10 @@ export default function Home({ visitorCount }) {
 
   return (
     <div className="main_layout">
-      <img src="/background_h_1.webp" className="main_layout" />
+      <img src="/background_h_1.webp"
+       className="main_layout"
+       priority="true"
+       />
       <div className="main_layout_icon">
         <img src="/coffee.webp" />
         <img src="/heart_1.webp" />
