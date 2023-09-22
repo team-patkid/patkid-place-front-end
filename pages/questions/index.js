@@ -316,11 +316,10 @@ export default function Questions({ questionsData }) {
     </div>
   );
 }
-
-export async function getServerSideProps() {
+export async function getStaticProps() {
   try {
-    const response = await fetch("https://api.patkid.kr/question/list");
-    const questionsData = await response.json();
+    const questionsResponse = await fetch("https://api.patkid.kr/question/list");
+    const questionsData = await questionsResponse.json();
 
     return {
       props: {

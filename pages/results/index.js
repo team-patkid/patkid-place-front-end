@@ -7,52 +7,81 @@ import LoadingPage from "@/components/LoadingPage";
 import KakaoShareButton from "@/components/KakaoShare";
 import MapComponent from '@/components/map';
 
-export default function Results({ resultData: initialResultData }) {
+export async function getServerSideProps(context) {
+  const { mbti, userId } = context.query;
+
+  try {
+    const response = await axios.post('https://api.patkid.kr/user/result', {
+      mbti: mbti,
+      userId: userId,
+    });
+
+    const userData = response.data; 
+    return {
+      props: {
+        userData: userData,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+
+    return {
+      props: {
+        userData: null,
+      },
+    };
+  }
+}
+
+export default function Results({ userData }) {
   const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalOpenIndex, setModalOpenIndex] = useState(null);
-  const [showImage, setShowImage] = useState(true);
   const [shared, setShared] = useState(false);
   const [visited, setVisited] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [diceClicks, setDiceClicks] = useState(0);
-  const [resultData, setResultData] = useState(initialResultData);
+  const [resultData, setResultData] = useState(userData);
   const [isFetching, setIsFetching] = useState(false);
+  const [diceClicks, setDiceClicks] = useState(0);
+const [showDice, setShowDice] = useState(true);
 
+  //초기 결과데이터
+useEffect(() => {
+  if (userData && diceClicks === 0) { 
+    console.log("초기 결과 데이터:", userData);
+    console.log("mbti 값:", router.query.mbti);
+      console.log("userId 값:", router.query.userId);
+  }
+}, [userData, diceClicks]);
 
-  //랜덤 결과값
-  useEffect(() => {
-    if (diceClicks > 0 && diceClicks <= 2) {
-      const fetchData = async () => {
-        setIsFetching(true);
-        try {
-          let response = await axios.post("https://api.patkid.kr/user/result", {
-            mbti: router.query.mbti,
-            userId: router.query.userId,
-          });
-          setResultData(response.data);
-        } catch (error) {
-          console.error(error);
-        } finally {
-          setIsFetching(false);
-        }
-      };
+//랜덤 주사위 클릭
+const handleDiceClick = () => {
+  if (!isFetching && diceClicks < 2) {
+    const fetchData = async () => {
+      setIsFetching(true);
+      try {
+        let response = await axios.post("https://api.patkid.kr/user/result", {
+          mbti: router.query.mbti,
+          userId: router.query.userId,
+        });
+        setResultData(response.data);
+        console.log("결과 데이터:", response.data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsFetching(false);
+      }
+    };
 
-      fetchData();
+    fetchData();
+
+    setDiceClicks((prevDice) => prevDice + 1);
+
+    if (diceClicks === 1) {
+      setShowDice(false);
     }
-
-    if (diceClicks >= 2) {
-      setShowImage(false);
-    }
-    console.log(diceClicks);
-  }, [diceClicks]);
-
-  const handleDiceClick = () => {
-    if (!isFetching) {
-      setDiceClicks(prevDice => prevDice + 1);
-      console.log("성공")
-    }
-  };
+  }
+};
 
   // URL을 통해 공유페이지 접속 여부 확인
   useEffect(() => {
@@ -117,6 +146,7 @@ export default function Results({ resultData: initialResultData }) {
       Kakao.init("dc448d19d55ef2f3302fceaacee793ea");
     }
   }, []);
+  
 
 
   if (isLoading) {
@@ -149,10 +179,15 @@ export default function Results({ resultData: initialResultData }) {
                   {resultData?.data?.result?.name}
                 </p>
                 <img
-                  src="/tooltip.webp"
-                  className={showImage ? "tooltip-show" : "tooltip-hide"}
-                />
-                <img src="/dice.webp" onClick={handleDiceClick} style={{ display: showImage ? 'block' : 'none' }} />
+                      src="/tooltip.webp"
+                      onClick={handleDiceClick}
+                      style={{ display: showDice ? 'block' : 'none' }}
+                    />
+                    <img
+                      src="/dice.webp"
+                      onClick={handleDiceClick}
+                      style={{ display: showDice ? 'block' : 'none' }}
+                    />
                 <div className="spot_img">
                   <img src={resultData.data.result.place.imageUrl} />
                 </div>
@@ -563,19 +598,4 @@ export default function Results({ resultData: initialResultData }) {
       </div>
     );
   }
-}
-
-export async function getServerSideProps(context) {
-  const { mbti, userId } = context.query;
-
-  const response = await axios.post('https://api.patkid.kr/user/result', {
-    mbti: mbti,
-    userId: userId,
-  });
-
-  return {
-    props: {
-      resultData: response.data,
-    },
-  };
 }
