@@ -1,5 +1,4 @@
 export default function LoadingPage() {
-
   return (
     <div className="main_layout">
       <img src='/background_h_3.webp' quality={50} className='main_layout'/>

@@ -55,33 +55,18 @@ export default function Home({ visitorCount }) {
       <img src="/title.webp" className="main_title" />
       <p className="isaText">나의 성향에 딱 맞는 요즘 핫스팟은 어디일까?</p>
       <Link href="/questions" legacyBehavior>
-        <a>
-          <div
-            onClick={handleClick}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            className={`isClicked ${isClicked ? "clicked" : ""}`}
-          >
-            {isClicked ? (
-              <img
-                src="/start_btn_click.webp"
-                className="main_start_btn btn_click"
-                alt="Clicked Button"
-              />
-            ) : (
-              <img
-                src="/start_btn.webp"
-                className="main_start_btn"
-                alt="Button"
-              />
-            )}
-            <div className="start_btn">
-              <p>시작하기</p>
-              <p className="isaText">참여자 수 {visitorCount}</p>
-            </div>
-          </div>
-        </a>
-      </Link>
+              <div onClick={handleClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className={`isClicked ${isClicked ? "clicked" : ""}`}>
+                {isClicked ? (
+                  <img src="/start_btn_click.webp" className="main_start_btn btn_click" alt="Clicked Button" />
+                ) : (
+                  <img src="/start_btn.webp" className="main_start_btn" alt="Button" />
+                )}
+                <div className="start_btn">
+                  <p>시작하기</p>
+                  <p className="isaText">참여자 수 {visitorCount}</p>
+                </div>
+              </div>
+            </Link>
       <img src="/logo_patKid.webp" className="main_logo" />
 
       <style jsx>{`

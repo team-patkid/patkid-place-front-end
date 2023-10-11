@@ -1,28 +1,71 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { questions as imgQuestions } from "@/data/data.js";
 import styles from "@/styles/questions.module.css";
 import dynamic from 'next/dynamic';
+import LoadingPage from "@/components/LoadingPage";
 
+const DynamicButton = dynamic(() => import('@/components/Button/Button'));
+const DynamicProgressBar = dynamic(() => import('@/components/progress'));
+
+export async function getServerSideProps() {
+  try {
+    const questionsResponse = await fetch("https://api.patkid.kr/question/list");
+    if (!questionsResponse.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    const questionsData = await questionsResponse.json();
+
+    return {
+      props: {
+        questionsData,
+      },
+    };
+  } catch (error) {
+    console.error("Error:", error);
+    return {
+      props: {
+        questionsData: null,
+        error: error.message,
+      },
+    };
+  }
+}
 
 export default function Questions({ questionsData }) {
-  const DynamicButton = dynamic(() => import('@/components/Button/Button'));
-  const DynamicProgressBar = dynamic(() => import('@/components/progress'));
   const [currentNumber, setCurrentNumber] = useState(0);
   const [mbtiList, setMbtiList] = useState({ EI: [], NS: [], FT: [], PJ: [] });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
 
   const router = useRouter();
 
   const question = imgQuestions[currentNumber];
 
   useEffect(() => {
-    if (questionsData.data.list[currentNumber]) {
+    if (questionsData) {
       setLoading(false);
     }
-  }, [questionsData, currentNumber]);
+  }, [questionsData]);
+
+
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      if (url === '/results') {
+        setLoading(true);
+      } else {
+        setLoading(false);
+      }
+    };
+
+    router.events.on('routeChangeStart', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, [router]);
 
   const redirectToResultPage = () => {
     const mbtiCount = {
@@ -83,14 +126,18 @@ export default function Questions({ questionsData }) {
       return null;
     });
   };
-
   if (loading) {
-    return <div></div>;
+    return <LoadingPage/>;
   }
 
   if (error) {
     return <div>Error: {error.message}</div>;
   }
+
+  if (!questionsData) {
+    return <LoadingPage />;
+  }
+
 
   return (
     <div className="questions_layout">
@@ -303,24 +350,4 @@ export default function Questions({ questionsData }) {
       </style>
     </div>
   );
-}
-
-export async function getStaticProps() {
-  try {
-    const questionsResponse = await fetch("https://api.patkid.kr/question/list");
-    const questionsData = await questionsResponse.json();
-
-    return {
-      props: {
-        questionsData,
-      },
-    };
-  } catch (error) {
-    console.error("Error:", error);
-    return {
-      props: {
-        questionsData: null,
-      },
-    };
-  }
 }
