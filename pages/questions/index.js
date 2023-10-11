@@ -6,39 +6,13 @@ import styles from "@/styles/questions.module.css";
 import dynamic from 'next/dynamic';
 import LoadingPage from "@/components/LoadingPage";
 
-const DynamicButton = dynamic(() => import('@/components/Button/Button'));
-const DynamicProgressBar = dynamic(() => import('@/components/progress'));
-
-export async function getServerSideProps() {
-  try {
-    const questionsResponse = await fetch("https://api.patkid.kr/question/list");
-    if (!questionsResponse.ok) {
-      throw new Error("Failed to fetch data");
-    }
-    const questionsData = await questionsResponse.json();
-
-    return {
-      props: {
-        questionsData,
-      },
-    };
-  } catch (error) {
-    console.error("Error:", error);
-    return {
-      props: {
-        questionsData: null,
-        error: error.message,
-      },
-    };
-  }
-}
-
 export default function Questions({ questionsData }) {
+  const DynamicButton = dynamic(() => import('@/components/Button/Button'));
+  const DynamicProgressBar = dynamic(() => import('@/components/progress'));
   const [currentNumber, setCurrentNumber] = useState(0);
   const [mbtiList, setMbtiList] = useState({ EI: [], NS: [], FT: [], PJ: [] });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
 
   const router = useRouter();
 
@@ -350,4 +324,27 @@ export default function Questions({ questionsData }) {
       </style>
     </div>
   );
+}
+export async function getStaticProps() {
+  try {
+    const questionsResponse = await fetch("https://api.patkid.kr/question/list");
+    if (!questionsResponse.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    const questionsData = await questionsResponse.json();
+
+    return {
+      props: {
+        questionsData,
+      },
+    };
+  } catch (error) {
+    console.error("Error:", error);
+    return {
+      props: {
+        questionsData: null,
+        error: error.message,
+      },
+    };
+  }
 }
