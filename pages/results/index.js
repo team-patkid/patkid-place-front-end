@@ -44,14 +44,16 @@ export default function Results({ userData }) {
   const [resultData, setResultData] = useState(userData);
   const [isFetching, setIsFetching] = useState(false);
   const [diceClicks, setDiceClicks] = useState(0);
-const [showDice, setShowDice] = useState(true);
+  const [showDice, setShowDice] = useState(true);
+  const [initialUserId, setInitialUserId] = useState(null);
 
   //초기 결과데이터
 useEffect(() => {
   if (userData && diceClicks === 0) { 
     console.log("초기 결과 데이터:", userData);
     console.log("mbti 값:", router.query.mbti);
-      console.log("userId 값:", userId);
+    console.log("userId 값:", userId);
+    setInitialUserId(userId);
   }
 }, [userData, diceClicks]);
 
@@ -63,7 +65,7 @@ const handleDiceClick = () => {
       try {
         let response = await axios.post("https://api.patkid.kr/user/result", {
           mbti: router.query.mbti,
-          userId: router.query.userId,
+          userId: initialUserId,
         });
         setResultData(response.data);
         console.log("결과 데이터:", response.data);
@@ -377,6 +379,7 @@ const handleDiceClick = () => {
               left: 413px;
 
               transform: rotate(7.1deg);
+              cursor: pointer;
             }
             .tooltip-show {
               display: block;
