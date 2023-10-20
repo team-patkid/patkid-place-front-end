@@ -69,13 +69,17 @@ export default function Questions({ questionsData }) {
     const choiceType =
       questionsData.data.list[currentNumber]?.questionSub[choiceNumber].type;
 
-    setMbtiList((prevState) => ({
-      ...prevState,
-      [questionsData.data.list[currentNumber].type]: [
-        ...prevState[questionsData.data.list[currentNumber].type],
-        choiceType,
-      ],
-    }));
+    // setMbtiList((prevState) => ({
+    //   ...prevState,
+    //   [questionsData.data.list[currentNumber].type]: [
+    //     ...prevState[questionsData.data.list[currentNumber].type],
+    //     choiceType,
+    //   ],
+    // }));
+    // 상태 업데이트 성능 향상
+    const newMbtiList = {...mbtiList};
+    newMbtiList[questionsData.data.list[currentNumber].type].push(choiceType);
+    setMbtiList(newMbtiList);
 
     if (isLastQuestion) {
       redirectToResultPage();
