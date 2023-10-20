@@ -9,13 +9,13 @@ import MapComponent from '@/components/map';
 
 export async function getServerSideProps(context) {
   const { mbti, userId } = context.query;
-
+  console.log("mbti:", mbti);
+  console.log("userId:", userId);
   try {
     const response = await axios.post('https://api.patkid.kr/user/result', {
       mbti: mbti,
       userId: userId,
     });
-
     const userData = response.data; 
     return {
       props: {
@@ -35,6 +35,7 @@ export async function getServerSideProps(context) {
 
 export default function Results({ userData }) {
   const router = useRouter();
+  const userId = userData?.data?.result?.userId;
   const [modalOpen, setModalOpen] = useState(false);
   const [modalOpenIndex, setModalOpenIndex] = useState(null);
   const [shared, setShared] = useState(false);
@@ -50,7 +51,7 @@ useEffect(() => {
   if (userData && diceClicks === 0) { 
     console.log("초기 결과 데이터:", userData);
     console.log("mbti 값:", router.query.mbti);
-      console.log("userId 값:", router.query.userId);
+      console.log("userId 값:", userId);
   }
 }, [userData, diceClicks]);
 
