@@ -2,6 +2,7 @@ import Head from "next/head";
 import "../styles/globals.css";
 import Script from 'next/script';
 
+    //_app
 export default function MyApp({ Component, pageProps }) {
   return (
     <>
