@@ -1,10 +1,10 @@
-import { useState } from "react";
-import Link from "next/link";
+import styles from "@/styles/main.module.css";
 import axios from "axios";
-import styles from "@/styles/main.module.css"
+import Link from "next/link";
+import { useState } from "react";
 
 export async function getServerSideProps() {
-  const response = await axios.get("https://api.patkid.kr/user/visit");
+  const response = await axios.get("https://place-api.patkid.kr/v1/user/total-count");
   const visitorCount = response.data.data.count;
 
   return {
