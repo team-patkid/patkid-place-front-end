@@ -1,22 +1,24 @@
-import { Fragment, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import KakaoShareButton from "@/components/KakaoShare";
+import LoadingPage from "@/components/LoadingPage";
+import Modal from "@/components/Modal";
+import MapComponent from "@/components/map";
 import axios from "axios";
 import Link from "next/link";
-import Modal from "@/components/Modal";
-import LoadingPage from "@/components/LoadingPage";
-import KakaoShareButton from "@/components/KakaoShare";
-import MapComponent from '@/components/map';
+import { useRouter } from "next/router";
+import { Fragment, useEffect, useState } from "react";
 
 export async function getServerSideProps(context) {
   const { mbti, userId } = context.query;
   console.log("mbti:", mbti);
   console.log("userId:", userId);
   try {
-    const response = await axios.post('https://api.patkid.kr/user/result', {
-      mbti: mbti,
-      userId: userId,
-    });
-    const userData = response.data; 
+    const response = await axios.post(
+      "https://place-api.patkid.kr/v1/user/result",
+      {
+        mbti: mbti,
+      }
+    );
+    const userData = response.data;
     return {
       props: {
         userData: userData,
@@ -48,43 +50,45 @@ export default function Results({ userData }) {
   const [initialUserId, setInitialUserId] = useState(null);
 
   //초기 결과데이터
-useEffect(() => {
-  if (userData && diceClicks === 0) { 
-    console.log("초기 결과 데이터:", userData);
-    console.log("mbti 값:", router.query.mbti);
-    console.log("userId 값:", userId);
-    setInitialUserId(userId);
-  }
-}, [userData, diceClicks]);
-
-//랜덤 주사위 클릭
-const handleDiceClick = () => {
-  if (!isFetching && diceClicks < 2) {
-    const fetchData = async () => {
-      setIsFetching(true);
-      try {
-        let response = await axios.post("https://api.patkid.kr/user/result", {
-          mbti: router.query.mbti,
-          userId: initialUserId,
-        });
-        setResultData(response.data);
-        console.log("결과 데이터:", response.data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsFetching(false);
-      }
-    };
-
-    fetchData();
-
-    setDiceClicks((prevDice) => prevDice + 1);
-
-    if (diceClicks === 1) {
-      setShowDice(false);
+  useEffect(() => {
+    if (userData && diceClicks === 0) {
+      console.log("초기 결과 데이터:", userData);
+      console.log("mbti 값:", router.query.mbti);
+      console.log("userId 값:", userId);
+      setInitialUserId(userId);
     }
-  }
-};
+  }, [userData, diceClicks]);
+
+  //랜덤 주사위 클릭
+  const handleDiceClick = () => {
+    if (!isFetching && diceClicks < 2) {
+      const fetchData = async () => {
+        setIsFetching(true);
+        try {
+          let response = await axios.post(
+            "https://place-api.patkid.kr/v1/user/result",
+            {
+              mbti: router.query.mbti,
+            }
+          );
+          setResultData(response.data);
+          console.log("결과 데이터:", response.data);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setIsFetching(false);
+        }
+      };
+
+      fetchData();
+
+      setDiceClicks((prevDice) => prevDice + 1);
+
+      if (diceClicks === 1) {
+        setShowDice(false);
+      }
+    }
+  };
 
   // URL을 통해 공유페이지 접속 여부 확인
   useEffect(() => {
@@ -108,12 +112,10 @@ const handleDiceClick = () => {
     }
   }, [resultData]);
 
-
   const openModal = (openState, index) => () => {
     setModalOpen(openState);
     setModalOpenIndex(index);
   };
-
 
   //폰트크기 유동적 조절
   const calculateFontSize = () => {
@@ -138,18 +140,16 @@ const handleDiceClick = () => {
 
   const [fontSize, setFontSize] = useState(calculateFontSize());
 
-
   useEffect(() => {
     setFontSize(calculateFontSize());
   }, [resultData]);
 
   //카카오톡 공유하기
   useEffect(() => {
-    if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
+    if (typeof Kakao !== "undefined" && !Kakao.isInitialized()) {
       Kakao.init("dc448d19d55ef2f3302fceaacee793ea");
     }
   }, []);
-  
 
   useEffect(() => {
     const handleStart = () => {
@@ -207,21 +207,23 @@ const handleDiceClick = () => {
                   {resultData?.data?.result?.name}
                 </p>
                 <img
-                      src="/tooltip.webp"
-                      onClick={handleDiceClick}
-                      style={{ display: showDice ? 'block' : 'none' }}
-                    />
-                    <img
-                      src="/dice.webp"
-                      onClick={handleDiceClick}
-                      style={{ display: showDice ? 'block' : 'none' }}
-                    />
+                  src="/tooltip.webp"
+                  onClick={handleDiceClick}
+                  style={{ display: showDice ? "block" : "none" }}
+                />
+                <img
+                  src="/dice.webp"
+                  onClick={handleDiceClick}
+                  style={{ display: showDice ? "block" : "none" }}
+                />
                 <div className="spot_img">
                   <img src={resultData.data.result.place.imageUrl} />
                 </div>
-                <div className='tag'>
+                <div className="tag">
                   {tags.map((v, index) => (
-                    <p className='isaText' key={`hotspot-modal-${index}`}>#{v.tag}</p>
+                    <p className="isaText" key={`hotspot-modal-${index}`}>
+                      #{v.tag}
+                    </p>
                   ))}
                 </div>
                 <img src="/box.webp" />
@@ -229,11 +231,7 @@ const handleDiceClick = () => {
                   {resultData.data.result.place.content
                     .split("\n")
                     .map((v, index, array) => (
-                      <li
-                        key={index}
-                      >
-                        {v}
-                      </li>
+                      <li key={index}>{v}</li>
                     ))}
                 </div>
               </div>
@@ -401,28 +399,27 @@ const handleDiceClick = () => {
               height: 100%;
               object-fit: cover;
             }
-          .tag{
-          position: absolute;
-          width: 326px;
-          height: 46px;
-          left: calc(50% - 326px/2);
-          top: 534px;
+            .tag {
+              position: absolute;
+              width: 326px;
+              height: 46px;
+              left: calc(50% - 326px / 2);
+              top: 534px;
 
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-        }
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-between;
+            }
 
+            .tag-line {
+              position: absolute;
+              width: 410px;
+              height: 0px;
+              left: calc(50% - 410px / 2);
+              top: 525px;
 
-        .tag-line{
-          position: absolute;
-          width: 410px;
-          height: 0px;
-          left: calc(50% - 410px/2);
-          top: 525px;
-
-          border: 1px solid #FF448D;
-          }
+              border: 1px solid #ff448d;
+            }
             .result > img:nth-of-type(4) {
               position: absolute;
               width: 468px;
@@ -448,9 +445,9 @@ const handleDiceClick = () => {
             }
 
             .box_text li {
-                flex: 1;
-                margin-bottom: 18px;
-              }
+              flex: 1;
+              margin-bottom: 18px;
+            }
 
             .location > img:nth-of-type(1) {
               position: absolute;

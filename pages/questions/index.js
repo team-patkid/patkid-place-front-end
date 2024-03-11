@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import Image from "next/image";
+import LoadingPage from "@/components/LoadingPage";
 import { questions as imgQuestions } from "@/data/data.js";
 import styles from "@/styles/questions.module.css";
-import dynamic from 'next/dynamic';
-import LoadingPage from "@/components/LoadingPage";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Questions({ questionsData }) {
-  const DynamicButton = dynamic(() => import('@/components/Button/Button'));
-  const DynamicProgressBar = dynamic(() => import('@/components/progress'));
+  const DynamicButton = dynamic(() => import("@/components/Button/Button"));
+  const DynamicProgressBar = dynamic(() => import("@/components/progress"));
   const [currentNumber, setCurrentNumber] = useState(0);
   const [mbtiList, setMbtiList] = useState({ EI: [], NS: [], FT: [], PJ: [] });
   const [loading, setLoading] = useState(false);
@@ -24,20 +24,19 @@ export default function Questions({ questionsData }) {
     }
   }, [questionsData]);
 
-
   useEffect(() => {
     const handleRouteChange = (url) => {
-      if (url === '/results') {
+      if (url === "/results") {
         setLoading(true);
       } else {
         setLoading(false);
       }
     };
 
-    router.events.on('routeChangeStart', handleRouteChange);
+    router.events.on("routeChangeStart", handleRouteChange);
 
     return () => {
-      router.events.off('routeChangeStart', handleRouteChange);
+      router.events.off("routeChangeStart", handleRouteChange);
     };
   }, [router]);
 
@@ -77,7 +76,7 @@ export default function Questions({ questionsData }) {
     //   ],
     // }));
     // 상태 업데이트 성능 향상
-    const newMbtiList = {...mbtiList};
+    const newMbtiList = { ...mbtiList };
     newMbtiList[questionsData.data.list[currentNumber].type].push(choiceType);
     setMbtiList(newMbtiList);
 
@@ -105,7 +104,7 @@ export default function Questions({ questionsData }) {
     });
   };
   if (loading) {
-    return <LoadingPage/>;
+    return <LoadingPage />;
   }
 
   if (error) {
@@ -115,7 +114,6 @@ export default function Questions({ questionsData }) {
   if (!questionsData) {
     return <LoadingPage />;
   }
-
 
   return (
     <div className="questions_layout">
@@ -130,31 +128,33 @@ export default function Questions({ questionsData }) {
       />
 
       <div className="title">
-        <img 
-        src="/back.webp" 
-        width={12} 
-        height={25}
-        quality={50}
-        priority="true"
+        <img
+          src="/back.webp"
+          width={12}
+          height={25}
+          quality={50}
+          priority="true"
         />
         <p>핫스팟 테스트</p>
       </div>
       <div className="progress_bar">
-      <DynamicProgressBar currentNumber={currentNumber} />
+        <DynamicProgressBar currentNumber={currentNumber} />
       </div>
       <div className="question">
         <img src="/questions.webp" />
         {renderQuestionImage()}
-        {questionsData.data && questionsData.data.list && questionsData.data.list.length > 0 && (
-          <div className="questions">
-            <p className="number">
-              {questionsData.data.list[currentNumber]?.questionId}/12
-            </p>
-            <p className="question">
-              {questionsData.data.list[currentNumber]?.content}
-            </p>
-          </div>
-        )}
+        {questionsData.data &&
+          questionsData.data.list &&
+          questionsData.data.list.length > 0 && (
+            <div className="questions">
+              <p className="number">
+                {questionsData.data.list[currentNumber]?.questionId}/12
+              </p>
+              <p className="question">
+                {questionsData.data.list[currentNumber]?.content}
+              </p>
+            </div>
+          )}
       </div>
       <div className="answer">
         <div className="choice1">
@@ -196,142 +196,145 @@ export default function Questions({ questionsData }) {
           />
         </div>
       </div>
-      <style jsx>{`
-        .questions_layout {
-          position: relative;
-          position: center;
-          margin-left: auto;
-          margin-right: auto;
-          width: 500px;
-          height: 1081px;
-        }
-        .title img {
-          position: absolute;
-          width: 12px;
-          height: 25px;
-          left: 31px;
-          top: 43px;
-        }
-        .title p {
-          position: absolute;
-          width: 200px;
-          height: 28px;
-          left: calc(50% - 185px / 2);
-          top: 43px;
-          font-style: normal;
-          font-weight: 400;
-          font-size: 32px;
-          line-height: 28px;
-          text-align: center;
-          color: #000000;
-        }
-        .progress_bar {
-          position: absolute;
-          width: 466px;
-          height: 34px;
-          left: calc(50% - 466px / 2);
-          top: 88px;
-        }
-        .question img:nth-of-type(1) {
-          position: absolute;
-          width: 466px;
-          height: 490px;
-          left: calc(50% - 466px / 2);
-          top: 152px;
-        }
-        .questions > p:nth-of-type(1) {
-          position: absolute;
-          width: 57px;
-          height: 23px;
-          left: calc(50% - 57px / 2 + 0.5px);
-          top: 169px;
-          font-weight: 400;
-          font-size: 21px;
-          line-height: 23px;
-          color: #000000;
-        }
-        .questions > p:nth-of-type(2) {
-          position: absolute;
-          width: 341px;
-          height: 50px;
-          left: calc(50% - 341px / 2);
-          top: 548px;
-          font-weight: 400;
-          font-size: 24px;
-          line-height: 26px;
-          text-align: center;
-          color: #000000;
-        }
-        .choice1 {
-          width: 466px;
-          height: 105px;
-          position: absolute;
-          left: 17px;
-          top: 684px;
-        }
-        .choice2 {
-          width: 466px;
-          height: 105px;
-          position: absolute;
-          left: 17px;
-          top: 802px;
-        }
-        .choice1_answer1 {
-          position: absolute;
-          width: 386px;
-          height: 52px;
-          left: calc(50% - 386px / 2);
-          top: calc(84px / 2);
-          font-weight: 400;
-          font-size: 24px;
-          line-height: 26px;
-          text-align: center;
-          color: #000000;
-        }
-        .choice1_answer2 {
-          position: absolute;
-          width: 386px;
-          height: 52px;
-          left: calc(50% - 386px / 2);
-          top: calc(58px / 2);
-          font-weight: 400;
-          font-size: 24px;
-          line-height: 26px;
-          text-align: center;
-          color: #000000;
-        }
-        .choice2_answer1 {
-          position: absolute;
-          width: 386px;
-          height: 52px;
-          left: calc(50% - 386px / 2);
-          top: calc(84px / 2);
-          font-weight: 400;
-          font-size: 24px;
-          line-height: 26px;
-          text-align: center;
-          color: #000000;
-        }
-        .choice2_answer2 {
-          position: absolute;
-          width: 386px;
-          height: 52px;
-          left: calc(50% - 386px / 2);
-          top: calc(58px / 2);
-          font-weight: 400;
-          font-size: 24px;
-          line-height: 26px;
-          text-align: center;
-          color: #000000;
-        }
-      `}
+      <style jsx>
+        {`
+          .questions_layout {
+            position: relative;
+            position: center;
+            margin-left: auto;
+            margin-right: auto;
+            width: 500px;
+            height: 1081px;
+          }
+          .title img {
+            position: absolute;
+            width: 12px;
+            height: 25px;
+            left: 31px;
+            top: 43px;
+          }
+          .title p {
+            position: absolute;
+            width: 200px;
+            height: 28px;
+            left: calc(50% - 185px / 2);
+            top: 43px;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 32px;
+            line-height: 28px;
+            text-align: center;
+            color: #000000;
+          }
+          .progress_bar {
+            position: absolute;
+            width: 466px;
+            height: 34px;
+            left: calc(50% - 466px / 2);
+            top: 88px;
+          }
+          .question img:nth-of-type(1) {
+            position: absolute;
+            width: 466px;
+            height: 490px;
+            left: calc(50% - 466px / 2);
+            top: 152px;
+          }
+          .questions > p:nth-of-type(1) {
+            position: absolute;
+            width: 57px;
+            height: 23px;
+            left: calc(50% - 57px / 2 + 0.5px);
+            top: 169px;
+            font-weight: 400;
+            font-size: 21px;
+            line-height: 23px;
+            color: #000000;
+          }
+          .questions > p:nth-of-type(2) {
+            position: absolute;
+            width: 341px;
+            height: 50px;
+            left: calc(50% - 341px / 2);
+            top: 548px;
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 26px;
+            text-align: center;
+            color: #000000;
+          }
+          .choice1 {
+            width: 466px;
+            height: 105px;
+            position: absolute;
+            left: 17px;
+            top: 684px;
+          }
+          .choice2 {
+            width: 466px;
+            height: 105px;
+            position: absolute;
+            left: 17px;
+            top: 802px;
+          }
+          .choice1_answer1 {
+            position: absolute;
+            width: 386px;
+            height: 52px;
+            left: calc(50% - 386px / 2);
+            top: calc(84px / 2);
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 26px;
+            text-align: center;
+            color: #000000;
+          }
+          .choice1_answer2 {
+            position: absolute;
+            width: 386px;
+            height: 52px;
+            left: calc(50% - 386px / 2);
+            top: calc(58px / 2);
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 26px;
+            text-align: center;
+            color: #000000;
+          }
+          .choice2_answer1 {
+            position: absolute;
+            width: 386px;
+            height: 52px;
+            left: calc(50% - 386px / 2);
+            top: calc(84px / 2);
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 26px;
+            text-align: center;
+            color: #000000;
+          }
+          .choice2_answer2 {
+            position: absolute;
+            width: 386px;
+            height: 52px;
+            left: calc(50% - 386px / 2);
+            top: calc(58px / 2);
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 26px;
+            text-align: center;
+            color: #000000;
+          }
+        `}
       </style>
     </div>
   );
 }
 export async function getStaticProps() {
   try {
-    const questionsResponse = await fetch("https://api.patkid.kr/question/list");
+    const questionsResponse = await fetch(
+      "https://place-api.patkid.kr/v1/question/list"
+    );
     if (!questionsResponse.ok) {
       throw new Error("Failed to fetch data");
     }
