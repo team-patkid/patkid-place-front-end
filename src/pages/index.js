@@ -89,6 +89,7 @@ export default function Home({ visitorCount }) {
           margin-right: auto;
           width: 500px;
           height: 1081px;
+          background-color: #ffedf0;
         }
         .main_title {
           position: absolute;
