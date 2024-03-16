@@ -1,10 +1,10 @@
-import LoadingPage from "@/components/LoadingPage";
-import { questions as imgQuestions } from "@/data/data.js";
-import styles from "@/styles/questions.module.css";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import LoadingPage from "@/components/LoadingPage";
+import { questions as imgQuestions } from "@/data/data.js";
+import styles from "@/styles/questions.module.css";
 
 export default function Questions({ questionsData }) {
   const DynamicButton = dynamic(() => import("@/components/Button/Button"));
@@ -15,7 +15,6 @@ export default function Questions({ questionsData }) {
   const [error, setError] = useState(null);
 
   const router = useRouter();
-
   const question = imgQuestions[currentNumber];
 
   useEffect(() => {
@@ -103,15 +102,12 @@ export default function Questions({ questionsData }) {
       return null;
     });
   };
-  if (loading) {
-    return <LoadingPage />;
-  }
 
   if (error) {
     return <div>Error: {error.message}</div>;
   }
 
-  if (!questionsData) {
+  if (loading || !questionsData) {
     return <LoadingPage />;
   }
 
@@ -148,7 +144,7 @@ export default function Questions({ questionsData }) {
           questionsData.data.list.length > 0 && (
             <div className="questions">
               <p className="number">
-                {questionsData.data.list[currentNumber]?.questionId}/12
+                {questionsData.data.list[currentNumber]?.sort}/12
               </p>
               <p className="question">
                 {questionsData.data.list[currentNumber]?.content}
