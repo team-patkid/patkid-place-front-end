@@ -1,23 +1,18 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { Fragment, useEffect, useState } from "react";
+import { postMBTIResult } from "@/apis";
 import KakaoShareButton from "@/components/KakaoShare";
 import LoadingPage from "@/components/LoadingPage";
 import Modal from "@/components/Modal";
 import MapComponent from "@/components/map";
-import axios from "axios";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { Fragment, useEffect, useState } from "react";
 
 export async function getServerSideProps(context) {
   const { mbti, userId } = context.query;
   console.log("mbti:", mbti);
   console.log("userId:", userId);
   try {
-    const response = await axios.post(
-      "https://place-api.patkid.kr/v1/user/result",
-      {
-        mbti: mbti,
-      }
-    );
+    const response = await postMBTIResult(mbti);
     const userData = response.data;
     return {
       props: {
@@ -65,12 +60,7 @@ export default function Results({ userData }) {
       const fetchData = async () => {
         setIsFetching(true);
         try {
-          let response = await axios.post(
-            "https://place-api.patkid.kr/v1/user/result",
-            {
-              mbti: router.query.mbti,
-            }
-          );
+          const response = await postMBTIResult(router.query.mbti);
           setResultData(response.data);
           console.log("결과 데이터:", response.data);
         } catch (error) {
