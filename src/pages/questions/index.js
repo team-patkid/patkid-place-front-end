@@ -6,9 +6,10 @@ import LoadingPage from "@/components/LoadingPage";
 import { questions as imgQuestions } from "@/data/data.js";
 import styles from "@/styles/questions.module.css";
 
+const DynamicButton = dynamic(() => import("@/components/Button/Button"));
+const DynamicProgressBar = dynamic(() => import("@/components/progress"));
+
 export default function Questions({ questionsData }) {
-  const DynamicButton = dynamic(() => import("@/components/Button/Button"));
-  const DynamicProgressBar = dynamic(() => import("@/components/progress"));
   const [currentNumber, setCurrentNumber] = useState(0);
   const [mbtiList, setMbtiList] = useState({ EI: [], NS: [], FT: [], PJ: [] });
   const [loading, setLoading] = useState(false);

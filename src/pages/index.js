@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useState } from "react";
 
 export async function getServerSideProps() {
-  const response = await axios.get("https://place-api.patkid.kr/v1/user/total-count");
+  const response = await axios.get(
+    "https://place-api.patkid.kr/v1/user/total-count"
+  );
   const visitorCount = response.data.data.count;
 
   return {
@@ -16,7 +18,6 @@ export async function getServerSideProps() {
 
 export default function Home({ visitorCount }) {
   const [isClicked, setIsClicked] = useState(false);
-
 
   const handleClick = () => {
     setIsClicked(true);
@@ -40,10 +41,7 @@ export default function Home({ visitorCount }) {
 
   return (
     <div className="main_layout">
-      <img src="/background_h_1.webp"
-       className="main_layout"
-       priority="true"
-       />
+      <img src="/background_h_1.webp" className="main_layout" priority="true" />
       <div className="main_layout_icon">
         <img src="/coffee.webp" />
         <img src="/heart_1.webp" />
@@ -55,18 +53,31 @@ export default function Home({ visitorCount }) {
       <img src="/title.webp" className="main_title" />
       <p className="isaText">나의 성향에 딱 맞는 요즘 핫스팟은 어디일까?</p>
       <Link href="/questions" legacyBehavior>
-              <div onClick={handleClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className={`isClicked ${isClicked ? "clicked" : ""}`}>
-                {isClicked ? (
-                  <img src="/start_btn_click.webp" className="main_start_btn btn_click" alt="Clicked Button" />
-                ) : (
-                  <img src="/start_btn.webp" className="main_start_btn" alt="Button" />
-                )}
-                <div className="start_btn">
-                  <p>시작하기</p>
-                  <p className="isaText">참여자 수 {visitorCount}</p>
-                </div>
-              </div>
-            </Link>
+        <div
+          onClick={handleClick}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className={`isClicked ${isClicked ? "clicked" : ""}`}
+        >
+          {isClicked ? (
+            <img
+              src="/start_btn_click.webp"
+              className="main_start_btn btn_click"
+              alt="Clicked Button"
+            />
+          ) : (
+            <img
+              src="/start_btn.webp"
+              className="main_start_btn"
+              alt="Button"
+            />
+          )}
+          <div className="start_btn">
+            <p>시작하기</p>
+            <p className="isaText">참여자 수 {visitorCount}</p>
+          </div>
+        </div>
+      </Link>
       <img src="/logo_patKid.webp" className="main_logo" />
 
       <style jsx>{`
@@ -203,4 +214,3 @@ export default function Home({ visitorCount }) {
     </div>
   );
 }
-
