@@ -8,6 +8,9 @@ dependencies:
   '@vanilla-extract/css':
     specifier: ^1.14.2
     version: 1.14.2
+  '@vanilla-extract/dynamic':
+    specifier: ^2.1.0
+    version: 2.1.0
   axios:
     specifier: ^1.4.0
     version: 1.6.8
@@ -963,6 +966,12 @@ packages:
       media-query-parser: 2.0.2
       modern-ahocorasick: 1.0.1
       outdent: 0.8.0
+
+  /@vanilla-extract/dynamic@2.1.0:
+    resolution: {integrity: sha512-8zl0IgBYRtgD1h+56Zu13wHTiMTJSVEa4F7RWX9vTB/5Xe2KtjoiqApy/szHPVFA56c+ex6A4GpCQjT1bKXbYw==}
+    dependencies:
+      '@vanilla-extract/private': 1.0.4
+    dev: false
 
   /@vanilla-extract/integration@7.1.2(@types/node@20.11.28):
     resolution: {integrity: sha512-jpjw0L3P1E+U9L8OAFVMGpPFbNPD+/Vpfew7oOKBYipCrRZEqShu3WLXuUxjXz/mcIH7KCS5nasIdy2VclbEaQ==}
