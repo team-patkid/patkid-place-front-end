@@ -2,10 +2,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment, useEffect, useState } from "react";
 import { postMBTIResult } from "@/apis";
-import KakaoShareButton from "@/components/KakaoShare";
-import LoadingPage from "@/components/LoadingPage";
-import Modal from "@/components/Modal";
-import MapComponent from "@/components/map";
+import KakaoShareButton from "@components/KakaoShare";
+import LoadingPage from "@components/Loading";
+import Modal from "@components/Modal";
+import MapComponent from "@components/map";
 
 export async function getServerSideProps(context) {
   const { mbti, userId } = context.query;
@@ -294,7 +294,6 @@ export default function Results({ userData }) {
           {`
             .wrapper {
               position: relative;
-              position: center;
               margin-left: auto;
               margin-right: auto;
               width: 500px;
@@ -303,7 +302,6 @@ export default function Results({ userData }) {
 
             .result_layout {
               position: relative;
-              position: center;
               margin-left: auto;
               margin-right: auto;
               width: 500px;
