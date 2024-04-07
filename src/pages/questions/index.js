@@ -2,11 +2,11 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import LoadingPage from "@/components/LoadingPage";
-import { questions as imgQuestions } from "@/data/data.js";
+import { questions as imgQuestions } from "@constants";
+import LoadingPage from "@components/LoadingPage";
 import styles from "@/styles/questions.module.css";
 
-const DynamicButton = dynamic(() => import("@/components/Button/Button"));
+const DynamicButton = dynamic(() => import("@/components/Button"));
 const DynamicProgressBar = dynamic(() => import("@/components/progress"));
 
 export default function Questions({ questionsData }) {
@@ -26,11 +26,7 @@ export default function Questions({ questionsData }) {
 
   useEffect(() => {
     const handleRouteChange = (url) => {
-      if (url === "/results") {
-        setLoading(true);
-      } else {
-        setLoading(false);
-      }
+      setLoading(url === "/results");
     };
 
     router.events.on("routeChangeStart", handleRouteChange);
@@ -131,6 +127,7 @@ export default function Questions({ questionsData }) {
           height={25}
           quality={50}
           priority="true"
+          draggable={false}
         />
         <p>핫스팟 테스트</p>
       </div>
@@ -140,18 +137,16 @@ export default function Questions({ questionsData }) {
       <div className="question">
         <img src="/questions.webp" />
         {renderQuestionImage()}
-        {questionsData.data &&
-          questionsData.data.list &&
-          questionsData.data.list.length > 0 && (
-            <div className="questions">
-              <p className="number">
-                {questionsData.data.list[currentNumber]?.sort}/12
-              </p>
-              <p className="question">
-                {questionsData.data.list[currentNumber]?.content}
-              </p>
-            </div>
-          )}
+        {questionsData.data && questionsData.data.list.length > 0 && (
+          <div className="questions">
+            <p className="number">
+              {questionsData.data.list[currentNumber]?.sort}/12
+            </p>
+            <p className="question">
+              {questionsData.data.list[currentNumber]?.content}
+            </p>
+          </div>
+        )}
       </div>
       <div className="answer">
         <div className="choice1">
@@ -159,7 +154,7 @@ export default function Questions({ questionsData }) {
             onClick={() => nextQuestion(0)}
             buttonImage="/answer.webp"
             clickedButtonImage="/visit_click.webp"
-            buttonText={
+            text={
               <span
                 className={`choice1_answer ${
                   questionsData.data.list[currentNumber]?.questionSub[0].content
@@ -178,7 +173,7 @@ export default function Questions({ questionsData }) {
             onClick={() => nextQuestion(1)}
             buttonImage="/answer.webp"
             clickedButtonImage="/visit_click.webp"
-            buttonText={
+            text={
               <span
                 className={`choice1_answer ${
                   questionsData.data.list[currentNumber]?.questionSub[1].content
