@@ -20,6 +20,7 @@
     "@types/node": "20.11.28",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
+    "@vanilla-extract/next-plugin": "^2.4.0",
     "typescript": "^5.4.2"
   }
 }
