@@ -1,8 +1,9 @@
 import Head from "next/head";
 import Script from "next/script";
-import "@/styles/globals.css";
+import "@styles/globals.css";
+import { AppProps } from "next/app";
 //_app
-export default function MyApp({ Component, pageProps }) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
