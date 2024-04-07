@@ -4,6 +4,7 @@ import { vars } from "./theme.css";
 
 globalStyle("*", {
   margin: 0,
+  boxSizing: "border-box",
 });
 
 globalStyle("html", {
@@ -33,4 +34,12 @@ globalStyle(".marginR", {
 
 globalStyle(".preText", {
   fontFamily: pretendard,
+});
+
+globalStyle(".layout", {
+  position: "relative",
+  marginLeft: "auto",
+  marginRight: "auto",
+  width: "500px",
+  height: "1081px",
 });
