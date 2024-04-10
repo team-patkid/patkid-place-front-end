@@ -1,31 +1,37 @@
+import { GetStaticProps, InferGetStaticPropsType } from "next";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { questions as imgQuestions } from "@constants";
 import LoadingPage from "@components/Loading";
+import { Mbti, MbtiCount } from "@/models/mbti";
+import { QuestionResponse } from "@/models/question";
 import styles from "@styles/questions.module.css";
 
 const Button = dynamic(() => import("@components/Button"));
 const ProgressBar = dynamic(() => import("@/components/ProgressBar"));
 
-export default function Questions({ questionsData }) {
+export default function Questions({
+  questionsData,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   const [currentNumber, setCurrentNumber] = useState(0);
-  const [mbtiList, setMbtiList] = useState({ EI: [], NS: [], FT: [], PJ: [] });
+  const [mbtiList, setMbtiList] = useState<Mbti>({
+    EI: [],
+    NS: [],
+    FT: [],
+    PJ: [],
+  });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
   const router = useRouter();
   const question = imgQuestions[currentNumber];
 
   useEffect(() => {
-    if (questionsData) {
-      setLoading(false);
-    }
+    setLoading(questionsData.total === 0);
   }, [questionsData]);
 
   useEffect(() => {
-    const handleRouteChange = (url) => {
+    const handleRouteChange = (url: string) => {
       setLoading(url === "/results");
     };
 
@@ -37,7 +43,7 @@ export default function Questions({ questionsData }) {
   }, [router]);
 
   const redirectToResultPage = () => {
-    const mbtiCount = {
+    const mbtiCount: MbtiCount = {
       EI: { E: 0, I: 0 },
       NS: { N: 0, S: 0 },
       FT: { F: 0, T: 0 },
@@ -45,8 +51,10 @@ export default function Questions({ questionsData }) {
     };
 
     for (const key of Object.keys(mbtiList)) {
-      for (const value of mbtiList[key]) {
-        mbtiCount[key][value] += 1;
+      const type = key as keyof Mbti;
+
+      for (const value of mbtiList[type]) {
+        mbtiCount[type][value] += 1;
       }
     }
 
@@ -59,10 +67,10 @@ export default function Questions({ questionsData }) {
     router.push(`/results?mbti=${mbtiQueryString}`);
   };
 
-  const nextQuestion = (choiceNumber) => {
-    const isLastQuestion = currentNumber === questionsData.data.total - 1;
+  const nextQuestion = (choiceNumber: number) => {
+    const isLastQuestion = currentNumber === questionsData.total - 1;
     const choiceType =
-      questionsData.data.list[currentNumber]?.questionSub[choiceNumber].type;
+      questionsData.list[currentNumber]?.questionSub[choiceNumber].type;
 
     // setMbtiList((prevState) => ({
     //   ...prevState,
@@ -73,7 +81,9 @@ export default function Questions({ questionsData }) {
     // }));
     // 상태 업데이트 성능 향상
     const newMbtiList = { ...mbtiList };
-    newMbtiList[questionsData.data.list[currentNumber].type].push(choiceType);
+    newMbtiList[questionsData.list[currentNumber].type as keyof Mbti].push(
+      choiceType
+    );
     setMbtiList(newMbtiList);
 
     if (isLastQuestion) {
@@ -100,11 +110,7 @@ export default function Questions({ questionsData }) {
     });
   };
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
-  if (loading || !questionsData) {
+  if (loading) {
     return <LoadingPage />;
   }
 
@@ -117,18 +123,11 @@ export default function Questions({ questionsData }) {
         height={1081}
         quality={50}
         alt="questions_Image"
-        priority="true"
+        priority
       />
 
       <div className="title">
-        <img
-          src="/back.webp"
-          width={12}
-          height={25}
-          quality={50}
-          priority="true"
-          draggable={false}
-        />
+        <img src="/back.webp" width={12} height={25} draggable={false} />
         <p>핫스팟 테스트</p>
       </div>
       <div className="progress_bar">
@@ -137,13 +136,13 @@ export default function Questions({ questionsData }) {
       <div className="question">
         <img src="/questions.webp" />
         {renderQuestionImage()}
-        {questionsData.data && questionsData.data.list.length > 0 && (
+        {questionsData.list.length > 0 && (
           <div className="questions">
             <p className="number">
-              {questionsData.data.list[currentNumber]?.sort}/12
+              {questionsData.list[currentNumber].sort}/12
             </p>
             <p className="question">
-              {questionsData.data.list[currentNumber]?.content}
+              {questionsData.list[currentNumber].content}
             </p>
           </div>
         )}
@@ -157,13 +156,13 @@ export default function Questions({ questionsData }) {
             text={
               <span
                 className={`choice1_answer ${
-                  questionsData.data.list[currentNumber]?.questionSub[0].content
+                  questionsData.list[currentNumber].questionSub[0].content
                     .length > 25
                     ? "choice1_answer2"
                     : "choice1_answer1"
                 }`}
               >
-                {questionsData.data.list[currentNumber]?.questionSub[0].content}
+                {questionsData.list[currentNumber].questionSub[0].content}
               </span>
             }
           />
@@ -176,13 +175,13 @@ export default function Questions({ questionsData }) {
             text={
               <span
                 className={`choice1_answer ${
-                  questionsData.data.list[currentNumber]?.questionSub[1].content
+                  questionsData.list[currentNumber].questionSub[1].content
                     .length > 25
                     ? "choice1_answer2"
                     : "choice1_answer1"
                 }`}
               >
-                {questionsData.data.list[currentNumber]?.questionSub[1].content}
+                {questionsData.list[currentNumber].questionSub[1].content}
               </span>
             }
           />
@@ -322,7 +321,7 @@ export default function Questions({ questionsData }) {
     </div>
   );
 }
-export async function getStaticProps() {
+export const getStaticProps = (async () => {
   try {
     const questionsResponse = await fetch(
       "https://place-api.patkid.kr/v1/question/list"
@@ -332,20 +331,21 @@ export async function getStaticProps() {
       throw new Error("Failed to fetch data");
     }
 
-    const questionsData = await questionsResponse.json();
+    const questionsData: QuestionResponse = await questionsResponse.json();
 
     return {
       props: {
-        questionsData,
+        questionsData: questionsData.data,
       },
     };
   } catch (error) {
-    console.error("Error:", error);
+    const err = error as Error;
+
     return {
       props: {
-        questionsData: null,
-        error: error.message,
+        questionsData: { total: 0, list: [] },
+        error: err.message,
       },
     };
   }
-}
+}) satisfies GetStaticProps;
