@@ -5,7 +5,7 @@ import { postMBTIResult } from "@/apis";
 import KakaoShareButton from "@components/KakaoShare";
 import LoadingPage from "@components/Loading";
 import Modal from "@components/Modal";
-import MapComponent from "@components/map";
+import Map from "@components/Map";
 
 export async function getServerSideProps(context) {
   const { mbti, userId } = context.query;
@@ -230,7 +230,7 @@ export default function Results({ userData }) {
                 <p>위치를 알려줄게!</p>
                 <img src="/box_stroke.webp" id="cross"></img>
                 <div className="map" id="map">
-                  <MapComponent isLoading={isLoading} resultData={resultData} />
+                  <Map isLoading={isLoading} resultData={resultData} />
                 </div>
               </div>
 
