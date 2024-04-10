@@ -1,8 +1,23 @@
 import React from "react";
 
-const KakaoShareButton = ({description, imageUrl, mobileWebUrl, webUrl, mbti}) => {
-  const kakaoShare = () => {
-    Kakao.Link.sendDefault({
+declare global {
+  interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Kakao: any;
+  }
+}
+
+type KakaoShareButtonProps = {
+  description: string;
+  imageUrl: String;
+  mobileWebUrl: String;
+  webUrl: String;
+  mbti: String;
+};
+
+const KakaoShareButton = ({ mbti }: KakaoShareButtonProps) => {
+  const share = () => {
+    window.Kakao.Link.sendDefault({
       objectType: "feed",
       content: {
         title: "두근두근 핫스팟 테스트 in seoul",
@@ -10,8 +25,7 @@ const KakaoShareButton = ({description, imageUrl, mobileWebUrl, webUrl, mbti}) =
         imageUrl: "https://image.patkid.kr/common/kakao_share_thum.png",
         link: {
           mobileWebUrl: `//http://place.patkid.kr/results?mbti=${mbti}&shared=true`,
-    webUrl: `http://place.patkid.kr/results?mbti=${mbti}&shared=true`,
-  
+          webUrl: `http://place.patkid.kr/results?mbti=${mbti}&shared=true`,
         },
       },
       buttons: [
@@ -19,8 +33,7 @@ const KakaoShareButton = ({description, imageUrl, mobileWebUrl, webUrl, mbti}) =
           title: "우리 핫플 찾고 데이트 갈래?💖",
           link: {
             mobileWebUrl: `http://place.patkid.kr/results?mbti=${mbti}&shared=true`,
-    webUrl: `http://place.patkid.kr/results?mbti=${mbti}&shared=true`,
-  
+            webUrl: `http://place.patkid.kr/results?mbti=${mbti}&shared=true`,
           },
         },
       ],
@@ -39,10 +52,9 @@ const KakaoShareButton = ({description, imageUrl, mobileWebUrl, webUrl, mbti}) =
         top: "18px",
       }}
       src="/share_btn.webp"
-      onClick={kakaoShare}
+      onClick={share}
     />
   );
 };
-
 
 export default KakaoShareButton;
