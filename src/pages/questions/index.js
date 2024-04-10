@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { questions as imgQuestions } from "@constants";
-import LoadingPage from "@components/LoadingPage";
+import LoadingPage from "@components/Loading";
 import styles from "@/styles/questions.module.css";
 
 const DynamicButton = dynamic(() => import("@/components/Button"));
