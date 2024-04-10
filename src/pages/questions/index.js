@@ -4,10 +4,10 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { questions as imgQuestions } from "@constants";
 import LoadingPage from "@components/Loading";
-import styles from "@/styles/questions.module.css";
+import styles from "@styles/questions.module.css";
 
-const DynamicButton = dynamic(() => import("@/components/Button"));
-const DynamicProgressBar = dynamic(() => import("@/components/progress"));
+const Button = dynamic(() => import("@components/Button"));
+const ProgressBar = dynamic(() => import("@/components/ProgressBar"));
 
 export default function Questions({ questionsData }) {
   const [currentNumber, setCurrentNumber] = useState(0);
@@ -132,7 +132,7 @@ export default function Questions({ questionsData }) {
         <p>핫스팟 테스트</p>
       </div>
       <div className="progress_bar">
-        <DynamicProgressBar currentNumber={currentNumber} />
+        <ProgressBar currentNumber={currentNumber} />
       </div>
       <div className="question">
         <img src="/questions.webp" />
@@ -150,7 +150,7 @@ export default function Questions({ questionsData }) {
       </div>
       <div className="answer">
         <div className="choice1">
-          <DynamicButton
+          <Button
             onClick={() => nextQuestion(0)}
             buttonImage="/answer.webp"
             clickedButtonImage="/visit_click.webp"
@@ -169,7 +169,7 @@ export default function Questions({ questionsData }) {
           />
         </div>
         <div className="choice2">
-          <DynamicButton
+          <Button
             onClick={() => nextQuestion(1)}
             buttonImage="/answer.webp"
             clickedButtonImage="/visit_click.webp"
@@ -327,9 +327,11 @@ export async function getStaticProps() {
     const questionsResponse = await fetch(
       "https://place-api.patkid.kr/v1/question/list"
     );
+
     if (!questionsResponse.ok) {
       throw new Error("Failed to fetch data");
     }
+
     const questionsData = await questionsResponse.json();
 
     return {
