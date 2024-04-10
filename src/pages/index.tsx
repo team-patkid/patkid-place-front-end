@@ -1,3 +1,4 @@
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useState } from "react";
 import { getTotalVistorCount } from "@/apis";
 import StartButton from "@components/home/StartButton";
@@ -9,7 +10,9 @@ import {
   homeTitleStyle,
 } from "@components/home/index.css";
 
-export default function Home({ visitorCount }: { visitorCount: number }) {
+export default function Home({
+  visitorCount,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
@@ -48,7 +51,7 @@ export default function Home({ visitorCount }: { visitorCount: number }) {
   );
 }
 
-export async function getServerSideProps() {
+export const getServerSideProps = (async () => {
   const response = await getTotalVistorCount();
   const visitorCount = response.data.data.count;
 
@@ -57,4 +60,4 @@ export async function getServerSideProps() {
       visitorCount,
     },
   };
-}
+}) satisfies GetServerSideProps;
