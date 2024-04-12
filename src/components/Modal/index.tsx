@@ -15,7 +15,7 @@ import {
 
 type ModalProps = {
   data: Place;
-  handleOpen: (isOpen: boolean) => () => void;
+  handleOpen: (isOpen: boolean, index?: number) => () => void;
 };
 
 const Modal = ({ handleOpen, data }: ModalProps) => {

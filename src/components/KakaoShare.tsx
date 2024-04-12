@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 declare global {
   interface Window {
@@ -16,6 +16,13 @@ type KakaoShareButtonProps = {
 };
 
 const KakaoShareButton = ({ mbti }: KakaoShareButtonProps) => {
+  //카카오톡 공유하기
+  useEffect(() => {
+    if (typeof window.Kakao !== "undefined" && !window.Kakao.isInitialized()) {
+      window.Kakao.init("dc448d19d55ef2f3302fceaacee793ea");
+    }
+  }, []);
+
   const share = () => {
     window.Kakao.Link.sendDefault({
       objectType: "feed",

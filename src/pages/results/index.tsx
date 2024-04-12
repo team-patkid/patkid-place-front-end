@@ -1,3 +1,4 @@
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment, useEffect, useState } from "react";
@@ -6,53 +7,23 @@ import KakaoShareButton from "@components/KakaoShare";
 import LoadingPage from "@components/Loading";
 import Modal from "@components/Modal";
 import Map from "@components/Map";
+import { redirect } from "next/navigation";
+import { ResultResponse } from "@/models/result";
 
-export async function getServerSideProps(context) {
-  const { mbti, userId } = context.query;
-  console.log("mbti:", mbti);
-  console.log("userId:", userId);
-  try {
-    const response = await postMBTIResult(mbti);
-    const userData = response.data;
-    return {
-      props: {
-        userData: userData,
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-
-    return {
-      props: {
-        userData: null,
-      },
-    };
-  }
-}
-
-export default function Results({ userData }) {
+export default function Results({
+  userData,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
-  const userId = userData?.data?.result?.userId;
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalOpenIndex, setModalOpenIndex] = useState(null);
-  const [shared, setShared] = useState(false);
+  const [modalOpenIndex, setModalOpenIndex] = useState<number | null>(null);
   const [visited, setVisited] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [resultData, setResultData] = useState(userData);
   const [isFetching, setIsFetching] = useState(false);
   const [diceClicks, setDiceClicks] = useState(0);
   const [showDice, setShowDice] = useState(true);
-  const [initialUserId, setInitialUserId] = useState(null);
 
-  //초기 결과데이터
-  useEffect(() => {
-    if (userData && diceClicks === 0) {
-      console.log("초기 결과 데이터:", userData);
-      console.log("mbti 값:", router.query.mbti);
-      console.log("userId 값:", userId);
-      setInitialUserId(userId);
-    }
-  }, [userData, diceClicks]);
+  const mbti = typeof router.query.mbti === "string" ? router.query.mbti : "";
 
   //랜덤 주사위 클릭
   const handleDiceClick = () => {
@@ -60,7 +31,7 @@ export default function Results({ userData }) {
       const fetchData = async () => {
         setIsFetching(true);
         try {
-          const response = await postMBTIResult(router.query.mbti);
+          const response = await postMBTIResult(mbti);
           setResultData(response.data);
           console.log("결과 데이터:", response.data);
         } catch (error) {
@@ -102,9 +73,9 @@ export default function Results({ userData }) {
     }
   }, [resultData]);
 
-  const openModal = (openState, index) => () => {
+  const openModal = (openState: boolean, index?: number) => () => {
     setModalOpen(openState);
-    setModalOpenIndex(index);
+    setModalOpenIndex(index ?? null);
   };
 
   //폰트크기 유동적 조절
@@ -112,18 +83,13 @@ export default function Results({ userData }) {
     const containerWidth = 290;
     const desiredFontSize = 38;
 
-    if (
-      !resultData ||
-      !resultData.data ||
-      !resultData.data.result ||
-      !resultData.data.result.name
-    ) {
+    if (!resultData || !resultData.result || !resultData.result.name) {
       return desiredFontSize;
     }
 
     const fontSize = Math.min(
       desiredFontSize,
-      (containerWidth / resultData.data.result.name.length) * 1.5
+      (containerWidth / resultData.result.name.length) * 1.5
     );
     return fontSize;
   };
@@ -133,13 +99,6 @@ export default function Results({ userData }) {
   useEffect(() => {
     setFontSize(calculateFontSize());
   }, [resultData]);
-
-  //카카오톡 공유하기
-  useEffect(() => {
-    if (typeof Kakao !== "undefined" && !Kakao.isInitialized()) {
-      Kakao.init("dc448d19d55ef2f3302fceaacee793ea");
-    }
-  }, []);
 
   useEffect(() => {
     const handleStart = () => {
@@ -171,103 +130,103 @@ export default function Results({ userData }) {
     return <LoadingPage />;
   }
 
-  if (resultData && resultData.data && resultData.data.result.place) {
-    const { name, description, imageUrl, naverUrl } =
-      resultData.data.result.place;
-    const tags = resultData.data.result.place.tags;
+  if (resultData && resultData.result.place) {
+    const { content, imageUrl, naverUrl } = resultData.result.place;
+    const tags = resultData.result.place.tags;
     return (
-      <div className={`wrapper ${shared ? "shared" : ""}`}>
+      <div className="wrapper">
         <section className="result_layout">
           <div>
-            <img src="/background_h_2.webp" className="result_layout" />
+            <img
+              src="/background_h_2.webp"
+              className="result_layout"
+              draggable={false}
+            />
             <img
               src="/background_h_2_2.webp"
               className="result_layout layout2"
+              draggable={false}
             />
             <img
               src="/background_h_2_3.webp"
               className="result_layout layout3"
+              draggable={false}
             />
           </div>
-          {resultData && resultData.data && (
-            <>
-              <div className="result">
-                <img src="/i_box.webp" />
-                <p style={{ fontSize: `${fontSize}px`, whiteSpace: "nowrap" }}>
-                  {resultData?.data?.result?.name}
+          <div className="result">
+            <img src="/i_box.webp" draggable={false} />
+            <p style={{ fontSize: `${fontSize}px`, whiteSpace: "nowrap" }}>
+              {resultData.result.name}
+            </p>
+            <img
+              src="/tooltip.webp"
+              onClick={handleDiceClick}
+              style={{ display: showDice ? "block" : "none" }}
+            />
+            <img
+              src="/dice.webp"
+              onClick={handleDiceClick}
+              style={{ display: showDice ? "block" : "none" }}
+            />
+            <div className="spot_img">
+              <img src={resultData.result.place.imageUrl} />
+            </div>
+            <div className="tag">
+              {tags.map((v, index) => (
+                <p className="isaText" key={`hotspot-modal-${index}`}>
+                  #{v.tag}
                 </p>
-                <img
-                  src="/tooltip.webp"
-                  onClick={handleDiceClick}
-                  style={{ display: showDice ? "block" : "none" }}
-                />
-                <img
-                  src="/dice.webp"
-                  onClick={handleDiceClick}
-                  style={{ display: showDice ? "block" : "none" }}
-                />
-                <div className="spot_img">
-                  <img src={resultData.data.result.place.imageUrl} />
-                </div>
-                <div className="tag">
-                  {tags.map((v, index) => (
-                    <p className="isaText" key={`hotspot-modal-${index}`}>
-                      #{v.tag}
-                    </p>
-                  ))}
-                </div>
-                <img src="/box.webp" />
-                <div className="box_text">
-                  {resultData.data.result.place.content
-                    .split("\n")
-                    .map((v, index, array) => (
-                      <li key={index}>{v}</li>
-                    ))}
-                </div>
-              </div>
-              <div className="location">
-                <img src="/location.webp" />
-                <p>위치를 알려줄게!</p>
-                <img src="/box_stroke.webp" id="cross"></img>
-                <div className="map" id="map">
-                  <Map isLoading={isLoading} resultData={resultData} />
-                </div>
-              </div>
+              ))}
+            </div>
+            <img src="/box.webp" draggable={false} />
+            <div className="box_text">
+              {resultData.result.place.content.split("\n").map((v, index) => (
+                <li key={index}>{v}</li>
+              ))}
+            </div>
+          </div>
+          <div className="location">
+            <img src="/location.webp" />
+            <p>위치를 알려줄게!</p>
+            <img src="/box_stroke.webp" id="cross" draggable={false}></img>
+            <div className="map" id="map">
+              <Map isLoading={isLoading} result={resultData.result} />
+            </div>
+          </div>
 
-              <div className="hot_spot">
-                <img src="/hotspot.webp" />
-
-                <p>가장 많은 선택을 받은 핫스팟</p>
-
-                {resultData?.data?.hotPlace.map((item, index) => (
-                  <Fragment key={`hotspot-${index}`}>
-                    <div
-                      className={`hot_spotImg${index + 1}`}
-                      onClick={openModal(true, index)}
-                    >
-                      <img className="hot_spot_image" src={item.imageUrl} />
-
-                      <img src="/box_stroke.webp" />
-                    </div>
-                    {modalOpen && index === modalOpenIndex && (
-                      <Modal handleOpen={openModal} data={item} index={index} />
-                    )}
-                  </Fragment>
-                ))}
-              </div>
-              <div className="visit">
-                <img src="/go.webp" />
-                <p>PATKID 팀을 더 알고 싶다면</p>
-                <Link
-                  href="https://www.notion.so/PATKID-b28bf7de62bb4e95919b5dca4e8c08ec?pvs=4"
-                  target="_blank"
+          <div className="hot_spot">
+            <img src="/hotspot.webp" draggable={false} />
+            <p>가장 많은 선택을 받은 핫스팟</p>
+            {resultData.hotPlace.map((item, index) => (
+              <Fragment key={`hotspot-${index}`}>
+                <div
+                  className={`hot_spotImg${index + 1}`}
+                  onClick={openModal(true, index)}
                 >
-                  <img className="visitImg" src="/visit.webp" />
-                  <p className="visitP">PATKID 팀 페이지 방문하기</p>
-                </Link>
-              </div>
-            </>
-          )}
+                  <img
+                    className="hot_spot_image"
+                    src={item.imageUrl}
+                    draggable={false}
+                  />
+                  <img src="/box_stroke.webp" draggable={false} />
+                </div>
+                {modalOpen && index === modalOpenIndex && (
+                  <Modal handleOpen={openModal} data={item} />
+                )}
+              </Fragment>
+            ))}
+          </div>
+          <div className="visit">
+            <img src="/go.webp" />
+            <p>PATKID 팀을 더 알고 싶다면</p>
+            <Link
+              href="https://www.notion.so/PATKID-b28bf7de62bb4e95919b5dca4e8c08ec?pvs=4"
+              target="_blank"
+            >
+              <img className="visitImg" src="/visit.webp" draggable={false} />
+              <p className="visitP">PATKID 팀 페이지 방문하기</p>
+            </Link>
+          </div>
         </section>
         <footer>
           {visited ? (
@@ -277,14 +236,18 @@ export default function Results({ userData }) {
           ) : (
             <>
               <KakaoShareButton
-                description={description}
+                description={content}
                 imageUrl={imageUrl}
                 mobileWebUrl={naverUrl}
                 webUrl={naverUrl}
-                mbti={router.query.mbti}
+                mbti={mbti}
               />
               <Link href="/">
-                <img className="footer_right" src="/restart_btn.webp" />
+                <img
+                  className="footer_right"
+                  src="/restart_btn.webp"
+                  draggable={false}
+                />
               </Link>
             </>
           )}
@@ -613,3 +576,25 @@ export default function Results({ userData }) {
     );
   }
 }
+
+export const getServerSideProps = (async (context) => {
+  const { mbti } = context.query;
+
+  if (!mbti || typeof mbti !== "string") {
+    throw new Error("");
+  }
+
+  try {
+    const response = await postMBTIResult(mbti);
+    const userData: ResultResponse = response.data.data;
+
+    return {
+      props: {
+        userData,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    redirect("/");
+  }
+}) satisfies GetServerSideProps;

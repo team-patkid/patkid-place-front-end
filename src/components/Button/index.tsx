@@ -58,6 +58,7 @@ const Button = ({
         }
         alt="Button"
         className={styles.buttonImageStyle}
+        draggable={false}
       />
       <p className={styles.buttonTextStyle}>{text}</p>
     </div>

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Result } from "@/models/result";
 
 declare global {
   interface Window {
@@ -9,41 +10,33 @@ declare global {
 
 type MapProps = {
   isLoading: boolean;
-  resultData: any;
+  result: Result;
 };
 
-const Map = ({ isLoading, resultData }: MapProps) => {
+const Map = ({ isLoading, result }: MapProps) => {
   const handleMapClick = () => {
-    if (
-      resultData &&
-      resultData.data &&
-      resultData.data.result.place.naverUrl
-    ) {
-      window.location.href = resultData.data.result.place.naverUrl;
+    if (result.place.naverUrl) {
+      window.location.href = result.place.naverUrl;
     }
   };
 
   useEffect(() => {
-    if (!isLoading && resultData) {
+    if (!isLoading) {
       const script = document.createElement("script");
       script.src =
         "https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ljyaizmmy4";
       script.async = true;
       script.onload = () => {
         const mapOptions = {
-          center: new window.naver.maps.LatLng(
-            resultData.data.result.place.y,
-            resultData.data.result.place.x
-          ),
+          center: new window.naver.maps.LatLng(result.place.y, result.place.x),
           zoom: 15,
         };
 
         const map = new window.naver.maps.Map("map", mapOptions);
-
         const markerOptions = {
           position: new window.naver.maps.LatLng(
-            resultData.data.result.place.y,
-            resultData.data.result.place.x
+            result.place.y,
+            result.place.x
           ),
           map: map,
         };
@@ -58,7 +51,7 @@ const Map = ({ isLoading, resultData }: MapProps) => {
       };
       document.body.appendChild(script);
     }
-  }, [isLoading, resultData]);
+  }, [isLoading, result]);
 
   return <div id="map" style={{ width: "100%", height: "400px" }} />;
 };

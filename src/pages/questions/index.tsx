@@ -134,7 +134,7 @@ export default function Questions({
         <ProgressBar currentNumber={currentNumber} />
       </div>
       <div className="question">
-        <img src="/questions.webp" />
+        <img src="/questions.webp" draggable={false} />
         {renderQuestionImage()}
         {questionsData.list.length > 0 && (
           <div className="questions">
