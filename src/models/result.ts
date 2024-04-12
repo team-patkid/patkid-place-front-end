@@ -1,19 +1,4 @@
-export type Tag = {
-  tagId: number;
-  tag: string;
-  type: string;
-};
-
-export type Place = {
-  placeId: number;
-  name: string;
-  naverUrl: string;
-  content: string;
-  imageUrl: string;
-  x: number;
-  y: number;
-  tags: Tag[];
-};
+import { Place } from "./place";
 
 export type Result = {
   userId: string;

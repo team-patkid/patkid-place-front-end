@@ -19,8 +19,6 @@ type ModalProps = {
 };
 
 const Modal = ({ handleOpen, data }: ModalProps) => {
-  console.log(data);
-
   return (
     <div className={modalBackDropStyle} onClick={handleOpen(false)}>
       <div className={modalContainerStyle} onClick={(e) => e.stopPropagation()}>
