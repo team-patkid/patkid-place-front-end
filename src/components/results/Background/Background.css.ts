@@ -1,5 +1,10 @@
 import { style } from "@vanilla-extract/css";
 
+export const bgContainerStyle = style({
+  position: "absolute",
+  top: 0,
+});
+
 export const bgStyle = style({
   marginLeft: "auto",
   marginRight: "auto",

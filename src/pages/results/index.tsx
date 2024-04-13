@@ -10,6 +10,20 @@ import HotSpot from "@components/results/HotSpot";
 import Background from "@components/results/Background";
 import Visit from "@components/results/Visit";
 import Location from "@components/results/Location";
+import {
+  resultBoxImageStyle,
+  resultDescriptionBox,
+  resultDescriptionStyle,
+  resultDescriptionTextStyle,
+  resultDiceStyle,
+  resultSpotImageStyle,
+  resultSpotStyle,
+  resultStyle,
+  resultTitleStyle,
+  resultTooltipStyle,
+  tagStyle,
+  wrapperStyle,
+} from "@components/results/index.css";
 
 export default function Results({
   userData,
@@ -122,38 +136,56 @@ export default function Results({
   const { content, imageUrl, naverUrl } = resultData.result.place;
   const tags = resultData.result.place.tags;
   return (
-    <div className="wrapper">
+    <div className={wrapperStyle}>
       <section className="result_layout">
         <Background />
-        <div className="result">
-          <img src="/i_box.webp" draggable={false} />
-          <p style={{ fontSize: `${fontSize}px`, whiteSpace: "nowrap" }}>
+        <div className={resultStyle}>
+          <img
+            className={resultBoxImageStyle}
+            src="/i_box.webp"
+            draggable={false}
+          />
+          <p
+            className={resultTitleStyle}
+            style={{ fontSize: `${fontSize}px`, whiteSpace: "nowrap" }}
+          >
             {resultData.result.name}
           </p>
           <img
+            className={resultTooltipStyle}
             src="/tooltip.webp"
             onClick={handleDiceClick}
             style={{ display: showDice ? "block" : "none" }}
           />
           <img
+            className={resultDiceStyle}
             src="/dice.webp"
             onClick={handleDiceClick}
             style={{ display: showDice ? "block" : "none" }}
           />
-          <div className="spot_img">
-            <img src={resultData.result.place.imageUrl} />
+          <div className={resultSpotStyle}>
+            <img
+              className={resultSpotImageStyle}
+              src={resultData.result.place.imageUrl}
+            />
           </div>
-          <div className="tag">
+          <div className={tagStyle}>
             {tags.map((v, index) => (
               <p className="isaText" key={`hotspot-modal-${index}`}>
                 #{v.tag}
               </p>
             ))}
           </div>
-          <img src="/box.webp" draggable={false} />
-          <div className="box_text">
+          <img
+            className={resultDescriptionBox}
+            src="/box.webp"
+            draggable={false}
+          />
+          <div className={resultDescriptionStyle}>
             {resultData.result.place.content.split("\n").map((v, index) => (
-              <li key={index}>{v}</li>
+              <li className={resultDescriptionTextStyle} key={index}>
+                {v}
+              </li>
             ))}
           </div>
         </div>
@@ -175,125 +207,6 @@ export default function Results({
           backgroundColor: visited ? "#FF448D" : "#000000",
         }}
       />
-      <style jsx>
-        {`
-          .wrapper {
-            position: relative;
-            margin-left: auto;
-            margin-right: auto;
-            width: 500px;
-            height: 2546px;
-          }
-          .result > img:nth-of-type(1) {
-            position: absolute;
-            width: 467px;
-            height: 524px;
-            left: calc(50% - 467px / 2 + 0.5px);
-            top: 78px;
-          }
-          .result > p:nth-of-type(1) {
-            position: absolute;
-            width: 290px;
-            height: 41px;
-            top: 116px;
-            left: calc(50% - 310px / 2);
-            font-weight: 400;
-            line-height: 41px;
-            color: #000000;
-            font-size: 38px;
-            text-align: center;
-          }
-          .result > p:nth-of-type(2) {
-            position: absolute;
-            width: 194px;
-            height: 20px;
-            left: 267px;
-            top: 67px;
-
-            font-weight: 500;
-            font-size: 17px;
-            color: #565656;
-          }
-          .result > img:nth-of-type(2) {
-            position: absolute;
-            width: 227px;
-            height: 55px;
-            left: 250px;
-            top: 55px;
-          }
-          .result > img:nth-of-type(3) {
-            position: absolute;
-            width: 26px;
-            height: 26px;
-            top: 123px;
-            left: 413px;
-            transform: rotate(7.1deg);
-            cursor: pointer;
-          }
-          .tooltip-show {
-            display: block;
-          }
-          .tooltip-hide {
-            display: none;
-          }
-          .spot_img {
-            position: absolute;
-            width: 419px;
-            height: 281px;
-            left: calc(50% - 419px / 2 + 0.5px);
-            top: 179px;
-            overflow: hidden;
-          }
-          .spot_img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
-          .tag {
-            position: absolute;
-            width: 326px;
-            height: 46px;
-            left: calc(50% - 326px / 2);
-            top: 534px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-          }
-          .tag-line {
-            position: absolute;
-            width: 410px;
-            height: 0px;
-            left: calc(50% - 410px / 2);
-            top: 525px;
-            border: 1px solid #ff448d;
-          }
-          .result > img:nth-of-type(4) {
-            position: absolute;
-            width: 468px;
-            height: 242px;
-            left: calc(50% - 468px / 2);
-            top: 643px;
-          }
-          .box_text {
-            position: absolute;
-            width: 397px;
-            height: 190px;
-            left: 52px;
-            top: 670px;
-            z-index: 999;
-            font-weight: 500;
-            font-size: 20px;
-            font-family: "Pretendard";
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-          }
-          .box_text li {
-            flex: 1;
-            margin-bottom: 18px;
-          }
-        `}
-      </style>
     </div>
   );
 }
