@@ -103,6 +103,7 @@ export const resultDescriptionStyle = style({
 });
 
 export const resultDescriptionTextStyle = style({
-  flex: 1,
   marginBottom: "18px",
+  textIndent: "-28px",
+  paddingLeft: "28px",
 });
