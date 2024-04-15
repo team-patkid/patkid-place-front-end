@@ -4,13 +4,23 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { questions as imgQuestions } from "@constants";
-import LoadingPage from "@components/Loading";
 import { Mbti, MbtiCount } from "@/models/mbti";
 import { QuestionResponse } from "@/models/question";
 import styles from "@styles/questions.module.css";
+import LoadingPage from "@components/Loading";
+import Answer from "@components/questions/Answer";
+import {
+  answerBoxStyle,
+  layoutStyle,
+  progressBarBoxStyle,
+  questionBoxStyle,
+  questionNumberStyle,
+  questionTextStyle,
+  titleImageStyle,
+  titleStyle,
+} from "@components/questions/index.css";
 
-const Button = dynamic(() => import("@components/Button"));
-const ProgressBar = dynamic(() => import("@/components/ProgressBar"));
+const ProgressBar = dynamic(() => import("@components/ProgressBar"));
 
 export default function Questions({
   questionsData,
@@ -70,7 +80,7 @@ export default function Questions({
   const nextQuestion = (choiceNumber: number) => {
     const isLastQuestion = currentNumber === questionsData.total - 1;
     const choiceType =
-      questionsData.list[currentNumber]?.questionSub[choiceNumber].type;
+      questionsData.list[currentNumber].questionSub[choiceNumber].type;
 
     // setMbtiList((prevState) => ({
     //   ...prevState,
@@ -115,7 +125,7 @@ export default function Questions({
   }
 
   return (
-    <div className="questions_layout">
+    <div className={layoutStyle}>
       <Image
         src="/background_h_2.webp"
         className="questions_layout"
@@ -127,197 +137,46 @@ export default function Questions({
       />
 
       <div className="title">
-        <img src="/back.webp" width={12} height={25} draggable={false} />
-        <p>핫스팟 테스트</p>
+        <img
+          className={titleImageStyle}
+          src="/back.webp"
+          width={12}
+          height={25}
+          draggable={false}
+        />
+        <p className={titleStyle}>핫스팟 테스트</p>
       </div>
-      <div className="progress_bar">
+      <div className={progressBarBoxStyle}>
         <ProgressBar currentNumber={currentNumber} />
       </div>
       <div className="question">
-        <img src="/questions.webp" draggable={false} />
+        <img
+          className={questionBoxStyle}
+          src="/questions.webp"
+          draggable={false}
+        />
         {renderQuestionImage()}
         {questionsData.list.length > 0 && (
           <div className="questions">
-            <p className="number">
+            <p className={questionNumberStyle}>
               {questionsData.list[currentNumber].sort}/12
             </p>
-            <p className="question">
+            <p className={questionTextStyle}>
               {questionsData.list[currentNumber].content}
             </p>
           </div>
         )}
       </div>
-      <div className="answer">
-        <div className="choice1">
-          <Button
-            onClick={() => nextQuestion(0)}
-            buttonImage="/answer.webp"
-            clickedButtonImage="/visit_click.webp"
-            text={
-              <span
-                className={`choice1_answer ${
-                  questionsData.list[currentNumber].questionSub[0].content
-                    .length > 25
-                    ? "choice1_answer2"
-                    : "choice1_answer1"
-                }`}
-              >
-                {questionsData.list[currentNumber].questionSub[0].content}
-              </span>
-            }
-          />
-        </div>
-        <div className="choice2">
-          <Button
-            onClick={() => nextQuestion(1)}
-            buttonImage="/answer.webp"
-            clickedButtonImage="/visit_click.webp"
-            text={
-              <span
-                className={`choice1_answer ${
-                  questionsData.list[currentNumber].questionSub[1].content
-                    .length > 25
-                    ? "choice1_answer2"
-                    : "choice1_answer1"
-                }`}
-              >
-                {questionsData.list[currentNumber].questionSub[1].content}
-              </span>
-            }
-          />
-        </div>
+      <div className={answerBoxStyle}>
+        <Answer
+          text={questionsData.list[currentNumber].questionSub[0].content}
+          onClick={() => nextQuestion(0)}
+        />
+        <Answer
+          text={questionsData.list[currentNumber].questionSub[1].content}
+          onClick={() => nextQuestion(1)}
+        />
       </div>
-      <style jsx>
-        {`
-          .questions_layout {
-            position: relative;
-            position: center;
-            margin-left: auto;
-            margin-right: auto;
-            width: 500px;
-            height: 1081px;
-          }
-          .title img {
-            position: absolute;
-            width: 12px;
-            height: 25px;
-            left: 31px;
-            top: 43px;
-          }
-          .title p {
-            position: absolute;
-            width: 200px;
-            height: 28px;
-            left: calc(50% - 185px / 2);
-            top: 43px;
-            font-style: normal;
-            font-weight: 400;
-            font-size: 32px;
-            line-height: 28px;
-            text-align: center;
-            color: #000000;
-          }
-          .progress_bar {
-            position: absolute;
-            width: 466px;
-            height: 34px;
-            left: calc(50% - 466px / 2);
-            top: 88px;
-          }
-          .question img:nth-of-type(1) {
-            position: absolute;
-            width: 466px;
-            height: 490px;
-            left: calc(50% - 466px / 2);
-            top: 152px;
-          }
-          .questions > p:nth-of-type(1) {
-            position: absolute;
-            width: 57px;
-            height: 23px;
-            left: calc(50% - 57px / 2 + 0.5px);
-            top: 169px;
-            font-weight: 400;
-            font-size: 21px;
-            line-height: 23px;
-            color: #000000;
-          }
-          .questions > p:nth-of-type(2) {
-            position: absolute;
-            width: 341px;
-            height: 50px;
-            left: calc(50% - 341px / 2);
-            top: 548px;
-            font-weight: 400;
-            font-size: 24px;
-            line-height: 26px;
-            text-align: center;
-            color: #000000;
-          }
-          .choice1 {
-            width: 466px;
-            height: 105px;
-            position: absolute;
-            left: 17px;
-            top: 684px;
-          }
-          .choice2 {
-            width: 466px;
-            height: 105px;
-            position: absolute;
-            left: 17px;
-            top: 802px;
-          }
-          .choice1_answer1 {
-            position: absolute;
-            width: 386px;
-            height: 52px;
-            left: calc(50% - 386px / 2);
-            top: calc(84px / 2);
-            font-weight: 400;
-            font-size: 24px;
-            line-height: 26px;
-            text-align: center;
-            color: #000000;
-          }
-          .choice1_answer2 {
-            position: absolute;
-            width: 386px;
-            height: 52px;
-            left: calc(50% - 386px / 2);
-            top: calc(58px / 2);
-            font-weight: 400;
-            font-size: 24px;
-            line-height: 26px;
-            text-align: center;
-            color: #000000;
-          }
-          .choice2_answer1 {
-            position: absolute;
-            width: 386px;
-            height: 52px;
-            left: calc(50% - 386px / 2);
-            top: calc(84px / 2);
-            font-weight: 400;
-            font-size: 24px;
-            line-height: 26px;
-            text-align: center;
-            color: #000000;
-          }
-          .choice2_answer2 {
-            position: absolute;
-            width: 386px;
-            height: 52px;
-            left: calc(50% - 386px / 2);
-            top: calc(58px / 2);
-            font-weight: 400;
-            font-size: 24px;
-            line-height: 26px;
-            text-align: center;
-            color: #000000;
-          }
-        `}
-      </style>
     </div>
   );
 }

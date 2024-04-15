@@ -12,6 +12,7 @@ export const buttonImageStyle = style({
   width: "100%",
   height: "100%",
   transition: "transform 0.3s ease",
+  position: "absolute",
 
   selectors: {
     "&:hover": {
@@ -21,7 +22,7 @@ export const buttonImageStyle = style({
 });
 
 export const buttonTextStyle = style({
-  position: "absolute",
+  position: "relative",
   top: "0",
   left: "0",
   width: "100%",
