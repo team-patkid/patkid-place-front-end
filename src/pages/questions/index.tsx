@@ -6,19 +6,20 @@ import { useEffect, useState } from "react";
 import { questions as imgQuestions } from "@constants";
 import { Mbti, MbtiCount } from "@/models/mbti";
 import { QuestionResponse } from "@/models/question";
-import styles from "@styles/questions.module.css";
 import LoadingPage from "@components/Loading";
 import Answer from "@components/questions/Answer";
 import {
   answerBoxStyle,
+  backgroundStyle,
   layoutStyle,
   progressBarBoxStyle,
   questionBoxStyle,
   questionNumberStyle,
   questionTextStyle,
-  titleImageStyle,
-  titleStyle,
 } from "@components/questions/index.css";
+import Step from "@/components/questions/Step";
+import Title from "@/components/questions/Title";
+import styles from "@styles/questions.module.css";
 
 const ProgressBar = dynamic(() => import("@components/ProgressBar"));
 
@@ -82,25 +83,20 @@ export default function Questions({
     const choiceType =
       questionsData.list[currentNumber].questionSub[choiceNumber].type;
 
-    // setMbtiList((prevState) => ({
-    //   ...prevState,
-    //   [questionsData.data.list[currentNumber].type]: [
-    //     ...prevState[questionsData.data.list[currentNumber].type],
-    //     choiceType,
-    //   ],
-    // }));
-    // 상태 업데이트 성능 향상
-    const newMbtiList = { ...mbtiList };
-    newMbtiList[questionsData.list[currentNumber].type as keyof Mbti].push(
-      choiceType
-    );
-    setMbtiList(newMbtiList);
+    setMbtiList((prev) => {
+      const mbti = questionsData.list[currentNumber].type as keyof Mbti;
+      return {
+        ...prev,
+        [mbti]: [...prev[mbti], choiceType],
+      };
+    });
 
     if (isLastQuestion) {
       redirectToResultPage();
-    } else {
-      setCurrentNumber(currentNumber + 1);
+      return;
     }
+
+    setCurrentNumber(currentNumber + 1);
   };
 
   const renderQuestionImage = () => {
@@ -128,24 +124,14 @@ export default function Questions({
     <div className={layoutStyle}>
       <Image
         src="/background_h_2.webp"
-        className="questions_layout"
+        className={backgroundStyle}
         width={500}
         height={1081}
         quality={50}
         alt="questions_Image"
         priority
       />
-
-      <div className="title">
-        <img
-          className={titleImageStyle}
-          src="/back.webp"
-          width={12}
-          height={25}
-          draggable={false}
-        />
-        <p className={titleStyle}>핫스팟 테스트</p>
-      </div>
+      <Title />
       <div className={progressBarBoxStyle}>
         <ProgressBar currentNumber={currentNumber} />
       </div>
@@ -158,9 +144,11 @@ export default function Questions({
         {renderQuestionImage()}
         {questionsData.list.length > 0 && (
           <div className="questions">
-            <p className={questionNumberStyle}>
-              {questionsData.list[currentNumber].sort}/12
-            </p>
+            <Step
+              className={questionNumberStyle}
+              total={12}
+              step={questionsData.list[currentNumber].sort}
+            />
             <p className={questionTextStyle}>
               {questionsData.list[currentNumber].content}
             </p>

@@ -7,6 +7,10 @@ export const layoutStyle = style({
   height: "1081px",
 });
 
+export const backgroundStyle = style({
+  position: "absolute",
+});
+
 export const titleStyle = style({
   position: "absolute",
   width: "200px",
@@ -39,11 +43,9 @@ export const answerBoxStyle = style({
 });
 
 export const progressBarBoxStyle = style({
-  position: "absolute",
-  width: "466px",
+  position: "relative",
   height: "34px",
-  left: "calc(50% - 466px / 2)",
-  top: "88px",
+  marginTop: "24px",
 });
 
 export const questionBoxStyle = style({
