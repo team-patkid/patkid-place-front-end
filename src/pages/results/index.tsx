@@ -44,9 +44,9 @@ export default function Results({
       const fetchData = async () => {
         setIsFetching(true);
         try {
-          const response = await postMBTIResult(mbti);
-          setResultData(response.data);
-          console.log("결과 데이터:", response.data);
+          const { data } = await postMBTIResult(mbti);
+          setResultData(data.data);
+          console.log("결과 데이터:", data.data);
         } catch (error) {
           console.error(error);
         } finally {
