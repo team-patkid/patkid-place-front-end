@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  patkid_client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PORT: 3000
+    environment:
+      - TZ=Asia/Seoul # 컨테이너 내부 시간대를 KST로 설정
+    image: patkid_client
+    ports:
+      - '3000:3000'
+    networks:
+      - app
+
+networks:
+  app:
+    external: true
+    name: app
