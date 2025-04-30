@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import * as styles from "./Button.css";
+import * as styles from "./button.css";
 
 type ButtonProps = {
   buttonImage: string;
