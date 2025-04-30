@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta property="og:type" content="website"></meta>
         <meta
           property="og:image"
-          content="https://image.patkid.kr/common/kakao_share_thum.png"
+          content="https://image.patkid.xyz/common/kakao_share_thum.png"
         ></meta>
         <meta
           property="og:description"

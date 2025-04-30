@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://place-api.patkid.kr/",
+  baseURL: "https://api.patkid.xyz/",
 });
 
 export const getTotalVistorCount = () => api.get("v1/user/total-count");

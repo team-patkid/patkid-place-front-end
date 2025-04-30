@@ -171,7 +171,7 @@ export default function Questions({
 export const getStaticProps = (async () => {
   try {
     const questionsResponse = await fetch(
-      "https://place-api.patkid.kr/v1/question/list"
+      "https://api.patkid.xyz/v1/question/list"
     );
 
     if (!questionsResponse.ok) {
