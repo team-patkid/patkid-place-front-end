@@ -16,6 +16,7 @@ type MapProps = {
 const Map = ({ isLoading, result }: MapProps) => {
   const handleMapClick = () => {
     if (result.place.naverUrl) {
+      console.log('result.place.naverUrl ::: ', result.place.naverUrl)
       window.location.href = result.place.naverUrl;
     }
   };
@@ -24,7 +25,7 @@ const Map = ({ isLoading, result }: MapProps) => {
     if (!isLoading) {
       const script = document.createElement("script");
       script.src =
-        "https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ljyaizmmy4";
+        "https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=9xwpq60lp1";
       script.async = true;
       script.onload = () => {
         const mapOptions = {
