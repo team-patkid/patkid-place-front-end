@@ -15,10 +15,24 @@ type MapProps = {
 
 const Map = ({ isLoading, result }: MapProps) => {
   const handleMapClick = () => {
-    if (result.place.naverUrl) {
-      console.log('result.place.naverUrl ::: ', result.place.naverUrl)
-      window.location.href = result.place.naverUrl;
+    const url = result.place.naverUrl;
+    if (!url) return;
+
+    console.log('result.place.naverUrl ::: ', url);
+
+    // intent 스킴이면 browser_fallback_url 파싱
+    if (url.startsWith('intent://')) {
+      const match = url.match(/S\.browser_fallback_url=([^;]+)/);
+      if (match && match[1]) {
+        const fallbackUrl = decodeURIComponent(match[1]);
+        console.log('fallbackUrl ::: ', fallbackUrl);
+        window.location.href = fallbackUrl;
+        return;
+      }
     }
+
+    // 일반 URL 또는 intent parsing 실패 시
+    window.location.href = url;
   };
 
   useEffect(() => {
