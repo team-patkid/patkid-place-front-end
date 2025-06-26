@@ -6,7 +6,7 @@ type TextProps = {
 } & PropsWithChildren;
 
 const Text = ({ as = "p", children }: TextProps) => {
-  <View as={as}>{children}</View>;
+  return <View as={as}>{children}</View>;
 };
 
 export default Text;
