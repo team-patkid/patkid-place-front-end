@@ -5,18 +5,12 @@ import { CSSProperties } from "react";
 
 type FooterProps = {
   visited: boolean;
-  content: string;
-  imageUrl: string;
-  naverUrl: string;
   mbti: string;
   style: CSSProperties;
 };
 
 const Footer = ({
   visited,
-  content,
-  imageUrl,
-  naverUrl,
   mbti,
   style,
 }: FooterProps) => {
@@ -32,13 +26,7 @@ const Footer = ({
         </Link>
       ) : (
         <>
-          <KakaoShareButton
-            description={content}
-            imageUrl={imageUrl}
-            mobileWebUrl={naverUrl}
-            webUrl={naverUrl}
-            mbti={mbti}
-          />
+          <KakaoShareButton mbti={mbti} />
           <Link href="/">
             <img
               className={footerRight}

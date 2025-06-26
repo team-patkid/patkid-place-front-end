@@ -133,8 +133,9 @@ export default function Results({
     return <LoadingPage />;
   }
 
-  const { content, imageUrl, naverUrl } = resultData.result.place;
-  const tags = resultData.result.place.tags;
+  if (!resultData?.result?.place) {
+    return <LoadingPage />;
+  }
   return (
     <div className={wrapperStyle}>
       <section className="result_layout">
@@ -170,7 +171,7 @@ export default function Results({
             />
           </div>
           <div className={tagStyle}>
-            {tags.map((v, index) => (
+            {resultData.result.place.tags?.map((v, index) => (
               <p className="isaText" key={`hotspot-modal-${index}`}>
                 #{v.tag}
               </p>
@@ -199,9 +200,6 @@ export default function Results({
       </section>
       <Footer
         visited={visited}
-        content={content}
-        imageUrl={imageUrl}
-        naverUrl={naverUrl}
         mbti={mbti}
         style={{
           backgroundColor: visited ? "#FF448D" : "#000000",

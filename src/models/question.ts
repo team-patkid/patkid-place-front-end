@@ -11,7 +11,7 @@ export type Question = {
   id: number;
   content: string;
   type: string;
-  sort: 11;
+  sort: number;
   questionSub: Array<QuestionSub>;
 };
 

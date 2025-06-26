@@ -1,11 +1,10 @@
-import { GetStaticProps, InferGetStaticPropsType } from "next";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { questions as imgQuestions } from "@constants";
 import { Mbti, MbtiCount } from "@/models/mbti";
-import { QuestionResponse } from "@/models/question";
 import LoadingPage from "@components/Loading";
 import Answer from "@components/questions/Answer";
 import {
@@ -25,7 +24,7 @@ const ProgressBar = dynamic(() => import("@components/ProgressBar"));
 
 export default function Questions({
   questionsData,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [currentNumber, setCurrentNumber] = useState(0);
   const [mbtiList, setMbtiList] = useState<Mbti>({
     EI: [],
@@ -80,8 +79,11 @@ export default function Questions({
 
   const nextQuestion = (choiceNumber: number) => {
     const isLastQuestion = currentNumber === questionsData.total - 1;
-    const choiceType =
-      questionsData.list[currentNumber].questionSub[choiceNumber].type;
+    const currentQuestion = questionsData.list[currentNumber];
+    if (!currentQuestion || !currentQuestion.questionSub || !currentQuestion.questionSub[choiceNumber]) {
+      return;
+    }
+    const choiceType = currentQuestion.questionSub[choiceNumber].type;
 
     setMbtiList((prev) => {
       const mbti = questionsData.list[currentNumber].type as keyof Mbti;
@@ -156,29 +158,28 @@ export default function Questions({
         )}
       </div>
       <div className={answerBoxStyle}>
-        <Answer
-          text={questionsData.list[currentNumber].questionSub[0].content}
-          onClick={() => nextQuestion(0)}
-        />
-        <Answer
-          text={questionsData.list[currentNumber].questionSub[1].content}
-          onClick={() => nextQuestion(1)}
-        />
+        {questionsData.list[currentNumber]?.questionSub?.[0] && (
+          <Answer
+            text={questionsData.list[currentNumber].questionSub[0].content}
+            onClick={() => nextQuestion(0)}
+          />
+        )}
+        {questionsData.list[currentNumber]?.questionSub?.[1] && (
+          <Answer
+            text={questionsData.list[currentNumber].questionSub[1].content}
+            onClick={() => nextQuestion(1)}
+          />
+        )}
       </div>
     </div>
   );
 }
-export const getStaticProps = (async () => {
+import { getQuestionList } from "@/apis";
+
+export const getServerSideProps = (async () => {
   try {
-    const questionsResponse = await fetch(
-      "https://api.patkid.xyz/v1/question/list"
-    );
-
-    if (!questionsResponse.ok) {
-      throw new Error("Failed to fetch data");
-    }
-
-    const questionsData: QuestionResponse = await questionsResponse.json();
+    const response = await getQuestionList();
+    const questionsData = response.data;
 
     return {
       props: {
@@ -187,6 +188,7 @@ export const getStaticProps = (async () => {
     };
   } catch (error) {
     const err = error as Error;
+    console.error("Questions fetch error:", err.message);
 
     return {
       props: {
@@ -195,4 +197,4 @@ export const getStaticProps = (async () => {
       },
     };
   }
-}) satisfies GetStaticProps;
+}) satisfies GetServerSideProps;

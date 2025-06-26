@@ -1,18 +1,40 @@
 import React, { useEffect } from "react";
 
+interface KakaoAPI {
+  init: (key: string) => void;
+  isInitialized: () => boolean;
+  Link: {
+    sendDefault: (options: {
+      objectType: string;
+      content: {
+        title: string;
+        description: string;
+        imageUrl: string;
+        link: {
+          mobileWebUrl: string;
+          webUrl: string;
+        };
+      };
+      buttons: Array<{
+        title: string;
+        link: {
+          mobileWebUrl: string;
+          webUrl: string;
+        };
+      }>;
+      installTalk: boolean;
+    }) => void;
+  };
+}
+
 declare global {
   interface Window {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    Kakao: any;
+    Kakao: KakaoAPI;
   }
 }
 
 type KakaoShareButtonProps = {
-  description: string;
-  imageUrl: String;
-  mobileWebUrl: String;
-  webUrl: String;
-  mbti: String;
+  mbti: string;
 };
 
 const KakaoShareButton = ({ mbti }: KakaoShareButtonProps) => {

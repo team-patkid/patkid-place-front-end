@@ -31,7 +31,7 @@ const hotSpot = ({ isOpen, hotPlaces, openModal }: hotSpotProps) => {
       </div>
 
       <div className={hotSpotImagesBox}>
-        {hotPlaces.map((item) => (
+        {hotPlaces?.map((item) => (
           <Fragment key={`hotspot-${item.placeId}`}>
             <div className={hotSpotImageBoxStyle} onClick={openModal(true)}>
               <img
