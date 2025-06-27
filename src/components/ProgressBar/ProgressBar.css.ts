@@ -34,6 +34,15 @@ export const ProgressItemStyle = style({
   },
 });
 
+export const ProgressImageStyle = style({
+  "@media": {
+    "screen and (max-width: 500px)": {
+      width: "9px !important",
+      height: "9px !important",
+    },
+  },
+});
+
 export const ProgressHeartStyle = style({
   position: "relative",
   width: "45px",
