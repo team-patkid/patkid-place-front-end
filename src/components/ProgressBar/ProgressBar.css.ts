@@ -6,7 +6,8 @@ export const ProgressWrapperStyle = style({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  margin: '12px auto'
+  margin: '12px 20px',
+  width: "calc(100% - 40px)",
 });
 
 export const ProgressContainerStyle = style({
