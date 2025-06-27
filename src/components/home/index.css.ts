@@ -3,6 +3,9 @@ import { titleAnimation } from "@styles/keyframes.css";
 
 export const homeLayoutStyle = style({
   backgroundColor: "#ffedf0",
+  minHeight: "100vh",
+  width: "100%",
+  position: "relative",
 });
 
 export const homeTitleStyle = style({
@@ -10,26 +13,57 @@ export const homeTitleStyle = style({
   width: "418px",
   height: "411px",
   left: "41px",
-  top: "224px",
+  top: "180px",
   animation: `${titleAnimation} 650ms infinite`,
+  
+  "@media": {
+    "screen and (max-width: 500px)": {
+      width: "80%",
+      height: "auto",
+      aspectRatio: "418 / 411",
+      left: "50%",
+      top: "25%",
+      transform: "translateX(-50%)",
+    },
+  },
 });
 
 export const homeSubTitleStyle = style({
   position: "absolute",
   width: "318.86px",
   height: "22px",
-  top: "658px",
-  left: "calc(50% - 318.86px / 2)",
+  top: "680px",
+  left: "50%",
+  transform: "translateX(-50%)",
   fontWeight: 300,
   fontSize: "17px",
-  lineHeight: "22px",
+  lineHeight: "18px",
   color: "#363636",
+  textAlign: "center",
+  
+  "@media": {
+    "screen and (max-width: 500px)": {
+      top: "70%",
+      fontSize: "15px",
+      lineHeight: "16px",
+      width: "80%",
+    },
+  },
 });
 
 export const homeLogoStyle = style({
   position: "absolute",
   width: "103px",
   height: "33px",
-  left: "calc(50% - 103px / 2 + 0.5px)",
-  top: "884px",
+  left: "50%",
+  top: "850px",
+  transform: "translateX(-50%)",
+  
+  "@media": {
+    "screen and (max-width: 500px)": {
+      top: "90%",
+      width: "90px",
+      height: "29px",
+    },
+  },
 });

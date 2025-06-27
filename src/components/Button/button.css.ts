@@ -2,10 +2,18 @@ import { style } from "@vanilla-extract/css";
 
 export const baseStyle = style({
   position: "relative",
-  width: "466px",
-  height: "105px",
+  width: "100%",
+  maxWidth: "466px",
+  height: "auto",
+  aspectRatio: "466 / 105",
   cursor: "pointer",
   overflow: "hidden",
+  
+  "@media": {
+    "screen and (max-width: 480px)": {
+      maxWidth: "400px",
+    },
+  },
 });
 
 export const buttonImageStyle = style({

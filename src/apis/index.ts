@@ -1,9 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
 export const getBaseURL = () => {
-  if (process.env.NODE_ENV === 'development') {
-    return 'https://api.patkid.xyz/';
-  }
   return 'http://host.docker.internal:8001/';
 };
 

@@ -8,6 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>두근두근 핫스팟 테스트 🥰</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta property="og:url" content="https://place.patkid.kr"></meta>
         <meta property="og:title" content="두근두근 핫스팟 테스트"></meta>
         <meta property="og:type" content="website"></meta>
