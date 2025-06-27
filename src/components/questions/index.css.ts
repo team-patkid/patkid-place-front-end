@@ -5,6 +5,13 @@ export const layoutStyle = style({
   margin: "0 auto",
   width: "500px",
   height: "1081px",
+  
+  "@media": {
+    "screen and (max-width: 500px)": {
+      width: "100%",
+      height: "100vh",
+    },
+  },
 });
 
 export const backgroundStyle = style({
@@ -40,6 +47,14 @@ export const answerBoxStyle = style({
   alignItems: "center",
   justifyContent: "center",
   width: "100%",
+  
+  "@media": {
+    "screen and (max-width: 500px)": {
+      top: "70%",
+      gap: "8px",
+      padding: "0 5%",
+    },
+  },
 });
 
 export const progressBarBoxStyle = style({
@@ -54,6 +69,17 @@ export const questionBoxStyle = style({
   height: "490px",
   left: "calc(50% - 466px / 2)",
   top: "152px",
+  
+  "@media": {
+    "screen and (max-width: 500px)": {
+      width: "90%",
+      height: "auto",
+      aspectRatio: "466 / 490",
+      left: "50%",
+      transform: "translateX(-50%)",
+      top: "15%",
+    },
+  },
 });
 
 export const questionNumberStyle = style({
@@ -66,6 +92,14 @@ export const questionNumberStyle = style({
   fontSize: "21px",
   lineHeight: "23px",
   color: "#000000",
+  
+  "@media": {
+    "screen and (max-width: 500px)": {
+      top: "17%",
+      fontSize: "18px",
+      lineHeight: "20px",
+    },
+  },
 });
 
 export const questionTextStyle = style({
@@ -73,10 +107,22 @@ export const questionTextStyle = style({
   width: "341px",
   height: "50px",
   left: "calc(50% - 341px / 2)",
-  top: "548px",
+  top: "450px",
   fontWeight: 400,
   fontSize: "24px",
   lineHeight: "26px",
   textAlign: "center",
   color: "#000000",
+  
+  "@media": {
+    "screen and (max-width: 500px)": {
+      width: "80%",
+      left: "50%",
+      transform: "translateX(-50%)",
+      top: "50%",
+      fontSize: "18px",
+      lineHeight: "22px",
+      height: "auto",
+    },
+  },
 });
