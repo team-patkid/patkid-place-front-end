@@ -4,6 +4,7 @@ import {
   ProgressHeartStyle,
   ProgressItemStyle,
   ProgressWrapperStyle,
+  ProgressBarImageStyle,
 } from "./ProgressBar.css";
 
 const ProgressBarItem = () => (
@@ -49,6 +50,7 @@ const ProgressBar = ({ currentNumber }: ProgressBarProps) => {
         height={39}
         quality={50}
         alt="progress_bar_Img"
+        className={ProgressBarImageStyle}
       />
       <div className={ProgressContainerStyle}>
         {progressItems}

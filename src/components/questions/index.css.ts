@@ -61,25 +61,18 @@ export const progressBarBoxStyle = style({
   position: "relative",
   height: "34px",
   marginTop: "24px",
+  width: "100%"
 });
 
 export const questionBoxStyle = style({
   position: "absolute",
-  width: "466px",
-  height: "490px",
-  left: "calc(50% - 466px / 2)",
+  width: "calc(100% - 40px)",
+  maxWidth: "466px",
+  height: "auto",
+  aspectRatio: "466 / 490",
+  left: "50%",
+  transform: "translateX(-50%)",
   top: "152px",
-  
-  "@media": {
-    "screen and (max-width: 500px)": {
-      width: "90%",
-      height: "auto",
-      aspectRatio: "466 / 490",
-      left: "50%",
-      transform: "translateX(-50%)",
-      top: "15%",
-    },
-  },
 });
 
 export const questionNumberStyle = style({
@@ -107,22 +100,11 @@ export const questionTextStyle = style({
   width: "341px",
   height: "50px",
   left: "calc(50% - 341px / 2)",
-  top: "450px",
+  top: "545px",
   fontWeight: 400,
   fontSize: "24px",
   lineHeight: "26px",
   textAlign: "center",
   color: "#000000",
   
-  "@media": {
-    "screen and (max-width: 500px)": {
-      width: "80%",
-      left: "50%",
-      transform: "translateX(-50%)",
-      top: "50%",
-      fontSize: "18px",
-      lineHeight: "22px",
-      height: "auto",
-    },
-  },
 });
