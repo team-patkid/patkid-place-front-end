@@ -237,6 +237,7 @@
   left: 235px;
   top: 242px;
 }
+
 .question1_img2{
   position: absolute;
   width: 99px;
@@ -245,6 +246,7 @@
   top: 277px;
   animation : Animation1 650ms infinite;
 }
+
 .question2_img1{
   position: absolute;
   width: 149px;

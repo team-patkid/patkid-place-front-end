@@ -16,6 +16,9 @@ export const layoutStyle = style({
 
 export const backgroundStyle = style({
   position: "absolute",
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
 });
 
 export const titleStyle = style({
@@ -85,14 +88,6 @@ export const questionNumberStyle = style({
   fontSize: "21px",
   lineHeight: "23px",
   color: "#000000",
-  
-  "@media": {
-    "screen and (max-width: 500px)": {
-      top: "17%",
-      fontSize: "18px",
-      lineHeight: "20px",
-    },
-  },
 });
 
 export const questionTextStyle = style({
@@ -100,11 +95,20 @@ export const questionTextStyle = style({
   width: "341px",
   height: "50px",
   left: "calc(50% - 341px / 2)",
-  top: "545px",
+  top: "calc(152px + 466px * 490 / 466 - 30px - 50px)",
   fontWeight: 400,
   fontSize: "24px",
   lineHeight: "26px",
   textAlign: "center",
   color: "#000000",
   
+  "@media": {
+    "screen and (max-width: 500px)": {
+      width: "calc(100% - 40px)",
+      maxWidth: "341px",
+      left: "50%",
+      transform: "translateX(-50%)",
+      top: "calc(152px + (100vw - 40px) * 490 / 466 - 30px - 50px)",
+    },
+  },
 });

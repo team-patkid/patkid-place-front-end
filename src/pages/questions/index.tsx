@@ -123,7 +123,7 @@ export default function Questions({
   }
 
   return (
-    <div className={layoutStyle}>
+    <div className="layout">
       <Image
         src="/background_h_2.webp"
         className={backgroundStyle}
