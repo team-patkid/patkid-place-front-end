@@ -15,7 +15,7 @@ export const homeTitleStyle = style({
   left: "41px",
   top: "180px",
   animation: `${titleAnimation} 650ms infinite`,
-  
+
   "@media": {
     "screen and (max-width: 500px)": {
       width: "80%",
@@ -40,7 +40,7 @@ export const homeSubTitleStyle = style({
   lineHeight: "18px",
   color: "#363636",
   textAlign: "center",
-  
+
   "@media": {
     "screen and (max-width: 500px)": {
       top: "70%",
@@ -58,7 +58,7 @@ export const homeLogoStyle = style({
   left: "50%",
   top: "850px",
   transform: "translateX(-50%)",
-  
+
   "@media": {
     "screen and (max-width: 500px)": {
       top: "90%",

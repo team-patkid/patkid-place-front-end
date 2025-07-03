@@ -7,7 +7,7 @@ export const answerTextStyle = style({
   lineHeight: "26px",
   textAlign: "center",
   color: "#000000",
-  
+
   "@media": {
     "screen and (max-width: 500px)": {
       fontSize: "18px",

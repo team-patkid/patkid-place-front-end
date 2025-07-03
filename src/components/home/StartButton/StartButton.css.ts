@@ -11,7 +11,7 @@ export const imageStyle = style({
   cursor: "pointer",
   transition: "background-color 0.7s ease",
   touchAction: "manipulation",
-  
+
   "@media": {
     "screen and (max-width: 500px)": {
       width: "90%",
@@ -45,7 +45,7 @@ export const firstTextStyle = style([
     fontWeight: "400",
     fontSize: "41px",
     lineHeight: "40px",
-    
+
     "@media": {
       "screen and (max-width: 500px)": {
         width: "90%",
@@ -71,7 +71,7 @@ export const secondTextStyle = style([
     fontWeight: "300",
     fontSize: "17px",
     lineHeight: "16px",
-    
+
     "@media": {
       "screen and (max-width: 500px)": {
         width: "90%",

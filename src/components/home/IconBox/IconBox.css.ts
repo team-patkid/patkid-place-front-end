@@ -7,7 +7,7 @@ export const baseStyle = style({
   height: "950px",
   left: 0,
   top: 0,
-  
+
   "@media": {
     "screen and (max-width: 500px)": {
       width: "100%",
@@ -28,7 +28,7 @@ export const coffeeImageStyle = style([
     left: "32px",
     top: "57px",
     animation: `${rotateSixAnimation} 650ms infinite`,
-    
+
     "@media": {
       "screen and (max-width: 500px)": {
         width: "min(25vw, 120px)",
@@ -48,7 +48,7 @@ export const heartImageOneStyle = style([
     height: "41px",
     left: "286px",
     top: "80px",
-    
+
     "@media": {
       "screen and (max-width: 500px)": {
         width: "min(8vw, 35px)",
@@ -69,7 +69,7 @@ export const musicImageStyle = style([
     left: "350px",
     top: "103px",
     animation: `${rotateTenAnimation} 650ms infinite`,
-    
+
     "@media": {
       "screen and (max-width: 500px)": {
         width: "min(18vw, 80px)",
@@ -91,7 +91,7 @@ export const cakeImageStyle = style([
     left: "7px",
     top: "523px",
     animation: `${rotateSixAnimation} 650ms infinite`,
-    
+
     "@media": {
       "screen and (max-width: 500px)": {
         width: "min(15vw, 70px)",
@@ -111,7 +111,7 @@ export const heartImageTwoStyle = style([
     height: "45px",
     left: "433px",
     top: "549px",
-    
+
     "@media": {
       "screen and (max-width: 500px)": {
         width: "min(8vw, 40px)",
@@ -133,7 +133,7 @@ export const bookImageStyle = style([
     left: "377px",
     top: "658px",
     animation: `${rotateSixAnimation} 650ms infinite`,
-    
+
     "@media": {
       "screen and (max-width: 500px)": {
         width: "min(16vw, 70px)",

@@ -83,7 +83,7 @@ export default function Results({
 
     const fontSize = Math.min(
       desiredFontSize,
-      (containerWidth / resultData.result.name.length) * 1.5
+      (containerWidth / resultData.result.name.length) * 1.5,
     );
     return fontSize;
   };

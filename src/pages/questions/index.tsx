@@ -75,7 +75,7 @@ export default function Questions({
 
     const mbtiQueryString = Object.values(mbtiCount)
       .map((type) =>
-        Object.keys(type).reduce((a, b) => (type[a] > type[b] ? a : b))
+        Object.keys(type).reduce((a, b) => (type[a] > type[b] ? a : b)),
       )
       .join("");
 
@@ -85,7 +85,11 @@ export default function Questions({
   const nextQuestion = (choiceNumber: number) => {
     const isLastQuestion = currentNumber === questionsData.total - 1;
     const currentQuestion = questionsData.list[currentNumber];
-    if (!currentQuestion || !currentQuestion.questionSub || !currentQuestion.questionSub[choiceNumber]) {
+    if (
+      !currentQuestion ||
+      !currentQuestion.questionSub ||
+      !currentQuestion.questionSub[choiceNumber]
+    ) {
       return;
     }
     const choiceType = currentQuestion.questionSub[choiceNumber].type;
@@ -150,9 +154,7 @@ export default function Questions({
               src="/questions.webp"
               draggable={false}
             />
-            <div className={questionImagesStyle}>
-              {renderQuestionImage()}
-            </div>
+            <div className={questionImagesStyle}>{renderQuestionImage()}</div>
             {questionsData.list.length > 0 && (
               <div className={questionContentStyle}>
                 <Step

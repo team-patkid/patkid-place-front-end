@@ -8,7 +8,7 @@ const View = forwardRef<HTMLElement, ViewProps<React.ElementType>>(
   ({ as, ...props }, ref) => {
     const Element = as || "div";
     return <Element ref={ref} {...props} />;
-  }
+  },
 );
 
 export default View;

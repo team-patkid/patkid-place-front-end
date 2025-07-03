@@ -13,7 +13,7 @@ export const layoutStyle = style({
     "content" 
     "answers"
   `,
-  
+
   "@media": {
     "screen and (max-width: 500px)": {
       width: "100%",
@@ -59,7 +59,7 @@ export const answerBoxStyle = style({
   alignItems: "center",
   justifyContent: "center",
   width: "100%",
-  
+
   "@media": {
     "screen and (max-width: 500px)": {
       top: "70%",
@@ -72,7 +72,7 @@ export const answerBoxStyle = style({
 export const progressBarBoxStyle = style({
   gridArea: "progress",
   height: "34px",
-  width: "100%"
+  width: "100%",
 });
 
 export const questionSectionStyle = style({
@@ -84,7 +84,6 @@ export const questionSectionStyle = style({
   alignItems: "center",
   justifyContent: "center",
 });
-
 
 export const questionBoxStyle = style({
   position: "relative",
@@ -123,7 +122,7 @@ export const questionContentStyle = style({
   alignItems: "center",
   justifyContent: "space-between",
   zIndex: 3,
-  padding: '13px 0px 40px 0px'
+  padding: "13px 0px 40px 0px",
 });
 
 export const questionImagesStyle = style({
@@ -133,7 +132,6 @@ export const questionImagesStyle = style({
   top: 0,
   left: 0,
   zIndex: 2,
-  
 });
 
 export const questionNumberStyle = style({
@@ -143,7 +141,7 @@ export const questionNumberStyle = style({
   color: "#000000",
   textAlign: "center",
   margin: 0,
-  
+
   "@media": {
     "screen and (max-width: 500px)": {
       fontSize: "18px",
@@ -160,7 +158,7 @@ export const questionTextStyle = style({
   color: "#000000",
   margin: 0,
   maxWidth: "80%",
-  
+
   "@media": {
     "screen and (max-width: 500px)": {
       fontSize: "20px",
@@ -169,4 +167,3 @@ export const questionTextStyle = style({
     },
   },
 });
-

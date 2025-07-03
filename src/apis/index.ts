@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
 export const getBaseURL = () => {
-  return 'http://host.docker.internal:8001/';
+  return "http://host.docker.internal:8001/";
 };
 
 const api = axios.create({
@@ -17,10 +17,13 @@ interface VisitorCountResponse {
 import { ResultResponse } from "../models/result";
 import { QuestionResponse } from "../models/question";
 
-export const getTotalVistorCount = (): Promise<AxiosResponse<VisitorCountResponse>> => 
-  api.get("v1/user/total-count");
+export const getTotalVistorCount = (): Promise<
+  AxiosResponse<VisitorCountResponse>
+> => api.get("v1/user/total-count");
 
-export const postMBTIResult = (mbti: string): Promise<AxiosResponse<{ data: ResultResponse }>> =>
+export const postMBTIResult = (
+  mbti: string,
+): Promise<AxiosResponse<{ data: ResultResponse }>> =>
   api.post("v1/user/result", {
     mbti,
   });

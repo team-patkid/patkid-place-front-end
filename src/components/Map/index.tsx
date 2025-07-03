@@ -18,14 +18,14 @@ const Map = ({ isLoading, result }: MapProps) => {
     const url = result.place.naverUrl;
     if (!url) return;
 
-    console.log('result.place.naverUrl ::: ', url);
+    console.log("result.place.naverUrl ::: ", url);
 
     // intent 스킴이면 browser_fallback_url 파싱
-    if (url.startsWith('intent://')) {
+    if (url.startsWith("intent://")) {
       const match = url.match(/S\.browser_fallback_url=([^;]+)/);
       if (match && match[1]) {
         const fallbackUrl = decodeURIComponent(match[1]);
-        console.log('fallbackUrl ::: ', fallbackUrl);
+        console.log("fallbackUrl ::: ", fallbackUrl);
         window.location.href = fallbackUrl;
         return;
       }
@@ -51,7 +51,7 @@ const Map = ({ isLoading, result }: MapProps) => {
         const markerOptions = {
           position: new window.naver.maps.LatLng(
             result.place.y,
-            result.place.x
+            result.place.x,
           ),
           map: map,
         };

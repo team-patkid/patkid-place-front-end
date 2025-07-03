@@ -9,11 +9,7 @@ type FooterProps = {
   style: CSSProperties;
 };
 
-const Footer = ({
-  visited,
-  mbti,
-  style,
-}: FooterProps) => {
+const Footer = ({ visited, mbti, style }: FooterProps) => {
   return (
     <footer className={footerStyle} style={style}>
       {visited ? (

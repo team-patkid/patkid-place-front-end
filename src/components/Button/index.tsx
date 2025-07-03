@@ -53,8 +53,8 @@ const Button = ({
           isClicked
             ? clickedButtonImage
             : isHovered
-            ? "/visit_click.webp"
-            : buttonImage
+              ? "/visit_click.webp"
+              : buttonImage
         }
         alt="Button"
         className={styles.buttonImageStyle}

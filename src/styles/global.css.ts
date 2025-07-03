@@ -10,7 +10,7 @@ globalStyle("*", {
 globalStyle("html", {
   height: "100%",
   overflow: "hidden",
-  
+
   "@media": {
     "screen and (max-height: 800px)": {
       overflowY: "auto",
@@ -31,7 +31,7 @@ globalStyle("body", {
   height: "100%",
   position: "fixed",
   width: "100%",
-  
+
   "@media": {
     "screen and (max-height: 800px)": {
       position: "static",
@@ -62,7 +62,7 @@ globalStyle(".preText", {
 globalStyle("#__next", {
   height: "100%",
   overflow: "hidden",
-  
+
   "@media": {
     "screen and (max-height: 800px)": {
       height: "auto",
@@ -81,7 +81,7 @@ globalStyle(".layout", {
   maxWidth: "500px",
   height: "100%",
   overflow: "hidden",
-  
+
   "@media": {
     "screen and (min-width: 501px)": {
       width: "500px",

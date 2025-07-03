@@ -8,7 +8,7 @@ export const baseStyle = style({
   aspectRatio: "466 / 105",
   cursor: "pointer",
   overflow: "hidden",
-  
+
   "@media": {
     "screen and (max-width: 480px)": {
       maxWidth: "400px",
