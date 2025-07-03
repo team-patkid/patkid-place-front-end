@@ -1,5 +1,6 @@
 @keyframes Animation1 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translateY(0);
   }
   50% {
@@ -8,7 +9,8 @@
 }
 
 @keyframes Animation21 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translate(0, 0);
   }
   50% {
@@ -17,7 +19,8 @@
 }
 
 @keyframes Animation22 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translate(0, 0);
   }
   50% {
@@ -26,7 +29,8 @@
 }
 
 @keyframes Animation31 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) rotate(0);
   }
   50% {
@@ -35,7 +39,8 @@
 }
 
 @keyframes Animation32 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translateZ(0) rotate(0);
   }
   50% {
@@ -46,7 +51,8 @@
 }
 
 @keyframes Animation33 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translateZ(0) rotate(0);
   }
   50% {
@@ -57,7 +63,8 @@
 }
 
 @keyframes Animation34 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translateZ(0) rotate(0);
   }
   50% {
@@ -68,7 +75,8 @@
 }
 
 @keyframes Animation41 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) rotate(3deg);
   }
   50% {
@@ -77,7 +85,8 @@
 }
 
 @keyframes Animation42 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translateY(0);
   }
   50% {
@@ -86,7 +95,8 @@
 }
 
 @keyframes Animation51 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translateY(0);
   }
   50% {
@@ -95,7 +105,8 @@
 }
 
 @keyframes Animation52 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translateY(0);
   }
   50% {
@@ -104,7 +115,8 @@
 }
 
 @keyframes Animation53 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translateY(0);
   }
   50% {
@@ -113,7 +125,8 @@
 }
 
 @keyframes Animation61 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) rotate(8deg);
   }
   50% {
@@ -122,7 +135,8 @@
 }
 
 @keyframes Animation62 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) rotate(-7deg);
   }
   50% {
@@ -131,7 +145,8 @@
 }
 
 @keyframes Animation63 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translateY(0);
   }
   50% {
@@ -140,7 +155,8 @@
 }
 
 @keyframes Animation64 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translateY(0);
   }
   50% {
@@ -149,7 +165,8 @@
 }
 
 @keyframes Animation65 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translateY(0);
   }
   50% {
@@ -158,7 +175,8 @@
 }
 
 @keyframes Animation66 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translateY(0);
   }
   50% {
@@ -167,7 +185,8 @@
 }
 
 @keyframes Animation72 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translate(0, 0);
   }
   50% {
@@ -176,7 +195,8 @@
 }
 
 @keyframes Animation82 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translateY(0);
   }
   50% {
@@ -185,7 +205,8 @@
 }
 
 @keyframes Animation92 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translateY(0);
   }
   50% {
@@ -194,7 +215,8 @@
 }
 
 @keyframes Animation102 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translate(0, 0);
   }
   50% {
@@ -203,7 +225,8 @@
 }
 
 @keyframes Animation111 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) rotate(6deg);
   }
   50% {
@@ -212,7 +235,8 @@
 }
 
 @keyframes Animation112 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translate(0, 0);
   }
   50% {
@@ -221,7 +245,8 @@
 }
 
 @keyframes Animation122 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateZ(0) translateY(0);
   }
   50% {
@@ -229,255 +254,244 @@
   }
 }
 
-
-.question1_img1{
+.question1_img1 {
   position: absolute;
-  width: 116px;
-  height: 194px;
-  left: 235px;
-  top: 242px;
+  width: 25%;
+  height: 39.6%;
+  left: 50.4%;
+  top: 20.4%;
 }
 
-.question1_img2{
+.question1_img2 {
   position: absolute;
-  width: 99px;
-  height: 67px;
-  left: 103px;
-  top: 277px;
-  animation : Animation1 650ms infinite;
+  width: 21.2%;
+  height: 13.7%;
+  left: 22.1%;
+  top: 20.5%;
+  animation: Animation1 650ms infinite;
 }
 
-.question2_img1{
+.question2_img1 {
   position: absolute;
-  width: 149px;
-  height: 160px;
-  left: 157px;
-  top: 281px;
-  animation : Animation21 650ms infinite;
+  width: 37%;
+  height: 38.6%;
+  left: 27.1%;
+  top: 24.5%;
+  animation: Animation21 650ms infinite;
 }
-.question2_img2{
+.question2_img2 {
   position: absolute;
-  width: 52px;
-  height: 52px;
-  left: 309px;
-  top: 251px;
-  animation : Animation22 650ms infinite;
+  width: 13%;
+  height: 12.6%;
+  left: 62.1%;
+  top: 17.5%;
+  animation: Animation22 650ms infinite;
 }
-.question3_img1{
+.question3_img1 {
   position: absolute;
-  width: 199px;
-  height: 121px;
-  left: 136px;
-  top: 311px;
-  animation : Animation31 650ms infinite;
+  width: 46%;
+  height: 26.6%;
+  left: 26.1%;
+  top: 34.5%;
+  animation: Animation31 650ms infinite;
 }
-.question3_img2{
+.question3_img2 {
   position: absolute;
-  width: 13px;
-  height: 13px;
-  left: 335px;
-  top: 274px;
-  animation : Animation32 650ms infinite;
+  width: 4%;
+  height: 4%;
+  left: 75.1%;
+  top: 17.5%;
 }
-.question3_img3{
+.question3_img3 {
   position: absolute;
-  width: 19px;
-  height: 19px;
-  left: 285px;
-  top: 266px;
-  animation : Animation33 650ms infinite;
+  width: 4%;
+  height: 4%;
+  left: 61.1%;
+  top: 24.5%;
 }
-.question3_img4{
+.question3_img4 {
   position: absolute;
-  width: 19px;
-  height: 19px;
-  left: 360px;
-  top: 307px;  
-  animation : Animation34 650ms infinite;
+  width: 4%;
+  height: 4%;
+  left: 78.1%;
+  top: 33.5%;
 }
-.question4_img1{
+.question4_img1 {
   position: absolute;
-  width: 111px;
-  height: 166px;
-  left: calc(50% - 111px/2 - 41.5px);
-  top: 269px;
-  animation : Animation41 650ms infinite;
+  width: 25%;
+  height: 32.6%;
+  left: 31.1%;
+  top: 27.5%;
+  animation: Animation41 650ms infinite;
 }
-.question4_img2{
+.question4_img2 {
   position: absolute;
-  width: 99px;
-  height: 67px;
-  left: 291px;
-  top: 251px;
-  animation : Animation42 650ms infinite;
+  width: 28%;
+  height: 14.6%;
+  left: 57.1%;
+  top: 16.5%;
+  animation: Animation42 650ms infinite;
 }
-.question5_img1{
+.question5_img1 {
   position: absolute;
-  width: 130px;
-  height: 89px;
-  left: 150px;
-  top: 252px;
-  animation : Animation51 650ms infinite;
+  width: 27%;
+  height: 22.6%;
+  left: 27.1%;
+  top: 15.5%;
+  animation: Animation51 650ms infinite;
 }
-.question5_img2{
+.question5_img2 {
   position: absolute;
-  width: 130px;
-  height: 88px;
-  left: 243px;
-  top: 297px;
-  animation : Animation52 650ms infinite;
+  width: 27%;
+  height: 22.6%;
+  left: 49.1%;
+  top: 23.5%;
+  animation: Animation52 650ms infinite;
 }
-.question5_img3{
+.question5_img3 {
   position: absolute;
-  width: 130px;
-  height: 89px;
-  left: 142px;
-  top: 353px;
-  animation : Animation53 650ms infinite;
+  width: 27%;
+  height: 22.6%;
+  left: 31.1%;
+  top: 40.5%;
+  animation: Animation53 650ms infinite;
 }
-.question6_img1{
+.question6_img1 {
   position: absolute;
-  width: 112px;
-  height: 118px;
-  left: 107.33px;
-  top: 262.37px;
-  transform: translateZ(0) translateZ(0) rotate(-8deg);
-  animation : Animation61 650ms infinite;
+  width: 27%;
+  height: 22.6%;
+  left: 20.1%;
+  top: 21.5%;
+  animation: Animation61 650ms infinite;
 }
-.question6_img2{
+.question6_img2 {
   position: absolute;
-  width: 140px;
-  height: 112px;
-  left: 268.35px;
-  top: 320.89px;
-  transform: translateZ(0) translateZ(0) rotate(7deg);
-  animation : Animation62 650ms infinite;
+  width: 27%;
+  height: 22.6%;
+  left: 54.1%;
+  top: 36.5%;
+  animation: Animation62 650ms infinite;
 }
-.question6_img3{
+.question6_img3 {
   position: absolute;
-  width: 19px;
-  height: 19px;
-  left: 68px;
-  top: 293px;
-  animation : Animation63 650ms infinite;
+  width: 4%;
+  height: 4%;
+  left: 10.1%;
+  top: 36.5%;
+  animation: Animation63 650ms infinite;
 }
-.question6_img4{
+.question6_img4 {
   position: absolute;
-  width: 19px;
-  height: 19px;
-  left: 132px;
-  top: 407px;
-  animation : Animation64 650ms infinite;
+  width: 4%;
+  height: 4%;
+  left: 26.1%;
+  top: 54.5%;
+  animation: Animation64 650ms infinite;
 }
-.question6_img5{
+.question6_img5 {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  left: 334px;
-  top: 285.97px;
-  transform: translateZ(0) translateZ(0) rotate(-17.36deg);
-  animation : Animation65 650ms infinite;
+  width: 4%;
+  height: 4%;
+  left: 69.1%;
+  top: 30.5%;
+  animation: Animation65 650ms infinite;
 }
-.question6_img6{
+.question6_img6 {
   position: absolute;
-  width: 25px;
-  height: 22px;
-  left: 383.39px;
-  top: 263px;
-  transform: translateZ(0) translateZ(0) rotate(6.24deg);
-  animation : Animation66 650ms infinite;
+  width: 4%;
+  height: 4%;
+  left: 78.1%;
+  top: 25.5%;
+  animation: Animation66 650ms infinite;
 }
-.question7_img1{
+.question7_img1 {
   position: absolute;
-  width: 124px;
-  height: 149px;
-  left: 179px;
-  top: 268px;
+  width: 28%;
+  height: 34%;
+  left: 35.1%;
+  top: 21.5%;
 }
-.question7_img2{
+.question7_img2 {
   position: absolute;
-  width: 90px;
-  height: 130px;
-  left: 265px;
-  top: 275px;
-  transform: translateZ(0) translateZ(0) rotate(5deg);
-  animation : Animation72 650ms infinite;
+  width: 26%;
+  height: 26%;
+  left: 51.1%;
+  top: 26.5%;
+  animation: Animation72 650ms infinite;
 }
-.question8_img1{
+.question8_img1 {
   position: absolute;
-  width: 263px;
-  height: 129px;
-  left: 111px;
-  top: 291px;
+  width: 74%;
+  height: 34%;
+  left: 11.1%;
+  top: 26.5%;
 }
-.question8_img2{
+.question8_img2 {
   position: absolute;
-  width: 99px;
-  height: 67px;
-  left: 324px;
-  top: 263px;
-  animation : Animation82 650ms infinite;
+  width: 26%;
+  height: 26%;
+  left: 51.1%;
+  top: 26.5%;
+  animation: Animation82 650ms infinite;
 }
-.question9_img1{
+.question9_img1 {
   position: absolute;
-  width: 147px;
-  height: 147px;
-  left: 230px;
-  top: 277px;
+  width: 42%;
+  height: 33%;
+  left: 40.1%;
+  top: 25.5%;
 }
-.question9_img2{
+.question9_img2 {
   position: absolute;
-  width: 99px;
-  height: 67px;
-  left: 100px;
-  top: 268px;
-  animation : Animation92 650ms infinite;
+  width: 22%;
+  height: 17%;
+  left: 15.1%;
+  top: 19.5%;
+  animation: Animation92 650ms infinite;
 }
-.question10_img1{
+.question10_img1 {
   position: absolute;
-  width: 152px;
-  height: 133px;
-  left: 184px;
-  top: 282px;
+  width: 42%;
+  height: 33%;
+  left: 40.1%;
+  top: 25.5%;
 }
-.question10_img2{
+.question10_img2 {
   position: absolute;
-  width: 52px;
-  height: 52px;
-  left: 130px;
-  top: 248px;
-  animation : Animation102 650ms infinite;
+  width: 22%;
+  height: 17%;
+  left: 15.1%;
+  top: 19.5%;
+  animation: Animation102 650ms infinite;
 }
-.question11_img1{
+.question11_img1 {
   position: absolute;
-  width: 120px;
-  height: 172px;
-  left: 184px;
-  top: 265px;
-  transform: translateZ(0) translateZ(0) rotate(-6deg);
-  animation : Animation111 650ms infinite;
+  width: 29%;
+  height: 39%;
+  left: 35.1%;
+  top: 19.5%;
+  animation: Animation111 650ms infinite;
 }
-.question11_img2{
+.question11_img2 {
   position: absolute;
-  width: 52px;
-  height: 52px;
-  left: 322px;
-  top: 237px;
-  transform: translateZ(0) translateZ(0) rotate(9deg);
-  animation : Animation112  650ms infinite;
+  width: 17%;
+  height: 10%;
+  left: 61.1%;
+  top: 14.5%;
+  animation: Animation112 650ms infinite;
 }
-.question12_img1{
+.question12_img1 {
   position: absolute;
-  width: 162px;
-  height: 168px;
-  left: 137px;
-  top: 259px;
+  width: 31%;
+  height: 33%;
+  left: 26.1%;
+  top: 23.5%;
 }
-.question12_img2{
+.question12_img2 {
   position: absolute;
-  width: 99px;
-  height: 67px;
-  left: 316px;
-  top: 258px;
-  animation : Animation122  650ms infinite;
+  width: 17%;
+  height: 10%;
+  left: 61.1%;
+  top: 14.5%;
+  animation: Animation122 650ms infinite;
 }

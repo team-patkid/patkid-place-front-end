@@ -123,7 +123,7 @@ export const questionContentStyle = style({
   alignItems: "center",
   justifyContent: "space-between",
   zIndex: 3,
-  padding: '13px 0px 30px 0px'
+  padding: '13px 0px 40px 0px'
 });
 
 export const questionImagesStyle = style({
@@ -132,10 +132,8 @@ export const questionImagesStyle = style({
   height: "100%",
   top: 0,
   left: 0,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
   zIndex: 2,
+  
 });
 
 export const questionNumberStyle = style({
