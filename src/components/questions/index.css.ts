@@ -5,6 +5,14 @@ export const layoutStyle = style({
   margin: "0 auto",
   width: "500px",
   height: "1081px",
+  display: "grid",
+  gridTemplateRows: "auto auto 1fr auto",
+  gridTemplateAreas: `
+    "title"
+    "progress"
+    "content" 
+    "answers"
+  `,
   
   "@media": {
     "screen and (max-width: 500px)": {
@@ -19,6 +27,7 @@ export const backgroundStyle = style({
   width: "100%",
   height: "100%",
   objectFit: "cover",
+  zIndex: -1,
 });
 
 export const titleStyle = style({
@@ -61,54 +70,105 @@ export const answerBoxStyle = style({
 });
 
 export const progressBarBoxStyle = style({
-  position: "relative",
+  gridArea: "progress",
   height: "34px",
-  marginTop: "24px",
   width: "100%"
 });
 
+export const questionSectionStyle = style({
+  gridArea: "content",
+  position: "relative",
+  width: "100%",
+  height: "100%",
+  marginTop: "20px",
+  alignItems: "center",
+  justifyContent: "center",
+});
+
+
 export const questionBoxStyle = style({
-  position: "absolute",
+  position: "relative",
   width: "calc(100% - 40px)",
   maxWidth: "466px",
   height: "auto",
   aspectRatio: "466 / 490",
-  left: "50%",
-  transform: "translateX(-50%)",
-  top: "152px",
+  margin: "0 auto",
+});
+
+export const questionContainerStyle = style({
+  position: "relative",
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+});
+
+export const questionBackgroundStyle = style({
+  position: "absolute",
+  width: "100%",
+  height: "100%",
+  top: 0,
+  left: 0,
+  zIndex: 1,
+});
+
+export const questionContentStyle = style({
+  position: "relative",
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "space-between",
+  zIndex: 3,
+  padding: '13px 0px 30px 0px'
+});
+
+export const questionImagesStyle = style({
+  position: "absolute",
+  width: "100%",
+  height: "100%",
+  top: 0,
+  left: 0,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  zIndex: 2,
 });
 
 export const questionNumberStyle = style({
-  position: "absolute",
-  width: "57px",
-  height: "23px",
-  left: "calc(50% - 57px / 2 + 0.5px)",
-  top: "169px",
   fontWeight: 400,
   fontSize: "21px",
   lineHeight: "23px",
   color: "#000000",
+  textAlign: "center",
+  margin: 0,
+  
+  "@media": {
+    "screen and (max-width: 500px)": {
+      fontSize: "18px",
+      lineHeight: "20px",
+    },
+  },
 });
 
 export const questionTextStyle = style({
-  position: "absolute",
-  width: "341px",
-  height: "50px",
-  left: "calc(50% - 341px / 2)",
-  top: "calc(152px + 466px * 490 / 466 - 30px - 50px)",
   fontWeight: 400,
   fontSize: "24px",
   lineHeight: "26px",
   textAlign: "center",
   color: "#000000",
+  margin: 0,
+  maxWidth: "80%",
   
   "@media": {
     "screen and (max-width: 500px)": {
-      width: "calc(100% - 40px)",
-      maxWidth: "341px",
-      left: "50%",
-      transform: "translateX(-50%)",
-      top: "calc(152px + (100vw - 40px) * 490 / 466 - 30px - 50px)",
+      fontSize: "20px",
+      lineHeight: "22px",
+      maxWidth: "85%",
     },
   },
 });
+

@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
 export const titleStyle = style({
-  position: "relative",
+  gridArea: "title",
   display: "flex",
   alignItems: "center",
   width: "calc(100% - 32px)",

@@ -15,6 +15,11 @@ import {
   questionBoxStyle,
   questionNumberStyle,
   questionTextStyle,
+  questionSectionStyle,
+  questionContainerStyle,
+  questionBackgroundStyle,
+  questionContentStyle,
+  questionImagesStyle,
 } from "@components/questions/index.css";
 import Step from "@/components/questions/Step";
 import Title from "@/components/questions/Title";
@@ -123,7 +128,7 @@ export default function Questions({
   }
 
   return (
-    <div className="layout">
+    <div className={layoutStyle}>
       <Image
         src="/background_h_2.webp"
         className={backgroundStyle}
@@ -137,25 +142,31 @@ export default function Questions({
       <div className={progressBarBoxStyle}>
         <ProgressBar currentNumber={currentNumber} />
       </div>
-      <div className="question">
-        <img
-          className={questionBoxStyle}
-          src="/questions.webp"
-          draggable={false}
-        />
-        {renderQuestionImage()}
-        {questionsData.list.length > 0 && (
-          <div className="questions">
-            <Step
-              className={questionNumberStyle}
-              total={12}
-              step={questionsData.list[currentNumber].sort}
+      <div className={questionSectionStyle}>
+        <div className={questionBoxStyle}>
+          <div className={questionContainerStyle}>
+            <img
+              className={questionBackgroundStyle}
+              src="/questions.webp"
+              draggable={false}
             />
-            <p className={questionTextStyle}>
-              {questionsData.list[currentNumber].content}
-            </p>
+            <div className={questionImagesStyle}>
+              {renderQuestionImage()}
+            </div>
+            {questionsData.list.length > 0 && (
+              <div className={questionContentStyle}>
+                <Step
+                  className={questionNumberStyle}
+                  total={12}
+                  step={questionsData.list[currentNumber].sort}
+                />
+                <p className={questionTextStyle}>
+                  {questionsData.list[currentNumber].content}
+                </p>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
       <div className={answerBoxStyle}>
         {questionsData.list[currentNumber]?.questionSub?.[0] && (
