@@ -1,20 +1,26 @@
 import { style } from "@vanilla-extract/css";
 
 export const LocationStyle = style({
-  display: "flex",
+  gridArea: "location",
+  display: "grid",
+  gridTemplateRows: "auto auto",
+  gridTemplateAreas: `
+    "title"
+    "map"
+  `,
   alignItems: "center",
-  flexDirection: "column",
+  justifyContent: "center",
   gap: "18px",
-  marginTop: "-180px",
-  marginBottom: "40px",
+  padding: "40px 20px",
 });
 
 export const locationTitleBoxStyle = style({
-  position: "relative",
+  gridArea: "title",
   display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
   gap: "12px",
-  width: "calc(100% - 20px)",
-  marginTop: "20px",
+  width: "100%",
 });
 
 export const locationTitleStyle = style({
@@ -29,11 +35,14 @@ export const locationIconStyle = style({
 });
 
 export const locationMapBoxStyle = style({
+  gridArea: "map",
   position: "relative",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  width: "468px",
+  width: "100%",
+  maxWidth: "468px",
+  justifySelf: "center",
 });
 
 export const locationMapBorderStyle = style({

@@ -23,6 +23,8 @@ import {
   resultTooltipStyle,
   tagStyle,
   wrapperStyle,
+  resultHeaderStyle,
+  resultDescriptionContainerStyle,
 } from "@components/results/index.css";
 
 export default function Results({
@@ -141,53 +143,65 @@ export default function Results({
       <section className="result_layout">
         <Background />
         <div className={resultStyle}>
-          <img
-            className={resultBoxImageStyle}
-            src="/i_box.webp"
-            draggable={false}
-          />
-          <p
-            className={resultTitleStyle}
-            style={{ fontSize: `${fontSize}px`, whiteSpace: "nowrap" }}
-          >
-            {resultData.result.name}
-          </p>
-          <img
-            className={resultTooltipStyle}
-            src="/tooltip.webp"
-            onClick={handleDiceClick}
-            style={{ display: showDice ? "block" : "none" }}
-          />
-          <img
-            className={resultDiceStyle}
-            src="/dice.webp"
-            onClick={handleDiceClick}
-            style={{ display: showDice ? "block" : "none" }}
-          />
-          <div className={resultSpotStyle}>
+          <div className={resultHeaderStyle}>
             <img
-              className={resultSpotImageStyle}
-              src={resultData.result.place.imageUrl}
+              className={resultBoxImageStyle}
+              src="/i_box.webp"
+              draggable={false}
+              alt="Result box"
             />
+            <p
+              className={resultTitleStyle}
+              style={{ fontSize: `${fontSize}px`, whiteSpace: "nowrap" }}
+            >
+              {resultData.result.name}
+            </p>
+            <img
+              className={resultTooltipStyle}
+              src="/tooltip.webp"
+              onClick={handleDiceClick}
+              style={{ display: showDice ? "block" : "none" }}
+              alt="Tooltip"
+            />
+            <img
+              className={resultDiceStyle}
+              src="/dice.webp"
+              onClick={handleDiceClick}
+              style={{ display: showDice ? "block" : "none" }}
+              alt="Dice"
+            />
+            
+            <div className={resultSpotStyle}>
+              <img
+                className={resultSpotImageStyle}
+                src={resultData.result.place.imageUrl}
+                alt={resultData.result.place.name}
+              />
+            </div>
+            
+            <div className={tagStyle}>
+              {resultData.result.place.tags?.map((v, index) => (
+                <p className="isaText" key={`hotspot-modal-${index}`}>
+                  #{v.tag}
+                </p>
+              ))}
+            </div>
           </div>
-          <div className={tagStyle}>
-            {resultData.result.place.tags?.map((v, index) => (
-              <p className="isaText" key={`hotspot-modal-${index}`}>
-                #{v.tag}
-              </p>
-            ))}
-          </div>
-          <img
-            className={resultDescriptionBox}
-            src="/box.webp"
-            draggable={false}
-          />
-          <div className={resultDescriptionStyle}>
-            {resultData.result.place.content.split("\n").map((v, index) => (
-              <li className={resultDescriptionTextStyle} key={index}>
-                {v}
-              </li>
-            ))}
+          
+          <div className={resultDescriptionContainerStyle}>
+            <img
+              className={resultDescriptionBox}
+              src="/box.webp"
+              draggable={false}
+              alt="Description box"
+            />
+            <div className={resultDescriptionStyle}>
+              {resultData.result.place.content.split("\n").map((v, index) => (
+                <li className={resultDescriptionTextStyle} key={index}>
+                  {v}
+                </li>
+              ))}
+            </div>
           </div>
         </div>
         <Location isLoading={isLoading} result={resultData.result} />

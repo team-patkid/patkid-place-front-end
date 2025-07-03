@@ -1,11 +1,25 @@
 import { style } from "@vanilla-extract/css";
 
+export const visitContainerStyle = style({
+  gridArea: "visit",
+  display: "grid",
+  gridTemplateRows: "auto auto",
+  gridTemplateAreas: `
+    "title"
+    "link"
+  `,
+  gap: "18px",
+  padding: "20px",
+  alignItems: "center",
+  justifyContent: "center",
+});
+
 export const visitTitleBoxStyle = style({
-  position: "relative",
+  gridArea: "title",
   display: "flex",
-  marginLeft: "20px",
-  marginTop: "48px",
-  marginBottom: "18px",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "12px",
 });
 
 export const visitTitleStyle = style({
@@ -17,24 +31,24 @@ export const visitTitleStyle = style({
 export const visitIconStyle = style({
   width: "27px",
   height: "31px",
-  top: "1315px",
-  left: "17px",
 });
 
 export const visitBorderStyle = style({
-  position: "absolute",
-  width: "466px",
-  height: "105px",
-  left: 0,
+  width: "100%",
+  height: "auto",
+  aspectRatio: "466 / 105",
 });
 
 export const visitTeamLinkStyle = style({
+  gridArea: "link",
   position: "relative",
-  marginLeft: "20px",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  width: "100%",
+  maxWidth: "466px",
   height: "105px",
+  justifySelf: "center",
 });
 
 export const visitTeamText = style({
@@ -42,4 +56,5 @@ export const visitTeamText = style({
   fontWeight: "400",
   fontSize: "25px",
   color: "#000",
+  zIndex: 2,
 });

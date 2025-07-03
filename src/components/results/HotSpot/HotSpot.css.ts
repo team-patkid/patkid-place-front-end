@@ -1,15 +1,22 @@
 import { style } from "@vanilla-extract/css";
 
 export const hotSpotStyle = style({
-  display: "flex",
-  flexDirection: "column",
+  gridArea: "hotspot",
+  display: "grid",
+  gridTemplateRows: "auto auto",
+  gridTemplateAreas: `
+    "title"
+    "images"
+  `,
   gap: "18px",
+  padding: "20px",
 });
 
 export const hotSpotTitleBoxStyle = style({
-  position: "relative",
+  gridArea: "title",
   display: "flex",
-  marginLeft: "20px",
+  alignItems: "center",
+  justifyContent: "center",
   gap: "12px",
 });
 
@@ -27,10 +34,13 @@ export const hotSpotIconStyle = style({
 });
 
 export const hotSpotImagesBox = style({
-  display: "flex",
-  flexDirection: "column",
-  gap: "40px",
+  gridArea: "images",
+  display: "grid",
+  gridTemplateColumns: "1fr",
+  gridTemplateRows: "repeat(3, auto)",
+  gap: "20px",
   alignItems: "center",
+  justifyContent: "center",
 });
 
 export const hotSpotImageBoxStyle = style({
@@ -38,8 +48,10 @@ export const hotSpotImageBoxStyle = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  width: "468px",
+  width: "100%",
+  maxWidth: "468px",
   height: "242px",
+  justifySelf: "center",
 });
 
 export const hotSpotImageBorderStyle = style({

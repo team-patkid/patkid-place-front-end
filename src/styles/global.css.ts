@@ -9,7 +9,7 @@ globalStyle("*", {
 
 globalStyle("html", {
   height: "100%",
-  overflow: "hidden",
+  overflow: "auto",
 
   "@media": {
     "screen and (max-height: 800px)": {
@@ -27,9 +27,9 @@ globalStyle("body", {
   wordBreak: "keep-all",
   margin: 0,
   padding: 0,
-  overflow: "hidden",
-  height: "100%",
-  position: "fixed",
+  overflow: "auto",
+  height: "auto",
+  minHeight: "100%",
   width: "100%",
 
   "@media": {
@@ -60,8 +60,9 @@ globalStyle(".preText", {
 });
 
 globalStyle("#__next", {
-  height: "100%",
-  overflow: "hidden",
+  height: "auto",
+  minHeight: "100%",
+  overflow: "visible",
 
   "@media": {
     "screen and (max-height: 800px)": {
@@ -92,6 +93,30 @@ globalStyle(".layout", {
       minHeight: "800px",
       overflowY: "visible",
       overflowX: "hidden",
+    },
+  },
+});
+
+globalStyle(".result_layout", {
+  position: "relative",
+  width: "100%",
+  minHeight: "100vh",
+  display: "grid",
+  gridTemplateRows: "auto auto auto auto auto",
+  gridTemplateAreas: `
+    "background"
+    "result"
+    "location"
+    "hotspot"
+    "visit"
+  `,
+  gap: "40px",
+  padding: "20px 0",
+  
+  "@media": {
+    "screen and (max-width: 500px)": {
+      gap: "30px",
+      padding: "15px 0",
     },
   },
 });

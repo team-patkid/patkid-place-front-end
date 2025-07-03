@@ -6,13 +6,14 @@ import {
   visitTeamText,
   visitTitleBoxStyle,
   visitTitleStyle,
+  visitContainerStyle,
 } from "./Visit.css";
 
 const Visit = () => {
   return (
-    <div className="visit">
+    <div className={visitContainerStyle}>
       <div className={visitTitleBoxStyle}>
-        <img className={visitIconStyle} src="/go.webp" />
+        <img className={visitIconStyle} src="/go.webp" alt="Go icon" />
         <p className={visitTitleStyle}>PATKID 팀을 더 알고 싶다면</p>
       </div>
       <Link
@@ -20,7 +21,7 @@ const Visit = () => {
         href="https://www.notion.so/PATKID-b28bf7de62bb4e95919b5dca4e8c08ec?pvs=4"
         target="_blank"
       >
-        <img className={visitBorderStyle} src="/visit.webp" draggable={false} />
+        <img className={visitBorderStyle} src="/visit.webp" draggable={false} alt="Visit border" />
         <p className={visitTeamText}>PATKID 팀 페이지 방문하기</p>
       </Link>
     </div>
