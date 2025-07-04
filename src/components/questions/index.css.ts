@@ -4,7 +4,8 @@ export const layoutStyle = style({
   position: "relative",
   margin: "0 auto",
   width: "500px",
-  height: "1081px",
+  height: "100vh",
+  minHeight: "1081px",
   display: "grid",
   gridTemplateRows: "auto auto 1fr auto",
   gridTemplateAreas: `
@@ -13,21 +14,25 @@ export const layoutStyle = style({
     "content" 
     "answers"
   `,
+  overflow: "hidden",
 
   "@media": {
     "screen and (max-width: 500px)": {
       width: "100%",
       height: "100vh",
+      minHeight: "100vh",
     },
   },
 });
 
 export const backgroundStyle = style({
-  position: "absolute",
+  position: "fixed",
   width: "100%",
-  height: "100%",
+  height: "100vh",
   objectFit: "cover",
   zIndex: -1,
+  top: 0,
+  left: 0,
 });
 
 export const titleStyle = style({

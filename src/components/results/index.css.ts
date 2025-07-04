@@ -65,7 +65,7 @@ export const resultDiceStyle = style({
   position: "absolute",
   width: "8%",
   height: "7%",
-  right: "10%",
+  right: "6%",
   top: "7%",
   cursor: "pointer",
 });
