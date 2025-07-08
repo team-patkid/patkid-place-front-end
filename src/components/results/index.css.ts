@@ -22,11 +22,10 @@ export const resultStyle = style({
     "header"
     "description"
   `,
-  alignItems: "center",
-  justifyContent: "center",
   gap: "40px",
   padding: "20px",
   minHeight: "800px",
+  width: "100vw"  
 });
 
 export const resultHeaderStyle = style({
@@ -41,7 +40,7 @@ export const resultHeaderStyle = style({
 
 export const resultBoxImageStyle = style({
   width: "100%",
-  height: "auto",
+  height: "100%",
   aspectRatio: "467 / 524",
 });
 
@@ -92,7 +91,7 @@ export const resultSpotImageStyle = style({
 
 export const tagStyle = style({
   position: "absolute",
-  width: "70%",
+  width: "100%",
   maxWidth: "326px",
   top: "87%",
   left: "50%",
@@ -100,7 +99,7 @@ export const tagStyle = style({
   display: "flex",
   flexWrap: "wrap",
   justifyContent: "center",
-  gap: "8px",
+  gap: "5px",
 });
 
 export const resultDescriptionContainerStyle = style({
@@ -108,15 +107,12 @@ export const resultDescriptionContainerStyle = style({
   position: "relative",
   width: "100%",
   maxWidth: "468px",
-  justifySelf: "center",
   display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
 });
 
 export const resultDescriptionBox = style({
   width: "100%",
-  height: "auto",
+  height: "300px",
   aspectRatio: "468 / 242",
 });
 

@@ -155,22 +155,7 @@ export default function Results({
               style={{ fontSize: `${fontSize}px`, whiteSpace: "nowrap" }}
             >
               {resultData.result.name}
-            </p>
-            <img
-              className={resultTooltipStyle}
-              src="/tooltip.webp"
-              onClick={handleDiceClick}
-              style={{ display: showDice ? "block" : "none" }}
-              alt="Tooltip"
-            />
-            <img
-              className={resultDiceStyle}
-              src="/dice.webp"
-              onClick={handleDiceClick}
-              style={{ display: showDice ? "block" : "none" }}
-              alt="Dice"
-            />
-            
+            </p>            
             <div className={resultSpotStyle}>
               <img
                 className={resultSpotImageStyle}

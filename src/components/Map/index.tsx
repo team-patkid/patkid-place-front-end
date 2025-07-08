@@ -15,6 +15,7 @@ type MapProps = {
 
 const Map = ({ isLoading, result }: MapProps) => {
   const handleMapClick = () => {
+    console.log("지도 클릭됨!");
     const url = result.place.naverUrl;
     if (!url) return;
 
@@ -26,13 +27,13 @@ const Map = ({ isLoading, result }: MapProps) => {
       if (match && match[1]) {
         const fallbackUrl = decodeURIComponent(match[1]);
         console.log("fallbackUrl ::: ", fallbackUrl);
-        window.location.href = fallbackUrl;
+        window.open(fallbackUrl, "_blank");
         return;
       }
     }
 
     // 일반 URL 또는 intent parsing 실패 시
-    window.location.href = url;
+    window.open(url, "_blank");
   };
 
   useEffect(() => {

@@ -110,13 +110,6 @@ globalStyle(".result_layout", {
     "hotspot"
     "visit"
   `,
-  gap: "40px",
-  padding: "20px 0",
-  
-  "@media": {
-    "screen and (max-width: 500px)": {
-      gap: "30px",
-      padding: "15px 0",
-    },
-  },
+  gap: "10px",
+  marginBottom: "100px"
 });

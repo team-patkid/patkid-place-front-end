@@ -10,15 +10,11 @@ export const visitContainerStyle = style({
   `,
   gap: "18px",
   padding: "20px",
-  alignItems: "center",
-  justifyContent: "center",
 });
 
 export const visitTitleBoxStyle = style({
   gridArea: "title",
   display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
   gap: "12px",
 });
 
@@ -48,7 +44,6 @@ export const visitTeamLinkStyle = style({
   width: "100%",
   maxWidth: "466px",
   height: "105px",
-  justifySelf: "center",
 });
 
 export const visitTeamText = style({

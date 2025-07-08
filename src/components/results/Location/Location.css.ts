@@ -2,23 +2,22 @@ import { style } from "@vanilla-extract/css";
 
 export const LocationStyle = style({
   gridArea: "location",
+  position: "relative",
   display: "grid",
   gridTemplateRows: "auto auto",
   gridTemplateAreas: `
     "title"
     "map"
   `,
-  alignItems: "center",
-  justifyContent: "center",
   gap: "18px",
   padding: "40px 20px",
-});
+  width: "100vw" ,
+
+}); 
 
 export const locationTitleBoxStyle = style({
   gridArea: "title",
   display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
   gap: "12px",
   width: "100%",
 });
@@ -42,19 +41,19 @@ export const locationMapBoxStyle = style({
   justifyContent: "center",
   width: "100%",
   maxWidth: "468px",
-  justifySelf: "center",
 });
 
 export const locationMapBorderStyle = style({
   position: "absolute",
-  width: "468px",
+  width: "103%",
   height: "242px",
-  left: 0,
+  zIndex: 1,
+  pointerEvents: "none"
 });
 
 export const locationMapStyle = style({
   position: "relative",
   overflow: "hidden",
-  width: "452px",
+  width: "100%",
   height: "226px",
 });
