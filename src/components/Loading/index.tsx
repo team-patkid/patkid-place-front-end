@@ -1,3 +1,5 @@
+import OptimizedImage from "../common/OptimizedImage";
+import { getImageAlt } from "@/utils/imageHelpers";
 import {
   imageFiveStyle,
   imageFourStyle,
@@ -16,19 +18,38 @@ import {
 export default function Loading() {
   return (
     <div className={loadingLayoutStyle}>
-      <img className={loadingBgStyle} src="/background_h_3.webp" />
+      <OptimizedImage 
+        className={loadingBgStyle} 
+        src="/background_h_3.webp" 
+        alt={getImageAlt("/background_h_3.webp")}
+        width={500}
+        height={1081}
+        priority
+      />
       <div className={loadingTitleStyle}>
-        <img className={loadingHeartStyle} src="loding.webp" />
-        <img className={loadingTextStyle} src="loding_text.webp" />
+        <OptimizedImage 
+          className={loadingHeartStyle} 
+          src="/loding.webp" 
+          alt={getImageAlt("/loding.webp")}
+          width={355}
+          height={348}
+        />
+        <OptimizedImage 
+          className={loadingTextStyle} 
+          src="/loding_text.webp" 
+          alt={getImageAlt("/loding_text.webp")}
+          width={251}
+          height={100}
+        />
       </div>
       <div className="main_layout_icon">
-        <img className={imageOneStyle} src="/coffee.webp" />
-        <img className={imageTwoStyle} src="/heart_1.webp" />
-        <img className={imageThreeStyle} src="/heart_1.webp" />
-        <img className={imageFourStyle} src="/music.webp" />
-        <img className={imageFiveStyle} src="/cake.webp" />
-        <img className={imageSixStyle} src="/heart_2.webp" />
-        <img className={imageSevenStyle} src="/book.webp" />
+        <OptimizedImage className={imageOneStyle} src="/coffee.webp" alt={getImageAlt("/coffee.webp")} width={142} height={140} />
+        <OptimizedImage className={imageTwoStyle} src="/heart_1.webp" alt={getImageAlt("/heart_1.webp")} width={48} height={45} />
+        <OptimizedImage className={imageThreeStyle} src="/heart_1.webp" alt={getImageAlt("/heart_1.webp")} width={65} height={62} />
+        <OptimizedImage className={imageFourStyle} src="/music.webp" alt={getImageAlt("/music.webp")} width={120} height={114} />
+        <OptimizedImage className={imageFiveStyle} src="/cake.webp" alt={getImageAlt("/cake.webp")} width={107} height={167} />
+        <OptimizedImage className={imageSixStyle} src="/heart_2.webp" alt={getImageAlt("/heart_2.webp")} width={84} height={79} />
+        <OptimizedImage className={imageSevenStyle} src="/book.webp" alt={getImageAlt("/book.webp")} width={134} height={121} />
       </div>
     </div>
   );

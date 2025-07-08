@@ -1,4 +1,6 @@
 import { Place } from "@/models/place";
+import OptimizedImage from "../common/OptimizedImage";
+import { getImageAlt } from "@/utils/imageHelpers";
 import {
   modalBackDropStyle,
   modalCloseStyle,
@@ -22,15 +24,33 @@ const Modal = ({ handleOpen, data }: ModalProps) => {
   return (
     <div className={modalBackDropStyle} onClick={handleOpen(false)}>
       <div className={modalContainerStyle} onClick={(e) => e.stopPropagation()}>
-        <img src="modal_box.webp" className={modalBackgroundStyle} />
+        <OptimizedImage 
+          src="/modal_box.webp" 
+          className={modalBackgroundStyle} 
+          alt={getImageAlt("/modal_box.webp")}
+          width={467}
+          height={821}
+        />
         <button onClick={handleOpen(false)} style={{ position: "absolute", top: "20px", right: "20px", background: "none", border: "none", zIndex: 10 }}>
-          <img src="close_btn.webp" className={modalCloseStyle} />
+          <OptimizedImage 
+            src="/close_btn.webp" 
+            className={modalCloseStyle} 
+            alt={getImageAlt("/close_btn.webp")}
+            width={33}
+            height={33}
+          />
         </button>
         <div className={modalContentStyle}>
           <p className={modalTitleStyle}>{data.name}</p>
           <div></div>
           <div className={modalImgBoxStyle}>
-            <img className={modalImgStyle} src={data.imageUrl} />
+            <OptimizedImage 
+              className={modalImgStyle} 
+              src={data.imageUrl} 
+              alt={`${data.name} 이미지`}
+              width={400}
+              height={281}
+            />
           </div>
           <div className={modalHashSyle}>
             {data.tags.map((v, index) => (

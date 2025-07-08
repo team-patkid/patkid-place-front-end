@@ -103,7 +103,7 @@ export default function Results({
 
   useEffect(() => {
     setFontSize(calculateFontSize());
-  }, [resultData]);
+  }, [resultData, calculateFontSize]);
 
   useEffect(() => {
     const handleStart = () => {

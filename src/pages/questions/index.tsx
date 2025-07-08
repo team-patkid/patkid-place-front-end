@@ -2,9 +2,10 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { questions as imgQuestions } from "@constants";
-import { Mbti, MbtiCount } from "@/models/mbti";
+import { Mbti } from "@/models/mbti";
+import { useMBTI } from "@/hooks/useMBTI";
 import LoadingPage from "@components/Loading";
 import Answer from "@components/questions/Answer";
 import {
@@ -39,6 +40,7 @@ export default function Questions({
   });
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { calculateMBTI, addMBTIChoice } = useMBTI();
   const question = imgQuestions[currentNumber];
 
   useEffect(() => {
@@ -57,39 +59,20 @@ export default function Questions({
     };
   }, [router]);
 
-  const redirectToResultPage = () => {
+  const redirectToResultPage = useCallback(() => {
     setLoading(true);
-    
-    const mbtiCount: MbtiCount = {
-      EI: { E: 0, I: 0 },
-      NS: { N: 0, S: 0 },
-      FT: { F: 0, T: 0 },
-      PJ: { P: 0, J: 0 },
-    };
-
-    for (const key of Object.keys(mbtiList)) {
-      const type = key as keyof Mbti;
-
-      for (const value of mbtiList[type]) {
-        mbtiCount[type][value] += 1;
-      }
-    }
-
-    const mbtiQueryString = Object.values(mbtiCount)
-      .map((type) =>
-        Object.keys(type).reduce((a, b) => (type[a] > type[b] ? a : b)),
-      )
-      .join("");
+    const mbtiQueryString = calculateMBTI(mbtiList);
 
     // 로딩 시간 추가 (2초)
     setTimeout(() => {
       router.push(`/results?mbti=${mbtiQueryString}`);
     }, 2000);
-  };
+  }, [mbtiList, calculateMBTI, router]);
 
-  const nextQuestion = (choiceNumber: number) => {
+  const nextQuestion = useCallback((choiceNumber: number) => {
     const isLastQuestion = currentNumber === questionsData.total - 1;
     const currentQuestion = questionsData.list[currentNumber];
+    
     if (
       !currentQuestion ||
       !currentQuestion.questionSub ||
@@ -97,15 +80,11 @@ export default function Questions({
     ) {
       return;
     }
+    
     const choiceType = currentQuestion.questionSub[choiceNumber].type;
+    const mbtiType = questionsData.list[currentNumber].type as keyof Mbti;
 
-    setMbtiList((prev) => {
-      const mbti = questionsData.list[currentNumber].type as keyof Mbti;
-      return {
-        ...prev,
-        [mbti]: [...prev[mbti], choiceType],
-      };
-    });
+    setMbtiList((prev) => addMBTIChoice(prev, mbtiType, choiceType));
 
     if (isLastQuestion) {
       redirectToResultPage();
@@ -113,7 +92,7 @@ export default function Questions({
     }
 
     setCurrentNumber(currentNumber + 1);
-  };
+  }, [currentNumber, questionsData, addMBTIChoice, redirectToResultPage]);
 
   const renderQuestionImage = () => {
     if (!question || !question.img) return null;
