@@ -23,7 +23,7 @@ const Modal = ({ handleOpen, data }: ModalProps) => {
     <div className={modalBackDropStyle} onClick={handleOpen(false)}>
       <div className={modalContainerStyle} onClick={(e) => e.stopPropagation()}>
         <img src="modal_box.webp" className={modalBackgroundStyle} />
-        <button onClick={handleOpen(false)}>
+        <button onClick={handleOpen(false)} style={{ position: "absolute", top: "20px", right: "20px", background: "none", border: "none", zIndex: 10 }}>
           <img src="close_btn.webp" className={modalCloseStyle} />
         </button>
         <div className={modalContentStyle}>

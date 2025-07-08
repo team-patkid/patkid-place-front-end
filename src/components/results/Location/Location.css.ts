@@ -10,7 +10,7 @@ export const LocationStyle = style({
     "map"
   `,
   gap: "18px",
-  padding: "40px 20px",
+  padding: "40px 25px",
   width: "100vw" ,
 
 }); 

@@ -12,7 +12,6 @@ export const loadingLayoutStyle = style({
   width: "100vw",
   maxWidth: "500px",
   height: "100vh",
-  minHeight: "1081px",
   display: "flex",
   justifyContent: "center",
   flexDirection: "column",

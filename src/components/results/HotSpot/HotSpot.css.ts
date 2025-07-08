@@ -11,7 +11,7 @@ export const hotSpotStyle = style({
     "images"
   `,
   gap: "18px",
-  padding: "20px",
+  padding: "20px 25px",
 });
 
 export const hotSpotTitleBoxStyle = style({

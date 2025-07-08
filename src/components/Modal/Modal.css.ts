@@ -21,11 +21,14 @@ export const modalContainerStyle = style({
   alignItems: "center",
   justifyContent: "flex-start",
   zIndex: 100,
+  maxWidth: "450px",
+  width: '90%'
 });
 
 export const modalBackgroundStyle = style({
-  width: "467px",
-  height: "821px",
+  width: "100%",
+  height: "100%",
+  objectFit: "contain",
 });
 
 export const modalContentStyle = style({
@@ -35,22 +38,26 @@ export const modalContentStyle = style({
   alignItems: "center",
   width: "100%",
   height: "100%",
+  overflow: "auto",
+  padding: "20px",
 });
 
 export const modalTitleStyle = style({
-  width: "290px",
+  width: "min(290px, 80vw)",
   textAlign: "center",
   fontWeight: 400,
-  fontSize: "41px",
-  lineHeight: "41px",
+  fontSize: "min(41px, 8vw)",
+  lineHeight: "min(41px, 8vw)",
   color: "#000000",
-  marginTop: "90px",
+  marginTop: "min(40px, 10vh)",
 });
 
 export const modalImgBoxStyle = style({
   marginTop: "18px",
-  width: "400px",
-  height: "281px",
+  width: "min(400px, 80vw)",
+  height: "min(281px, 35vh)",
+  overflow: "hidden",
+  borderRadius: "10px",
 });
 
 export const modalImgStyle = style({
@@ -64,32 +71,30 @@ export const modalHashSyle = style({
   display: "flex",
   flexWrap: "wrap",
   justifyContent: "space-between",
-  width: "326px",
+  width: "min(326px, 80vw)",
   minHeight: "46px",
   marginTop: "18px",
 });
 
 export const modalLineStyle = style({
-  width: "410px",
+  width: "min(410px, 80vw)",
   height: "0",
   border: `1px solid ${vars.color.pink}`,
 });
 
 export const modalResultStyle = style({
-  width: "397px",
-  height: "217px",
+  width: "min(397px, 80vw)",
+  minHeight: "217px",
   fontWeight: 500,
-  fontSize: "20px",
-  lineHeight: "24px",
+  fontSize: "min(20px, 4vw)",
+  lineHeight: "min(24px, 5vw)",
   marginTop: "18px",
   color: vars.color.black,
+  overflow: "auto",
 });
 
 export const modalCloseStyle = style({
-  position: "absolute",
   width: "33px",
   height: "33px",
-  left: "407px",
-  top: "21px",
-  zIndex: 1,
+  cursor: "pointer",
 });
