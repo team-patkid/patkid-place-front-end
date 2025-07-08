@@ -58,6 +58,8 @@ export default function Questions({
   }, [router]);
 
   const redirectToResultPage = () => {
+    setLoading(true);
+    
     const mbtiCount: MbtiCount = {
       EI: { E: 0, I: 0 },
       NS: { N: 0, S: 0 },
@@ -79,7 +81,10 @@ export default function Questions({
       )
       .join("");
 
-    router.push(`/results?mbti=${mbtiQueryString}`);
+    // 로딩 시간 추가 (2초)
+    setTimeout(() => {
+      router.push(`/results?mbti=${mbtiQueryString}`);
+    }, 2000);
   };
 
   const nextQuestion = (choiceNumber: number) => {
