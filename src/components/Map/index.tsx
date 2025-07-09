@@ -42,7 +42,7 @@ const Map = ({ isLoading, result }: MapProps) => {
     if (!isLoading) {
       const script = document.createElement("script");
       script.src =
-        "https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=9xwpq60lp1";
+        "https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=yfnCMddKxyS7d3Apmdow";
       script.async = true;
       script.onload = () => {
         const mapOptions = {
