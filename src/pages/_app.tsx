@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.webp"></link>
         <meta
           name="google-site-verification"
-          content="sjjZOY_v9rpwOKcwC9ulDLGS-yIS2jgOv3QyBPgvH2I"
+          content="VpQsOKUG_f0qr7ARg-4zo8o92pg6MN59HB0e-EWQPlM"
         />
       </Head>
       <Script
