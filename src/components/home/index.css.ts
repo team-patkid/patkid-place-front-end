@@ -56,12 +56,12 @@ export const homeLogoStyle = style({
   width: "103px",
   height: "33px",
   left: "50%",
-  top: "850px",
+  top: "940px",
   transform: "translateX(-50%)",
 
   "@media": {
     "screen and (max-width: 500px)": {
-      top: "90%",
+      top: "95%",
       width: "90px",
       height: "29px",
     },

@@ -46,7 +46,13 @@ export default function Home({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       />
-      <img src="/logo_patKid.webp" className={homeLogoStyle} />
+      <a 
+        href="https://www.notion.so/PATKID-b28bf7de62bb4e95919b5dca4e8c08ec?pvs=4"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img src="/logo_patKid.webp" className={homeLogoStyle} />
+      </a>
     </div>
   );
 }

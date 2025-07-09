@@ -65,15 +65,12 @@ export const useShare = () => {
     // Try clipboard copy (desktop)
     const clipboardSuccess = await copyToClipboard(shareUrl);
     if (clipboardSuccess) {
-      alert("링크가 클립보드에 복사되었습니다!");
       return;
     }
 
     // Fallback method
     const fallbackSuccess = fallbackCopy(shareUrl);
-    if (fallbackSuccess) {
-      alert("링크가 클립보드에 복사되었습니다!");
-    } else {
+    if (!fallbackSuccess) {
       prompt("링크를 복사하세요:", shareUrl);
     }
   }, [shareViaWebAPI, copyToClipboard, fallbackCopy]);
