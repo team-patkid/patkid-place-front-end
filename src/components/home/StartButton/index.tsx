@@ -7,6 +7,7 @@ import {
   shareButtonTextStyle,
 } from "./StartButton.css";
 import { useShare } from "@/hooks/useShare";
+import { getDomain } from "@/utils/env";
 
 type StartButtonProps = {
   isMouseOn: boolean;
@@ -26,7 +27,7 @@ const StartButton = ({
   const { share } = useShare();
 
   const handleShare = () => {
-    const shareUrl = `${window.location.origin}/`;
+    const shareUrl = `${getDomain()}/`;
     share({
       title: "두근두근 핫스팟 테스트",
       text: "나의 성향에 딱 맞는 요즘 핫스팟은 어디일까?",

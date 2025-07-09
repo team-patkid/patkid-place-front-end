@@ -1,12 +1,13 @@
 import React from "react";
 import WebShareButton from "./WebShare";
+import { getDomain } from "@/utils/env";
 
 type KakaoShareButtonProps = {
   mbti: string;
 };
 
 const KakaoShareButton = ({ mbti }: KakaoShareButtonProps) => {
-  const shareUrl = `${window.location.origin}/results?mbti=${mbti}&shared=true`;
+  const shareUrl = `${getDomain()}/results?mbti=${mbti}&shared=true`;
 
   return (
     <WebShareButton

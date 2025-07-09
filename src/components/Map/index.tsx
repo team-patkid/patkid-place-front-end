@@ -3,8 +3,14 @@ import { Result } from "@/models/result";
 
 declare global {
   interface Window {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    naver: any;
+    naver: {
+      maps: {
+        LatLng: any;
+        Map: any;
+        Marker: any;
+        Event: any;
+      };
+    };
   }
 }
 

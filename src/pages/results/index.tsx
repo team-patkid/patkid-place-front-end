@@ -15,12 +15,10 @@ import {
   resultDescriptionBox,
   resultDescriptionStyle,
   resultDescriptionTextStyle,
-  resultDiceStyle,
   resultSpotImageStyle,
   resultSpotStyle,
   resultStyle,
   resultTitleStyle,
-  resultTooltipStyle,
   tagStyle,
   wrapperStyle,
   resultHeaderStyle,
@@ -33,32 +31,8 @@ export default function Results({
   const router = useRouter();
   const [visited, setVisited] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [resultData, setResultData] = useState(userData);
-  const [isFetching, setIsFetching] = useState(false);
-  const [diceClicks, setDiceClicks] = useState(0);
-  const [showDice, setShowDice] = useState(true);
+  const [resultData] = useState(userData);
   const mbti = typeof router.query.mbti === "string" ? router.query.mbti : "";
-
-  //랜덤 주사위 클릭
-  const handleDiceClick = () => {
-    if (!isFetching && diceClicks < 2) {
-      const fetchData = async () => {
-        setIsFetching(true);
-        try {
-          const { data } = await postMBTIResult(mbti);
-          setResultData(data.data);
-        } catch (error) {
-          console.error(error);
-        } finally {
-          setIsFetching(false);
-        }
-      };
-
-      fetchData();
-      setDiceClicks((prevDice) => prevDice + 1);
-      setShowDice(diceClicks !== 1);
-    }
-  };
 
   // URL을 통해 공유페이지 접속 여부 확인
   useEffect(() => {
