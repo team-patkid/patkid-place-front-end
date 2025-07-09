@@ -6,12 +6,13 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        PORT: 3000
+        PORT: 8574
     environment:
       - TZ=Asia/Seoul # 컨테이너 내부 시간대를 KST로 설정
+      - NODE_ENV=production # 프로덕션 환경으로 설정
     image: patkid_client
     ports:
-      - '3000:3000'
+      - '8574:8574'
     networks:
       - app
 
