@@ -47,17 +47,6 @@ export default function Questions({
     setLoading(questionsData.total === 0);
   }, [questionsData]);
 
-  useEffect(() => {
-    const handleRouteChange = (url: string) => {
-      setLoading(url === "/results");
-    };
-
-    router.events.on("routeChangeStart", handleRouteChange);
-
-    return () => {
-      router.events.off("routeChangeStart", handleRouteChange);
-    };
-  }, [router]);
 
   const redirectToResultPage = useCallback(() => {
     setLoading(true);

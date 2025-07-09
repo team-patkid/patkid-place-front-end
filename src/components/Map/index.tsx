@@ -15,18 +15,14 @@ type MapProps = {
 
 const Map = ({ isLoading, result }: MapProps) => {
   const handleMapClick = () => {
-    console.log("지도 클릭됨!");
     const url = result.place.naverUrl;
     if (!url) return;
-
-    console.log("result.place.naverUrl ::: ", url);
 
     // intent 스킴이면 browser_fallback_url 파싱
     if (url.startsWith("intent://")) {
       const match = url.match(/S\.browser_fallback_url=([^;]+)/);
       if (match && match[1]) {
         const fallbackUrl = decodeURIComponent(match[1]);
-        console.log("fallbackUrl ::: ", fallbackUrl);
         window.open(fallbackUrl, "_blank");
         return;
       }

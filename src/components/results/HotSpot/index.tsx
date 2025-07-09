@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { useState, useCallback } from "react";
 import Modal from "@components/Modal";
 import { Place } from "@/models/place";
 import {
@@ -14,11 +14,25 @@ import {
 
 type hotSpotProps = {
   hotPlaces: Place[];
-  isOpen: boolean;
-  openModal: (isOpen: boolean) => () => void;
 };
 
-const hotSpot = ({ isOpen, hotPlaces, openModal }: hotSpotProps) => {
+const hotSpot = ({ hotPlaces }: hotSpotProps) => {
+  const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
+
+  const handleOpenModal = useCallback((place: Place) => {
+    setSelectedPlace(place);
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setSelectedPlace(null);
+  }, []);
+
+  const createModalHandler = useCallback((isOpen: boolean) => () => {
+    if (!isOpen) {
+      handleCloseModal();
+    }
+  }, [handleCloseModal]);
+
   return (
     <div className={hotSpotStyle}>
       <div className={hotSpotTitleBoxStyle}>
@@ -32,23 +46,31 @@ const hotSpot = ({ isOpen, hotPlaces, openModal }: hotSpotProps) => {
 
       <div className={hotSpotImagesBox}>
         {hotPlaces?.map((item) => (
-          <Fragment key={`hotspot-${item.placeId}`}>
-            <div className={hotSpotImageBoxStyle} onClick={openModal(true)}>
-              <img
-                className={hotSpotImageStyle}
-                src={item.imageUrl}
-                draggable={false}
-              />
-              <img
-                className={hotSpotImageBorderStyle}
-                src="/box_stroke.webp"
-                draggable={false}
-              />
-            </div>
-            {isOpen && <Modal handleOpen={openModal} data={item} />}
-          </Fragment>
+          <div 
+            key={`hotspot-${item.placeId}`}
+            className={hotSpotImageBoxStyle} 
+            onClick={() => handleOpenModal(item)}
+          >
+            <img
+              className={hotSpotImageStyle}
+              src={item.imageUrl}
+              draggable={false}
+            />
+            <img
+              className={hotSpotImageBorderStyle}
+              src="/box_stroke.webp"
+              draggable={false}
+            />
+          </div>
         ))}
       </div>
+
+      {selectedPlace && (
+        <Modal 
+          handleOpen={createModalHandler} 
+          data={selectedPlace} 
+        />
+      )}
     </div>
   );
 };

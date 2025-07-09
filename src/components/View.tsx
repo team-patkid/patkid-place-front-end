@@ -11,4 +11,6 @@ const View = forwardRef<HTMLElement, ViewProps<React.ElementType>>(
   },
 );
 
+View.displayName = "View";
+
 export default View;

@@ -31,7 +31,6 @@ export default function Results({
   userData,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
-  const [modalOpen, setModalOpen] = useState(false);
   const [visited, setVisited] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [resultData, setResultData] = useState(userData);
@@ -48,7 +47,6 @@ export default function Results({
         try {
           const { data } = await postMBTIResult(mbti);
           setResultData(data.data);
-          console.log("결과 데이터:", data.data);
         } catch (error) {
           console.error(error);
         } finally {
@@ -70,9 +68,6 @@ export default function Results({
     setVisited(sharedParam === "true");
   }, []);
 
-  const openModal = (openState: boolean) => () => {
-    setModalOpen(openState);
-  };
 
   //폰트크기 유동적 조절
   const calculateFontSize = () => {
@@ -191,9 +186,7 @@ export default function Results({
         </div>
         <Location isLoading={isLoading} result={resultData.result} />
         <HotSpot
-          isOpen={modalOpen}
           hotPlaces={resultData.hotPlace}
-          openModal={openModal}
         />
         <Visit />
       </section>
