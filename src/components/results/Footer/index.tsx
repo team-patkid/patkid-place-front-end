@@ -1,11 +1,8 @@
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import OptimizedImage from "@components/common/OptimizedImage";
+import WebShareButton from "@/components/WebShare";
+import { getDomain } from "@/utils/env";
 
-const KakaoShareButton = dynamic(() => import("@/components/KakaoShare"), {
-  ssr: false,
-  loading: () => <div>카카오 공유 버튼 로딩 중...</div>
-});
 import { footerRight, footerShare, footerStyle } from "./Footer.css";
 import { CSSProperties } from "react";
 
@@ -31,7 +28,17 @@ const Footer = ({ visited, mbti, style }: FooterProps) => {
         </Link>
       ) : (
         <>
-          <KakaoShareButton mbti={mbti} />
+          <WebShareButton
+            title="두근두근 핫스팟 테스트 in seoul"
+            text="나의 성향에 딱 맞는 요즘 핫스팟은 어디일까?"
+            url={`${getDomain()}/results?mbti=${mbti}&shared=true`}
+            className={footerShare}
+            style={{
+              width: "70%",
+              height: "67px",
+            }}
+            src="/share_btn.webp"
+          />
           <Link href="/">
             <OptimizedImage
               className={footerRight}

@@ -64,7 +64,7 @@ const Map = ({ isLoading, result }: MapProps) => {
         // 지도 클릭 이벤트 처리
         map.addListener("click", handleMapClick);
       };
-      script.onerror = (error) => {
+      script.onerror = () => {
       };
       document.body.appendChild(script);
     }

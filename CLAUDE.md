@@ -87,7 +87,6 @@ src/
 - 네이버 지도 연동
 
 ### 공유 기능
-- 카카오톡 공유
 - 웹 공유 API
 - URL 파라미터를 통한 결과 공유
 
@@ -112,36 +111,7 @@ src/
 - [x] 번들 크기 최적화
 
 ## 추가 고려 기술
-
-### 상태 관리
-- **Zustand** 또는 **Jotai** - 가벼운 상태 관리
-- **React Query** - 서버 상태 관리 및 캐싱
-
-### 테스팅
-- **Jest** - 단위 테스트
-- **React Testing Library** - 컴포넌트 테스트
-- **Cypress** - E2E 테스트
-
-### 성능 모니터링
-- **Vercel Analytics** - 성능 분석
-- **Sentry** - 에러 추적
-- **Google Analytics** - 사용자 행동 분석
-
-### 데이터베이스 & 백엔드
-- **Supabase** - BaaS (Backend as a Service)
-- **Prisma** - ORM
-- **PostgreSQL** - 데이터베이스
-
-### 배포 & 인프라
-- **Vercel** - 배포 플랫폼
-- **CDN** - 이미지 최적화
-- **환경 변수 관리** - 보안 강화
-
-### 추가 라이브러리
-- **Framer Motion** - 고급 애니메이션
-- **React Hook Form** - 폼 관리
-- **Storybook** - 컴포넌트 문서화
-- **Lottie** - 고품질 애니메이션
+자 행동 분석
 
 ## 개발 명령어
 
