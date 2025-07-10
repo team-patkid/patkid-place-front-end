@@ -185,7 +185,6 @@ import { getQuestionList } from "@/apis";
 export const getServerSideProps = (async () => {
   try {
     const response = await getQuestionList();
-    console.log('Questions API Response:', JSON.stringify(response, null, 2)); // 응답 구조 확인용
     
     const responseAny = response as any;
     const questionsData = responseAny?.data?.data || 
@@ -199,7 +198,6 @@ export const getServerSideProps = (async () => {
     };
   } catch (error) {
     const err = error as Error;
-    console.error("Questions fetch error:", err.message);
 
     return {
       props: {

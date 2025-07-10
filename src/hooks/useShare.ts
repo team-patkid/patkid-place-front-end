@@ -14,7 +14,6 @@ export const useShare = () => {
       await navigator.share(options);
       return true;
     } catch (error) {
-      console.log("Share cancelled or failed:", error);
       return false;
     }
   }, []);
@@ -25,7 +24,6 @@ export const useShare = () => {
         await navigator.clipboard.writeText(text);
         return true;
       } catch (error) {
-        console.error("Clipboard copy failed:", error);
         return false;
       }
     }
@@ -49,7 +47,6 @@ export const useShare = () => {
       document.body.removeChild(textArea);
       return successful;
     } catch (err) {
-      console.error("Fallback copy failed:", err);
       document.body.removeChild(textArea);
       return false;
     }

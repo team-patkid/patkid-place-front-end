@@ -221,7 +221,6 @@ export const getServerSideProps = (async (context) => {
       },
     };
   } catch (error) {
-    console.error("Error fetching user data:", error);
     redirect("/");
   }
 }) satisfies GetServerSideProps;

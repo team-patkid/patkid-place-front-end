@@ -65,7 +65,6 @@ const Map = ({ isLoading, result }: MapProps) => {
         map.addListener("click", handleMapClick);
       };
       script.onerror = (error) => {
-        console.error("Error loading Naver Map script:", error);
       };
       document.body.appendChild(script);
     }

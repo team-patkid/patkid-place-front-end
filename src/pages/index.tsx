@@ -93,7 +93,6 @@ export default function Home({
 export const getServerSideProps = (async () => {
   try {
     const response = await getTotalVistorCount();
-    console.log('API Response:', JSON.stringify(response, null, 2)); // 응답 구조 확인용
     
     // 안전하게 접근
     const responseAny = response as any;
@@ -108,7 +107,6 @@ export const getServerSideProps = (async () => {
       },
     };
   } catch (error) {
-    console.error('Failed to fetch visitor count:', error);
     return {
       props: {
         visitorCount: 0, // 기본값
