@@ -8,6 +8,7 @@ import { Mbti } from "@/models/mbti";
 import { useMBTI } from "@/hooks/useMBTI";
 import LoadingPage from "@components/Loading";
 import Answer from "@components/questions/Answer";
+import OptimizedImage from "@components/common/OptimizedImage";
 import {
   answerBoxStyle,
   backgroundStyle,
@@ -89,10 +90,16 @@ export default function Questions({
     return question.img.map((img, index) => {
       if (img.src && img.css) {
         return (
-          <img
+          <OptimizedImage
             key={index}
             src={`/${img.src}`}
+            alt={`Question ${currentNumber + 1} image ${index + 1}`}
             className={`${styles[img.css]} ${styles.msAnimation}`}
+            width={200}
+            height={200}
+            priority={false}
+            quality={80}
+            draggable={false}
           />
         );
       }
@@ -122,9 +129,14 @@ export default function Questions({
       <div className={questionSectionStyle}>
         <div className={questionBoxStyle}>
           <div className={questionContainerStyle}>
-            <img
+            <OptimizedImage
               className={questionBackgroundStyle}
               src="/questions.webp"
+              alt="Question background"
+              width={400}
+              height={300}
+              priority={true}
+              quality={85}
               draggable={false}
             />
             <div className={questionImagesStyle}>{renderQuestionImage()}</div>

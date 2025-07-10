@@ -10,6 +10,7 @@ import HotSpot from "@components/results/HotSpot";
 import Background from "@components/results/Background";
 import Visit from "@components/results/Visit";
 import Location from "@components/results/Location";
+import OptimizedImage from "@components/common/OptimizedImage";
 import {
   resultBoxImageStyle,
   resultDescriptionBox,
@@ -113,11 +114,15 @@ export default function Results({
         <Background />
         <div className={resultStyle}>
           <div className={resultHeaderStyle}>
-            <img
+            <OptimizedImage
               className={resultBoxImageStyle}
               src="/i_box.webp"
-              draggable={false}
               alt="Result box"
+              width={400}
+              height={300}
+              priority={true}
+              quality={85}
+              draggable={false}
             />
             <p
               className={resultTitleStyle}
@@ -143,11 +148,15 @@ export default function Results({
           </div>
           
           <div className={resultDescriptionContainerStyle}>
-            <img
+            <OptimizedImage
               className={resultDescriptionBox}
               src="/box.webp"
-              draggable={false}
               alt="Description box"
+              width={400}
+              height={200}
+              priority={false}
+              quality={80}
+              draggable={false}
             />
             <div className={resultDescriptionStyle}>
               {resultData.result.place.content.split("\n").map((v, index) => (

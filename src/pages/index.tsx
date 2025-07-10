@@ -3,6 +3,7 @@ import { useState } from "react";
 import { getTotalVistorCount } from "@/apis";
 import StartButton from "@components/home/StartButton";
 import IconBox from "@components/home/IconBox";
+import OptimizedImage from "@components/common/OptimizedImage";
 import {
   homeSubTitleStyle,
   homeLayoutStyle,
@@ -33,9 +34,26 @@ export default function Home({
 
   return (
     <div className={`${homeLayoutStyle} layout`}>
-      <img src="/background_h_1.webp" className="layout" />
+      <OptimizedImage 
+        src="/background_h_1.webp" 
+        alt="Home background"
+        className="layout"
+        width={500}
+        height={1081}
+        priority={true}
+        quality={85}
+        fill={true}
+      />
       <IconBox />
-      <img src="/title.webp" className={homeTitleStyle} />
+      <OptimizedImage 
+        src="/title.webp" 
+        alt="PATKID title"
+        className={homeTitleStyle}
+        width={300}
+        height={150}
+        priority={true}
+        quality={90}
+      />
       <p className={`isaText ${homeSubTitleStyle}`}>
         나의 성향에 딱 맞는 요즘 핫스팟은 어디일까?
       </p>
@@ -51,7 +69,15 @@ export default function Home({
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src="/logo_patKid.webp" className={homeLogoStyle} />
+        <OptimizedImage 
+          src="/logo_patKid.webp" 
+          alt="PATKID logo"
+          className={homeLogoStyle}
+          width={150}
+          height={50}
+          priority={false}
+          quality={85}
+        />
       </a>
     </div>
   );
