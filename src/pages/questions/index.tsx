@@ -7,8 +7,11 @@ import { questions as imgQuestions } from "@constants";
 import { Mbti } from "@/models/mbti";
 import { useMBTI } from "@/hooks/useMBTI";
 import LoadingPage from "@components/Loading";
-import Answer from "@components/questions/Answer";
 import OptimizedImage from "@components/common/OptimizedImage";
+
+const Answer = dynamic(() => import("@components/questions/Answer"), {
+  loading: () => <div>답변 로딩 중...</div>
+});
 import {
   answerBoxStyle,
   backgroundStyle,
@@ -23,8 +26,13 @@ import {
   questionContentStyle,
   questionImagesStyle,
 } from "@components/questions/index.css";
-import Step from "@/components/questions/Step";
-import Title from "@/components/questions/Title";
+const Step = dynamic(() => import("@/components/questions/Step"), {
+  loading: () => <span>단계 로딩 중...</span>
+});
+
+const Title = dynamic(() => import("@/components/questions/Title"), {
+  loading: () => <div>제목 로딩 중...</div>
+});
 import styles from "@styles/questions.module.css";
 
 const ProgressBar = dynamic(() => import("@components/ProgressBar"));
@@ -177,11 +185,16 @@ import { getQuestionList } from "@/apis";
 export const getServerSideProps = (async () => {
   try {
     const response = await getQuestionList();
-    const questionsData = response.data;
+    console.log('Questions API Response:', JSON.stringify(response, null, 2)); // 응답 구조 확인용
+    
+    const responseAny = response as any;
+    const questionsData = responseAny?.data?.data || 
+                         responseAny?.data || 
+                         { total: 0, list: [] };
 
     return {
       props: {
-        questionsData: questionsData.data,
+        questionsData,
       },
     };
   } catch (error) {

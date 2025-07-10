@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from "axios";
+import { ResultResponse } from "../models/result";
+import { QuestionResponse } from "../models/question";
 
 export const getBaseURL = () => {
   // 환경 변수에서 API 베이스 URL 가져오기
@@ -12,29 +13,36 @@ export const getBaseURL = () => {
   return "http://host.docker.internal:8001/";
 };
 
-const api = axios.create({
-  baseURL: getBaseURL(),
-});
+const apiRequest = async <T>(endpoint: string, options?: RequestInit): Promise<{ data: T }> => {
+  const response = await fetch(`${getBaseURL()}${endpoint}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      ...options?.headers,
+    },
+    ...options,
+  });
 
-interface VisitorCountResponse {
+  if (!response.ok) {
+    throw new Error(`API request failed: ${response.status}`);
+  }
+
+  return response.json();
+};
+
+interface VisitorCountData {
   data: {
     count: number;
   };
 }
 
-import { ResultResponse } from "../models/result";
-import { QuestionResponse } from "../models/question";
+export const getTotalVistorCount = (): Promise<{ data: VisitorCountData }> =>
+  apiRequest<VisitorCountData>("v1/user/total-count");
 
-export const getTotalVistorCount = (): Promise<
-  AxiosResponse<VisitorCountResponse>
-> => api.get("v1/user/total-count");
-
-export const postMBTIResult = (
-  mbti: string,
-): Promise<AxiosResponse<{ data: ResultResponse }>> =>
-  api.post("v1/user/result", {
-    mbti,
+export const postMBTIResult = (mbti: string): Promise<{ data: ResultResponse }> =>
+  apiRequest<ResultResponse>("v1/user/result", {
+    method: "POST",
+    body: JSON.stringify({ mbti }),
   });
 
-export const getQuestionList = (): Promise<AxiosResponse<QuestionResponse>> =>
-  api.get("v1/question/list");
+export const getQuestionList = (): Promise<{ data: QuestionResponse }> =>
+  apiRequest<QuestionResponse>("v1/question/list");

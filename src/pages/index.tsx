@@ -1,9 +1,16 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { getTotalVistorCount } from "@/apis";
-import StartButton from "@components/home/StartButton";
-import IconBox from "@components/home/IconBox";
 import OptimizedImage from "@components/common/OptimizedImage";
+
+const StartButton = dynamic(() => import("@components/home/StartButton"), {
+  loading: () => <div>시작 버튼 로딩 중...</div>
+});
+
+const IconBox = dynamic(() => import("@components/home/IconBox"), {
+  loading: () => <div>아이콘 로딩 중...</div>
+});
 import {
   homeSubTitleStyle,
   homeLayoutStyle,
@@ -84,12 +91,28 @@ export default function Home({
 }
 
 export const getServerSideProps = (async () => {
-  const response = await getTotalVistorCount();
-  const visitorCount = response.data.data.count;
+  try {
+    const response = await getTotalVistorCount();
+    console.log('API Response:', JSON.stringify(response, null, 2)); // 응답 구조 확인용
+    
+    // 안전하게 접근
+    const responseAny = response as any;
+    const visitorCount = responseAny?.data?.data?.count || 
+                        responseAny?.data?.count || 
+                        responseAny?.count || 
+                        0;
 
-  return {
-    props: {
-      visitorCount,
-    },
-  };
+    return {
+      props: {
+        visitorCount,
+      },
+    };
+  } catch (error) {
+    console.error('Failed to fetch visitor count:', error);
+    return {
+      props: {
+        visitorCount: 0, // 기본값
+      },
+    };
+  }
 }) satisfies GetServerSideProps;

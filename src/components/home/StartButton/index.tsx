@@ -1,3 +1,4 @@
+import OptimizedImage from "@components/common/OptimizedImage";
 import {
   imageStyle,
   imageHoverStyle,
@@ -42,10 +43,12 @@ const StartButton = ({
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        <img
+        <OptimizedImage
           src={`/start_btn${isMouseOn ? "_click" : ""}.webp`}
           className={`${imageStyle} ${isMouseOn ? imageHoverStyle : ""}`}
-          alt=""
+          alt="Start button"
+          width={300}
+          height={80}
         />
         <div>
           <p className={firstTextStyle}>시작하기</p>

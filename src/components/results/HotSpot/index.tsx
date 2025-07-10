@@ -1,5 +1,11 @@
 import { useState, useCallback } from "react";
-import Modal from "@components/Modal";
+import dynamic from "next/dynamic";
+import OptimizedImage from "@components/common/OptimizedImage";
+
+const Modal = dynamic(() => import("@components/Modal"), {
+  ssr: false,
+  loading: () => <div>모달 로딩 중...</div>
+});
 import { Place } from "@/models/place";
 import {
   hotSpotIconStyle,
@@ -16,7 +22,7 @@ type hotSpotProps = {
   hotPlaces: Place[];
 };
 
-const hotSpot = ({ hotPlaces }: hotSpotProps) => {
+const HotSpot = ({ hotPlaces }: hotSpotProps) => {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
 
   const handleOpenModal = useCallback((place: Place) => {
@@ -36,9 +42,12 @@ const hotSpot = ({ hotPlaces }: hotSpotProps) => {
   return (
     <div className={hotSpotStyle}>
       <div className={hotSpotTitleBoxStyle}>
-        <img
+        <OptimizedImage
           className={hotSpotIconStyle}
           src="/hotspot.webp"
+          alt="Hotspot icon"
+          width={30}
+          height={30}
           draggable={false}
         />
         <p className={hotSpotTitleStyle}>가장 많은 선택을 받은 핫스팟</p>
@@ -56,9 +65,12 @@ const hotSpot = ({ hotPlaces }: hotSpotProps) => {
               src={item.imageUrl}
               draggable={false}
             />
-            <img
+            <OptimizedImage
               className={hotSpotImageBorderStyle}
               src="/box_stroke.webp"
+              alt="Image border"
+              width={200}
+              height={150}
               draggable={false}
             />
           </div>
@@ -75,4 +87,4 @@ const hotSpot = ({ hotPlaces }: hotSpotProps) => {
   );
 };
 
-export default hotSpot;
+export default HotSpot;

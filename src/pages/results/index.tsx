@@ -4,13 +4,33 @@ import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { postMBTIResult } from "@/apis";
 import { ResultResponse } from "@/models/result";
+import dynamic from "next/dynamic";
 import LoadingPage from "@components/Loading";
-import Footer from "@components/results/Footer";
-import HotSpot from "@components/results/HotSpot";
-import Background from "@components/results/Background";
-import Visit from "@components/results/Visit";
-import Location from "@components/results/Location";
 import OptimizedImage from "@components/common/OptimizedImage";
+
+const Footer = dynamic(() => import("@components/results/Footer"), {
+  ssr: false,
+  loading: () => <div>푸터 로딩 중...</div>
+});
+
+const HotSpot = dynamic(() => import("@components/results/HotSpot"), {
+  ssr: false,
+  loading: () => <div>핫스팟 로딩 중...</div>
+});
+
+const Background = dynamic(() => import("@components/results/Background"), {
+  loading: () => <div>배경 로딩 중...</div>
+});
+
+const Visit = dynamic(() => import("@components/results/Visit"), {
+  ssr: false,
+  loading: () => <div>방문 정보 로딩 중...</div>
+});
+
+const Location = dynamic(() => import("@components/results/Location"), {
+  ssr: false,
+  loading: () => <div>위치 정보 로딩 중...</div>
+});
 import {
   resultBoxImageStyle,
   resultDescriptionBox,
@@ -193,7 +213,7 @@ export const getServerSideProps = (async (context) => {
 
   try {
     const response = await postMBTIResult(mbti);
-    const userData: ResultResponse = response.data.data;
+    const userData: ResultResponse = response.data;
 
     return {
       props: {
