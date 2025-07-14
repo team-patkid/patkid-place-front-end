@@ -43,10 +43,10 @@ export const homeSubTitleStyle = style({
 
   "@media": {
     "screen and (max-width: 500px)": {
-      top: "70%",
       fontSize: "15px",
       lineHeight: "16px",
       width: "80%",
+      top: "580px",
     },
   },
 });
@@ -61,7 +61,7 @@ export const homeLogoStyle = style({
 
   "@media": {
     "screen and (max-width: 500px)": {
-      top: "95%",
+      top: "750px",
       width: "90px",
       height: "29px",
     },

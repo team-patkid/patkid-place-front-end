@@ -67,9 +67,12 @@ export const answerBoxStyle = style({
 
   "@media": {
     "screen and (max-width: 500px)": {
-      top: "70%",
+      top: "550px",
       gap: "8px",
       padding: "0 5%",
+    },
+    "screen and (max-width: 400px)": {
+      top: "500px",
     },
   },
 });

@@ -18,8 +18,8 @@ export const imageStyle = style({
       height: "auto",
       aspectRatio: "462 / 104",
       left: "5%",
-      top: "77%",
       transform: "none",
+      top: '630px'
     },
   },
 });
@@ -51,7 +51,7 @@ export const firstTextStyle = style([
         width: "90%",
         height: "auto",
         left: "5%",
-        top: "78.5%",
+        top: '650px',
         transform: "none",
         fontSize: "32px",
         lineHeight: "32px",
@@ -77,7 +77,7 @@ export const secondTextStyle = style([
         width: "90%",
         height: "auto",
         left: "5%",
-        top: "82%",
+        top: '680px',
         transform: "none",
         fontSize: "14px",
         lineHeight: "14px",
