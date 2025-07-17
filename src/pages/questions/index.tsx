@@ -9,6 +9,7 @@ import { Mbti } from "@/models/mbti";
 import { useMBTI } from "@/hooks/useMBTI";
 import LoadingPage from "@components/Loading";
 import OptimizedImage from "@components/common/OptimizedImage";
+import { trackQuestionAnswer } from "@/utils/gtag";
 
 const Answer = dynamic(() => import("@components/questions/Answer"), {
   loading: () => <div>답변 로딩 중...</div>
@@ -82,6 +83,10 @@ export default function Questions({
     
     const choiceType = currentQuestion.questionSub[choiceNumber].type;
     const mbtiType = questionsData.list[currentNumber].type as keyof Mbti;
+    const answerText = currentQuestion.questionSub[choiceNumber].content;
+
+    // Google Analytics 이벤트 추적
+    trackQuestionAnswer(currentNumber + 1, answerText);
 
     setMbtiList((prev) => addMBTIChoice(prev, mbtiType, choiceType));
 

@@ -3,7 +3,7 @@ export const getImageAlt = (src: string, context?: string): string => {
   const altMap: Record<string, string> = {
     // 로고 및 브랜딩
     'logo_patKid.webp': 'PatKid 로고',
-    'title.webp': '제목 이미지',
+    'title.svg': '제목 이미지',
     
     // UI 요소들
     'close_btn.webp': '닫기 버튼',

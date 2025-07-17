@@ -4,6 +4,7 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import { getTotalVistorCount } from "@/apis";
 import OptimizedImage from "@components/common/OptimizedImage";
+import { trackMBTIStart } from "@/utils/gtag";
 
 const StartButton = dynamic(() => import("@components/home/StartButton"), {
   loading: () => <div>시작 버튼 로딩 중...</div>
@@ -26,6 +27,9 @@ export default function Home({
 
   const handleClick = () => {
     setIsClicked(true);
+    
+    // Google Analytics 이벤트 추적
+    trackMBTIStart();
 
     setTimeout(() => {
       window.location.href = "/questions";
@@ -63,7 +67,7 @@ export default function Home({
       />
       <IconBox />
       <OptimizedImage 
-        src="/title.webp" 
+        src="/title.svg" 
         alt="PATKID title"
         className={homeTitleStyle}
         width={300}

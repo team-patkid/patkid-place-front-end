@@ -8,6 +8,7 @@ import { ResultResponse } from "@/models/result";
 import dynamic from "next/dynamic";
 import LoadingPage from "@components/Loading";
 import OptimizedImage from "@components/common/OptimizedImage";
+import { trackMBTIResult, trackPlaceRecommendation } from "@/utils/gtag";
 
 const Footer = dynamic(() => import("@components/results/Footer"), {
   ssr: false,
@@ -88,9 +89,15 @@ export default function Results({
     if (resultData) {
       setTimeout(() => {
         setIsLoading(false);
+        
+        // Google Analytics 이벤트 추적
+        trackMBTIResult(mbti);
+        if (resultData.result?.place?.name) {
+          trackPlaceRecommendation(resultData.result.place.name, mbti);
+        }
       }, 1600);
     }
-  }, [resultData]);
+  }, [resultData, mbti]);
 
   useEffect(() => {
     setFontSize(calculateFontSize());
