@@ -1,5 +1,6 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState, useCallback } from "react";
@@ -120,16 +121,26 @@ export default function Questions({
   }
 
   return (
-    <div className={layoutStyle}>
-      <Image
-        src="/background_h_2.webp"
-        className={backgroundStyle}
-        width={500}
-        height={1081}
-        quality={50}
-        alt="questions_Image"
-        priority
-      />
+    <>
+      <Head>
+        <title>MBTI 성향 테스트 - PATKID | 나만의 핫스팟 찾기</title>
+        <meta name="description" content="12개의 질문으로 알아보는 나의 MBTI 성향! 성향에 맞는 맞춤형 핫스팟을 추천받아보세요." />
+        <meta name="keywords" content="MBTI 테스트, 성향 테스트, 심리 테스트, 핫스팟 추천, 장소 추천" />
+        <meta property="og:title" content="MBTI 성향 테스트 - PATKID" />
+        <meta property="og:description" content="12개의 질문으로 알아보는 나의 MBTI 성향! 성향에 맞는 맞춤형 핫스팟을 추천받아보세요." />
+        <meta property="og:url" content="https://place.patkid.xyz/questions" />
+        <link rel="canonical" href="https://place.patkid.xyz/questions" />
+      </Head>
+      <div className={layoutStyle}>
+        <Image
+          src="/background_h_2.webp"
+          className={backgroundStyle}
+          width={500}
+          height={1081}
+          quality={50}
+          alt="questions_Image"
+          priority
+        />
       <Title />
       <div className={progressBarBoxStyle}>
         <ProgressBar currentNumber={currentNumber} />
@@ -177,7 +188,8 @@ export default function Questions({
           />
         )}
       </div>
-    </div>
+      </div>
+    </>
   );
 }
 import { getQuestionList } from "@/apis";

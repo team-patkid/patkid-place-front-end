@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://place.patkid.xyz/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Block admin and private directories if any exist
+Disallow: /_next/
+Disallow: /api/
+
+# Allow important files
+Allow: /favicon.ico
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.webp
+Allow: /*.svg

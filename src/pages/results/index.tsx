@@ -1,4 +1,5 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -128,9 +129,27 @@ export default function Results({
   if (!resultData?.result?.place) {
     return <LoadingPage />;
   }
+  const resultTitle = resultData?.result?.name ? `${resultData.result.name} - MBTI ${mbti} 결과` : "MBTI 테스트 결과";
+  const resultDescription = resultData?.result?.place?.content 
+    ? `${resultData.result.place.name}: ${resultData.result.place.content.slice(0, 100)}...`
+    : "나의 MBTI 성향에 맞는 핫스팟을 확인해보세요!";
+
   return (
-    <div className={wrapperStyle}>
-      <section className="result_layout">
+    <>
+      <Head>
+        <title>{resultTitle} - PATKID</title>
+        <meta name="description" content={resultDescription} />
+        <meta name="keywords" content={`MBTI ${mbti}, ${resultData?.result?.place?.name || '핫스팟'}, 맞춤 추천, 장소 추천`} />
+        <meta property="og:title" content={resultTitle} />
+        <meta property="og:description" content={resultDescription} />
+        <meta property="og:url" content={`https://place.patkid.xyz/results?mbti=${mbti}`} />
+        {resultData?.result?.place?.imageUrl && (
+          <meta property="og:image" content={resultData.result.place.imageUrl} />
+        )}
+        <link rel="canonical" href={`https://place.patkid.xyz/results?mbti=${mbti}`} />
+      </Head>
+      <div className={wrapperStyle}>
+        <section className="result_layout">
         <Background />
         <div className={resultStyle}>
           <div className={resultHeaderStyle}>
@@ -200,7 +219,8 @@ export default function Results({
           backgroundColor: visited ? "#FF448D" : "#000000",
         }}
       />
-    </div>
+      </div>
+    </>
   );
 }
 

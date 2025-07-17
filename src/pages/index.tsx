@@ -1,4 +1,5 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import Head from "next/head";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { getTotalVistorCount } from "@/apis";
@@ -40,8 +41,17 @@ export default function Home({
   };
 
   return (
-    <div className={`${homeLayoutStyle} layout`}>
-      <OptimizedImage 
+    <>
+      <Head>
+        <title>PATKID - 성향 기반 핫스팟 추천 서비스 | 두근두근 핫스팟 테스트</title>
+        <meta name="description" content={`MBTI 성향 테스트로 나에게 딱 맞는 요즘 핫스팟을 찾아보세요! 개인 맞춤형 장소 추천 서비스 PATKID. 지금까지 ${visitorCount.toLocaleString()}명이 참여했습니다.`} />
+        <meta property="og:title" content="PATKID - 성향 기반 핫스팟 추천 서비스" />
+        <meta property="og:description" content="MBTI 성향 테스트로 나에게 딱 맞는 요즘 핫스팟을 찾아보세요! 개인 맞춤형 장소 추천 서비스" />
+        <meta property="og:url" content="https://place.patkid.xyz" />
+        <link rel="canonical" href="https://place.patkid.xyz" />
+      </Head>
+      <div className={`${homeLayoutStyle} layout`}>
+        <OptimizedImage 
         src="/background_h_1.webp" 
         alt="Home background"
         className="layout"
@@ -86,7 +96,8 @@ export default function Home({
           quality={85}
         />
       </a>
-    </div>
+      </div>
+    </>
   );
 }
 

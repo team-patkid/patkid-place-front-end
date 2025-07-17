@@ -109,6 +109,7 @@ src/
 - [x] 이미지 lazy loading 구현
 - [x] 코드 스플리팅 최적화
 - [x] 번들 크기 최적화
+- [x] SEO 최적화 완료 (2025.07.17)
 
 ## 추가 고려 기술
 자 행동 분석
@@ -153,3 +154,54 @@ docker-compose up -d
 3. **Phase 3: 확장 기능 개발**
    - 소셜 기능 추가
    - 개인화 추천 고도화
+
+## 업데이트 기록
+
+### 2025-07-17 - 코드 업데이트
+#### 📊 변경 통계
+- 총 12개 파일 수정
+- 페이지: 5개
+- 설정: 1개
+- 문서: 2개
+- 정적파일: 2개
+
+#### 📋 변경된 파일 목록
+- src/pages/_app.tsx
+- src/pages/_document.tsx
+- src/pages/index.tsx
+- src/pages/questions/index.tsx
+- src/pages/results/index.tsx
+- next.config.js
+- CLAUDE.md
+- README.md
+- public/robots.txt
+- public/sitemap.xml
+
+### 2025.07.17 - SEO 최적화 완료
+#### 구현된 SEO 기능들:
+- **robots.txt 생성**: 검색 엔진 크롤링 가이드라인 설정
+- **sitemap.xml 업데이트**: 사이트 구조 정보 최신화 (lastmod: 2025-07-17)
+- **메타태그 최적화**: 
+  - 검색 친화적 제목, 설명, 키워드 설정
+  - MBTI 테스트, 핫스팟 추천 등 핵심 키워드 포함
+- **Open Graph 태그 강화**: 
+  - 소셜 미디어 공유 시 이미지, 제목, 설명 최적화
+  - Twitter Card 추가
+- **구조화된 데이터 (JSON-LD)**: 
+  - Schema.org 기반 WebSite, Quiz 마크업 추가
+  - 검색 엔진의 콘텐츠 이해도 향상
+- **페이지별 동적 메타태그**: 
+  - 홈페이지: 방문자 수 포함한 동적 설명
+  - 질문페이지: MBTI 테스트 특화 메타데이터
+  - 결과페이지: MBTI 결과와 추천 장소 기반 동적 메타데이터
+- **성능 최적화 (Core Web Vitals)**:
+  - Next.js 설정 최적화 (압축, 캐싱, 코드 스플리팅)
+  - 이미지 포맷 최적화 (WebP, AVIF)
+  - 보안 헤더 추가 (XSS 보호, 프레임 보호 등)
+  - 정적 리소스 캐싱 설정
+
+#### SEO 효과:
+- 검색 엔진 노출 개선: "MBTI 테스트", "핫스팟 추천", "성향 테스트" 등 키워드
+- 소셜 미디어 공유 시 미리보기 개선
+- 페이지 로딩 속도 향상
+- 검색 엔진의 사이트 크롤링 효율성 증대

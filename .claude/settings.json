@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash:git add \\.",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /mnt/d/2025/patrick/patkid-place-front-end && node .claude/analyze-changes.js"
+          }
+        ]
+      }
+    ]
+  }
+}
